@@ -1,1 +1,123 @@
 \chapter{Pulse Fitting}
+The APV25 readout chip
+
+\section{Pulse Model}
+2-pole (CR-RC) model
+
+3-pole model
+
+coincident poles
+
+electronics
+
+\section{APV25 Readout}
+The tracker will be made up of six measurement layers, each containing two closely spaced planes of silicon microstrip sensors to measure both X and Y coordinates for momentum measurement and track identification. 
+We will read out the microstrips using the APV25 chip developed for the CMS tracker at the LHC. 
+The APV25 preamplifier and shaper produce a CR-RC shaping curve with a shaping time $T_p$ which, for our experiment, will be set at 35 ns. 
+The approximate functional form of this curve, for hit time of $t_0$ and peak height (proportional to the charge generated in the silicon) of $A$, is:
+$$v_{out}(t)=A\frac{t-t_0}{T_p}e^{-(t-t_0)/T_p}$$
+If there are multiple hits, the output is the sum of the shaping curves for the individual hits.
+
+The APV25 samples the shaper output once per clock cycle (24 ns for HPS), and in ``multi-peak'' mode, outputs 3 consecutive samples per trigger request. HPS will read out 6 samples for each trigger. The trigger timing can be controlled to select the series of 6 samples that gives us the most information for a fit; currently we believe that it is best to take 2 samples before the signal hit and 4 samples after.
+
+In general, we want to fit a set of samples $y_i$ and errors $\sigma_i$, taken at times $t_i$, with the sum of pulses with shaping curve $f(t)$, each of height $A_j$ and hit time $t_j$.
+$$\chi^2 = \sum_i\left(\frac{y_i-\sum_j A_j f(t_i-t_j)}{\sigma_i}\right)^2$$
+
+\section{Background Pileup}
+With our high background rate, it is expected that the ``signal'' hit corresponding to the track to be fitted will often overlap with ``background'' hits. 
+Overlapping hits sum to make a fictitious ``pileup'' hit, whose apparent height and hit time are weighted sums of the signal and background values. 
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=\textwidth]{gnuplot/pileup.png}
+%\end{center}
+%\caption{Effect of pileup on a signal hit at 34 ns and a background hit at -17 ns; the apparent hit time is shifted earlier by 9.6 ns.}
+%\end{figure}
+
+There is no way to distinguish a ``pileup'' hit from a pure signal hit, except by fitting the samples taken before the pileup. 
+This is only possible if at least two samples are taken before pileup; otherwise the time and height of the earlier hit are underconstrained.
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{pileup_underconstrained.png}
+%\end{center}
+%\caption{Example of an underconstrained fit. Samples (red asterisks) match both the actual hit times and heights (black curve) and the fitted times and heights (red curve); many other fits are possible.}
+%\end{figure}
+
+
+\section{Fitting Methods}
+
+$\chi^2$ is minimized when its partial derivative is 0 with respect to all fit parameters. 
+%$$\frac{\partial\chi^2}{\partial A_k} = -2 \sum_i\left(\frac{y_i-\sum_j A_j f(t_i-t_j)}{\sigma_i}\right)\frac{f(t_i-t_k)}{\sigma_i}$$
+The condition $\frac{\partial\chi^2}{\partial A_k}=0$ yields the following:
+$$\sum_i\left(\frac{\sum_j A_j f(t_i-t_j)}{\sigma_i}\right)\frac{f(t_i-t_k)}{\sigma_i}= \sum_i\left(\frac{y_i}{\sigma_i}\right)\frac{f(t_i-t_k)}{\sigma_i}$$
+
+This system of equations can be solved as a matrix equation to efficiently obtain the best-fit values of $A_j$ given a set of $t_j$; this works generally, even if the shaping curve is not exactly the ideal CR-RC curve. 
+The problem is reduced to that of finding best-fit values of $t_j$, and this can be done analytically or numerically.
+
+\section{Analytic Fitting}
+For a fully analytic fit, we notice that the samples can be partitioned into sets, each of which can be fitted by a single shaping curve; 
+these can be fitted individually, and then pileup can be subtracted to extract the heights and times of all the hits.
+
+%The condition $\frac{\partial\chi^2}{\partial t_k}=0$ yields the following:
+%$$\sum_i\left(\frac{\sum_j A_j f(t_i-t_j)}{\sigma_i}\right)\frac{\frac{\mathrm{d}f}{\mathrm{d}t}(t_i-t_k)}{\sigma_i} = \sum_i\left(\frac{y_i}{\sigma_i}\right)\frac{\frac{\mathrm{d}f}{\mathrm{d}t}(t_i-t_k)}{\sigma_i}$$
+The individual fits can be made analytically if we assume the ideal CR-RC curve; to find the values of $A$ and $t_0$ to minimize $\chi^2$, we set $\frac{\partial\chi^2}{\partial A}=0$, $\frac{\partial\chi^2}{\partial t_0}=0$.
+
+There are currently two weaknesses to this method. One is that an analytic fit using one set of samples does not know about the other samples; the other is that the analytic fit sometimes yields unphysical results with negative peak heights. Both problems are shown in Figure fig:analytic below. It is expected that these effects can be dealt with as special cases.
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{analytic.png}
+%\end{center}
+%\label{fig:analytic}
+%\caption{Attempt at an analytic fit for a two-hit event. An analytic fit to samples 1 and 2 gives an unphysical result, so the best fit is one that fits sample 1 with one peak, and samples 2--6 with the second peak. Because the first peak doesn't try to fit sample 2, sample 2 is ``buried'' by the first peak.}
+%\end{figure}
+
+
+\section{Numeric Fitting}
+The values of $t_j$ can be fit by searching the space of possible $t_j$. 
+Most gradient-based fitting methods are ineffective for this problem because the global minimum (where all samples are fit) is often at one end of a narrow ``valley'' (where one sample is not fit), but a method that follows this valley should work. Further work is needed.
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=\textwidth]{linfit_landscape.png}
+%\end{center}
+%\caption{Contour plot of $\chi^2$ values for a two-hit event, fitted with two peaks. $A_1$ and $A_2$ are fit analytically, given values of $t_1$ and $t_2$ ($x$ and $y$ coordinates, relative to time of first sample). Black asterisks mark the true values of $(t_1,t_2)$; red marks the fitter output. The ``valley'' consists of fit parameters for which only samples 2--6 are fit; the global minimum occurs where sample 1 is fit as well.}
+%\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{linfit.png}
+%\end{center}
+%\caption{For the fit above: samples (red asterisks), actual hit parameters (black curve), fitted hit parameters (red curve), and $\chi^2$ dependence on $t_1$ and $t_2$ (green and blue curves).}
+%\end{figure}
+
+\section{Time and Height Resolution}
+To test performance of the fitters, we generated one-peak and two-peak events and compared the reconstructed values of parameters to the true values. 
+For these tests, we assume all hits have the same height (in reality we expect a Landau distribution of heights), with a signal-to-noise ratio of 25; we assume that we can time the trigger so the signal hit is always between samples 2 and 3 (between 24 and 48 ns after the first sample).
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.45\textwidth]{time_diff_2d.png}
+%\includegraphics[width=0.45\textwidth]{height_diff.png}
+%\end{center}
+%\caption{Time and height resolution for single hits. $\sigma_t = 1.37$ ns, $\sigma_A/A = 0.026$.}
+%\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=\textwidth]{2peak_tsig_diff_tdiff.png}
+%\end{center}
+%\caption{Error in two-peak fit for the signal time. $x$-coordinate is difference between the true hit times; $y$-coordinate is the difference between fitted and true signal hit times.}
+%\end{figure}
+
+\section{Identifying Multiple Hits}
+To be useful, our fitter must be able to distinguish single-hit events from multiple hits. 
+This is not possible if multiple hits fall in the same time interval between samples, but in all other cases we can fit the samples with a single peak and multiple peaks, and compare the goodness of fit.
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.45\textwidth]{prob_tback.png}
+%\includegraphics[width=0.45\textwidth]{2peak_prob_tback.png}
+%\end{center}
+%\caption{$\chi^2$ probabilities for single-peak (left) and two-peak (right) fits to two-peak events. 
+    %$x$-coordinate is time of the background hit. 
+        %A single-peak fit is good when the background hit and signal hit are both between samples 2 and 3; 
+    %the two-peak fit is good when there are two samples for the background hit before pileup, and less good (not enough degrees of freedom) when there is only one.}
+    %\end{figure}
