@@ -101,15 +101,23 @@
 %   added command \onlinesignature which creates a signatue page
 %   for the online version.  This should be the last command before the 
 %   \end{document} 
-
+%
 % Modified May 2014 by Emma Pease
-%   fixed error in the signature page (Stanford University Committee not just University Committee)
-
+%   fixed error in the signature page (Stanford University Committee
+%   not just University Committee)  
+%
+% Modified June 2016 by Emma Pease
+%   Added an option for doing engineering theses
+%   made it easier to adjust the  minipage width on signature page so
+%   the individual statements are 2 lines. 
+%   Improved instructions for how to use.
+%   DEFAULTING to online submission, use hardcopy option 
+%
 %%%%%
 %%%%%   PRELIMS
 %%%%%
 
-\ProvidesPackage{suthesis-2e}[2014/05/26]
+\ProvidesPackage{suthesis-2e}[2016/06/04]
 
 
 
@@ -131,9 +139,12 @@ suthesis documentation.}}{}
 
 \RequirePackage{setspace}
 
-% default to hardcopy submission
+% default to online submission
 \newif\ifonline
-\onlinefalse
+\onlinetrue
+\newif\ifengineer
+\engineerfalse
+\DeclareOption{engineer}{\engineertrue}
 \DeclareOption{online}{\onlinetrue}
 \DeclareOption{hardcopy}{\onlinefalse}
 \ProcessOptions
@@ -234,6 +245,9 @@ The following switches allow for special title pages (not all are current)
         \setlength{\signaturespace}{.5in} 
                 - default is .5in, can be adjusted to fit all
                 signatures in one page
+\setlength{\certificatewidth}{5in}
+                - width of the certificate on the signature page, may
+                want to adjust depending on exact font used.
         \submitdate{month year in which submitted to GPO}
                 - date LaTeX'd if omitted
         \copyrightyear{year degree conferred (next year if submitted
@@ -405,6 +419,30 @@ AND THE COMMITTEE ON GRADUATE STUDIES}
 \let\@whichsub=\@standardsub
 
 
+\def\titlePHDtext{
+                A DISSERTATION\\
+                \uppercase\expandafter{\@whichsub}\\
+                OF STANFORD UNIVERSITY\\
+                IN PARTIAL FULFILLMENT OF THE REQUIREMENTS\\
+                FOR THE DEGREE OF\\
+                DOCTOR OF PHILOSOPHY \uppercase\expandafter{\@whichend}
+}
+
+\def\titleENGtext{
+                A THESIS\\
+                \uppercase\expandafter{\@whichsub}\\
+                OF STANFORD UNIVERSITY\\
+                IN PARTIAL FULFILLMENT OF THE REQUIREMENTS\\
+                FOR THE DEGREE OF\\
+                ENGINEER \uppercase\expandafter{\@whichend}
+}
+
+\ifengineer
+\let\titletext=\titleENGtext
+\else
+\let\titletext=\titlePHDtext
+\fi
+
 \def\titlep{%
         \thispagestyle{empty}%
         \null\vskip1in%
@@ -420,18 +458,16 @@ AND THE COMMITTEE ON GRADUATE STUDIES}
 %                in partial fulfillment of the requirements\\
 %                for the degree of\\
 %                doctor of philosophy \uppercase\expandafter{\@whichend}
-                A DISSERTATION\\
-                \uppercase\expandafter{\@whichsub}\\
-                OF STANFORD UNIVERSITY\\
-                IN PARTIAL FULFILLMENT OF THE REQUIREMENTS\\
-                FOR THE DEGREE OF\\
-                DOCTOR OF PHILOSOPHY \uppercase\expandafter{\@whichend}
+\titletext
         \end{center}
         \vfill
         \begin{center}
                 \rm \@author\\
                 \@submitdate\\
         \end{center}\vskip.5in\newpage}
+
+\let\maketitle=\titlep
+
 
 \def\thesiscopyrightpage{%
         \null\vfill
@@ -457,14 +493,26 @@ AND THE COMMITTEE ON GRADUATE STUDIES}
 \newlength{\signaturespace}
 \setlength{\signaturespace}{.5in}
 
+\newlength{\certificatewidth}
+\setlength{\certificatewidth}{5in}
+
+\def\phdcertification{I certify that I have read this dissertation and
+  that, in my opinion, it is fully adequate in scope and quality as a
+  dissertation for the degree of Doctor of Philosophy.}
+
+\def\engcertification{I certify that I have read this thesis and
+  that, in my opinion, it is fully adequate in scope and quality as a
+  dissertation for the degree of Engineer.}
 
 \long\def\signature#1{%
 \begin{flushright}
-\begin{minipage}{5in}
+\begin{minipage}{\certificatewidth}
 \parindent=0pt
-I certify that I have read this dissertation and that, in my opinion,
-it is fully adequate in scope and quality as a dissertation for the degree
-of Doctor of Philosophy.
+\ifengineer
+\engcertification
+\else
+\phdcertification
+\fi
 \par
 \vspace{\signaturespace}
 %\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
@@ -475,7 +523,7 @@ of Doctor of Philosophy.
 
 \long\def\ucgssignature{%
 \begin{flushright}
-\begin{minipage}{5in}
+\begin{minipage}{\certificatewidth}
 \parindent=0pt
 \hfill Approved for the Stanford University Committee on Graduate Studies
 \par
@@ -492,6 +540,10 @@ of Doctor of Philosophy.
 \def\thepage{}
 \thispagestyle{myheadings}
 \markboth{\rm \@author}{\rm \@author}\fi
+\ifengineer
+\signature{(\@principaladviser)\quad \advis@r}
+  \vfill
+\else
 \signature{(\@principaladviser)\quad Principal \advis@r}
   \vfill
 % if second principal advisor
@@ -512,6 +564,7 @@ of Doctor of Philosophy.
         \if*\@fourthreader \else 
         \signature{(\@fourthreader)}
         \vfill\fi
+\fi
 \ucgssignature
 }
 
