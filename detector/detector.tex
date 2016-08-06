@@ -61,6 +61,32 @@ beam diagnostics
 protection
 
 \section{Silicon Vertex Tracker}
+The silicon vertex tracker (SVT) measures track momentum and vertex position.
+
+\subsection{Sensors and Readout}
+sensors
+
+The sensors are read out by the APV25 readout chip \cite{french_design_2001}.
+This chip was developed for silicon microstrip readout in the CMS tracker.
+Because the APV25 can read out multiple consecutive samples of its shaper waveform, it can be used for pileup rejection and high-precision hit time reconstruction.
+This is an essential feature for HPS and other experiments (notably the Belle II SVD \cite{liu_belle_2012}) with CW beam and high pileup.
+
+Each APV25 chip has 128 input channels.
+One channel consists of a charge-sensitive preamp with an optional inverter, CR-RC shaper, and 192-cell analog pipeline.
+We run the chip with a 24 ns clock: the design clock period is 25 ns to match the LHC bunch crossing period, but 24 ns is an even multiple of the standard JLab clock.
+On each clock, each channel samples its shaper output and stores it in a cell of its pipeline.
+On a trigger, each channel reads out the appropriate pipeline cell, and the chip multiplexes the 128 signals onto a single output line.
+%When there is a trigger, the chip identifies the pipeline cells corresponding to the trigger time 
+
+\begin{figure}[ht]
+    \includegraphics[width=\textwidth]{detector/figs/apv25}
+    \caption{Schematic of the APV25. The APSP (analog pulse shape processor) is disabled in the ``multi-peak'' readout mode used by HPS.}
+    \label{fig:apv25}
+\end{figure}
+
+
+\subsection{Mechanical Support and Services}
+
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/svt_cutaway}
     \caption{Schematic of the SVT and its support systems.}
