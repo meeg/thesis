@@ -63,8 +63,20 @@ protection
 \section{Silicon Vertex Tracker}
 The silicon vertex tracker (SVT) measures track momentum and vertex position.
 
+
+%stuff about overall design
+
+The base unit of the SVT is a ``half-module'' comprising a low-mass support structure of carbon fiber and Kapton, silicon microstrip sensors, and hybrid readout circuit boards.
+Two types of half-modules are used: the upstream half of the SVT (layers 1--3) uses single-ended half-modules with one sensor and hybrid each, and the downstream half (layers 4--6) uses double-ended half-modules with two sensors and hybrids each.
+A single half-module provides a single measurement (axial or stereo) for one half (top or bottom) of a layer.
+
 \subsection{Sensors and Readout}
-sensors
+HPS uses silicon microstrip sensors that were originally produced for the run IIb upgrade of the D\O detector at Fermilab.
+This upgrade would have replaced the entire SMT (silicon microstrip tracker).
+The full SMT upgrade was cancelled in favor of an insertable Layer 0, but not before sensors had already been procured.
+The sensors used for HPS are those that would have been used for layers 2--5 of the new D\O tracker.
+
+The HPS sensors are single-sided p+n: the bulk is lightly doped n-type silicon, and one side is strongly doped p-type silicon.
 
 The sensors are read out by the APV25 readout chip \cite{french_design_2001}.
 This chip was developed for silicon microstrip readout in the CMS tracker.
@@ -76,7 +88,10 @@ One channel consists of a charge-sensitive preamp with an optional inverter, CR-
 We run the chip with a 24 ns clock: the design clock period is 25 ns to match the LHC bunch crossing period, but 24 ns is an even multiple of the standard JLab clock.
 On each clock, each channel samples its shaper output and stores it in a cell of its pipeline.
 On a trigger, each channel reads out the appropriate pipeline cell, and the chip multiplexes the 128 signals onto a single output line.
-%When there is a trigger, the chip identifies the pipeline cells corresponding to the trigger time 
+
+The APV25 chips are mounted on a hybrid readout board, which also carries filter capacitors and temperature sensors.
+Wirebonds connect the APV25 input pads directly to the readout pads of the sensor.
+The sensor, hybrid, and a low-mass support structure of carbon fiber and Kapton comprise a ``half-module,'' the base unit of the SVT.
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/apv25}
