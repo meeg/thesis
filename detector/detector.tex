@@ -63,20 +63,62 @@ protection
 \section{Silicon Vertex Tracker}
 The silicon vertex tracker (SVT) measures track momentum and vertex position.
 
+HPS uses silicon microstrips because they provide good time resolution, low mass, and high rate.
+Because a microstrip sensor can only make a 1-D measurement (it identifies the strip that was hit, but not the hit position along the strip), each measurement station (called a ``layer'') uses two sensors at an angle relative to each other.
+For HPS this stereo angle is kept small, so all sensors have their strips pointing roughly in the bend direction.
+A small stereo angle is a compromise: it sacrifices measurement resolution in the strip direction, but it is less likely that two particles will create ``ghost hits'' when the strips they hit intersect.
+The stereo angle is not uniform throughout the SVT (it is 100 milliradians in the upstream half, 50 milliradians in the downstream half), which prevents ghost hits from creating ghost tracks.
 
-%stuff about overall design
-
-The base unit of the SVT is a ``half-module'' comprising a low-mass support structure of carbon fiber and Kapton, silicon microstrip sensors, and hybrid readout circuit boards.
-Two types of half-modules are used: the upstream half of the SVT (layers 1--3) uses single-ended half-modules with one sensor and hybrid each, and the downstream half (layers 4--6) uses double-ended half-modules with two sensors and hybrids each.
-A single half-module provides a single measurement (axial or stereo) for one half (top or bottom) of a layer.
+The SVT is made up of six layers at different distances from the target: this number allows for 5-hit tracking even if a particle misses one layer.
+Layer 1 is at 10 cm from the target; this is the closest we can safely operate while allowing 500 $\mu$m distance from the beam to the edge of the sensors, which have a 1 mm border of inactive silicon.
+Layer 6 is at 90 cm from the target, just at the end of the uniform field region of the magnet; maximizing the length of the tracker maximizes the momentum resolution.
+Layers 1--3 use single sensors; layers 4--6, where tracks have bent out to the sides, use two sensors joined end to end.
 
 \subsection{Sensors and Readout}
-HPS uses silicon microstrip sensors that were originally produced for the run IIb upgrade of the D\O detector at Fermilab.
+HPS uses silicon microstrip sensors that were originally produced for the run IIb upgrade of the D{\O} detector at Fermilab.
 This upgrade would have replaced the entire SMT (silicon microstrip tracker).
 The full SMT upgrade was cancelled in favor of an insertable Layer 0, but not before sensors had already been procured.
-The sensors used for HPS are those that would have been used for layers 2--5 of the new D\O tracker.
+The sensors used for HPS are those that would have been used for layers 2--5 of the new D{\O} tracker.
 
-The HPS sensors are single-sided p+n: the bulk is lightly doped n-type silicon, and one side is strongly doped p-type silicon.
+The HPS sensors are single-sided p+n with AC-coupled readout: the bulk is lightly doped n-type silicon with $<$100$>$ crystal orientation, and the strip implants are strongly p-type doped.
+The strips are biased through polysilicon resistors at the ends of the strips, and capacitively coupled to aluminum readout strips that run on top of the strips.
+Only every other strip is read out; the ``readout'' strips capacitively couple to the intermediate ``sense'' strips.
+
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{lc}   
+            \hline \hline
+            Thickness & 320 $\mu$m \\
+            Overall area (L$\times$W) & 100 $\times$ 40.34 mm\\
+            Active area (L$\times$W) & 98.33 $\times$ 38.34 mm\\
+            Strip pitch (count) & 30 $\mu$m (1277)\\
+            Readout pitch (count) & 60 $\mu$m (639)\\
+            \hline \hline
+        \end{tabular}
+        \caption{Specifications of the SVT sensors.}
+        \label{tab:sensor_spec} 
+    \end{center}
+\end{table}
+
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{lcccccc}   
+            \hline \hline 
+            Layer number & 1 & 2 & 3 & 4 & 5 & 6 \\      
+            \hline
+            nominal $z$, from target (cm)  & 10 & 20 & 30 & 50 & 70  & 90 \\ 
+            Stereo Angle (mrad)  & 100 & 100 & 100 & 50 & 50 & 50 \\ 
+            Bend-plane resolution ($\mu m$)  & $\approx$60 & $\approx$60 & $\approx$60 & $\approx$120 & $\approx$120 & $\approx$120 \\ 
+            Non-bend resolution ($\mu m$)  & $\approx$6 & $\approx$6 & $\approx$6 & $\approx$6 & $\approx$6  & $\approx$6 \\ 
+            Number of sensors  & 4 & 4 & 4 & 8 & 8 & 8 \\ 
+            Nominal dead zone in $y$ (mm)  & $\pm1.5$  & $\pm3.0$  & $\pm4.5$  & $\pm7.5$  & $\pm10.5$ & $\pm13.5$  \\ 
+            Module power consumption (W) & 6.9 & 6.9 & 6.9 & 13.8 & 13.8 & 13.8 \\
+            \hline \hline
+        \end{tabular}
+        \caption{Layout of the HPS SVT.  The angle of stereo sensors is relative to the bend plane.}
+        \label{tab:svt_layout} 
+    \end{center}
+\end{table}
 
 The sensors are read out by the APV25 readout chip \cite{french_design_2001}.
 This chip was developed for silicon microstrip readout in the CMS tracker.
@@ -89,9 +131,6 @@ We run the chip with a 24 ns clock: the design clock period is 25 ns to match th
 On each clock, each channel samples its shaper output and stores it in a cell of its pipeline.
 On a trigger, each channel reads out the appropriate pipeline cell, and the chip multiplexes the 128 signals onto a single output line.
 
-The APV25 chips are mounted on a hybrid readout board, which also carries filter capacitors and temperature sensors.
-Wirebonds connect the APV25 input pads directly to the readout pads of the sensor.
-The sensor, hybrid, and a low-mass support structure of carbon fiber and Kapton comprise a ``half-module,'' the base unit of the SVT.
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/apv25}
@@ -101,6 +140,38 @@ The sensor, hybrid, and a low-mass support structure of carbon fiber and Kapton 
 
 
 \subsection{Mechanical Support and Services}
+The base unit of the SVT is a ``half-module'' comprising a low-mass support structure, sensors, and hybrid readout circuit boards.
+Half-modules are the only unit of the SVT that cannot be disassembled and reworked.
+Two types of half-modules are used: layers 1--3 use single-ended half-modules with one sensor and hybrid each, and layers 4--6 use double-ended half-modules with two sensors and hybrids each.
+A single half-module provides a single measurement (axial or stereo) for one half (top or bottom) of a layer.
+
+The hybrid circuit board carries the APV25 readout chips, and connects the sensor to the rest of the DAQ.
+The input channels of the APV25 chips are wirebonded directly to the sensor; the APV25 power, output channels, and control lines are wirebonded to the hybrid.
+The hybrid also carries filter capacitors for the sensor bias, and temperature sensors to monitor the sensor temperature.
+
+The carbon fiber support structure provides structural support for the silicon, and acts as a ground plane for the half-module.
+A layer of Kapton insulation isolates the carbon fiber from the back surface of the sensor, which is held at high voltage.
+The carbon fiber and Kapton are thinner than the silicon and contribute negligibly to the material seen by particles; cutouts further reduce any effect.
+The sensors and hybrids are glued to the support structure with epoxy.
+
+Two half-modules are paired back-to-back to form a ``module.''
+The axial half-module is oriented with its strips pointing in the bend direction; the stereo half-module is rotated so it dips into the beam plane on the positron side (where beam backgrounds are less intense).
+The modules are assembled using pairing fixtures, which are machined to set the edges of the sensors at precisely the correct height and angle.
+
+The aluminum module support holds the half-modules at both ends.
+Heat generated by the hybrids is pulled out through the module support, which is in close thermal contact with the APV25 chips and the sensors through parallel paths so that the sensors can be kept colder than the APV25 chips.
+The module support and the half-modules contract at different rates when the SVT is cooled to its operating temperature, so the module support must apply constant tension to keep the half-modules flat.
+This is done with a spring pivot on one side of the module support.
+
+Three modules are mounted on a common aluminum support structure to form a ``U-channel.''
+The SVT is divided into four U-channels: top and bottom L1--3, top and bottom L4--6.
+The sidewalls add to the rigidity of the U-channel and shield the sensors from thermal radiation.
+The module mounting surfaces are recessed by the correct amounts to put the layers at the correct distances from the beam.
+
+Each U-channel is supported at three points using kinematic mounts, which guarantee repeatable positioning when the U-channels are installed.
+The L4--6 U-channels rest on three kinematic mounts.
+The L1--3 U-channels rest on two kinematic mounts, which serve as a hinge at the donstream end of the U-channels, and are supported on the upstream end by motion levers which tilt the U-channels up and down.
+In addition to modules, the L1--3 U-channels carry scan wires so that the beam position can be measured relative to the silicon.
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/svt_cutaway}
@@ -117,31 +188,39 @@ The sensor, hybrid, and a low-mass support structure of carbon fiber and Kapton 
 \begin{figure}[ht]
     \includegraphics[width=0.5\textwidth]{detector/figs/svt_l123_drawing}
     \includegraphics[width=0.5\textwidth]{detector/figs/svt_l456_drawing}
-    \caption{Renderings of the L1-3 (left) and L4-6 (right) module designs, with cutaways to show the spring pivots that hold the silicon under constant tension.}
+    \caption{Renderings of the L1--3 (left) and L4--6 (right) module designs, with cutaways to show the spring pivots that hold the silicon under constant tension.}
     \label{fig:svt-module-drawing}
 \end{figure}
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/l123}
-    \caption{One of two U-channels for L1-3, fully assembled.}
+    \caption{One of two U-channels for L1--3, fully assembled.}
     \label{fig:l123}
 \end{figure}
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/l456}
-    \caption{One of two U-channels for L4-6, fully assembled.}
+    \caption{One of two U-channels for L4--6, fully assembled.}
     \label{fig:l456}
 \end{figure}
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/l456_hm}
-    \caption{One half-module for L4-6. The two hybrids (without readout chips, which would be mounted on the gold pads) are at the left and right ends. One sensor is in place, on the left. The carbon fiber support and Kapton passivation layer are visible on the right.}
+    \caption{One half-module for L4--6. The two hybrids (without readout chips, which would be mounted on the gold pads) are at the left and right ends. One sensor is in place, on the left. The carbon fiber support and Kapton passivation layer are visible on the right.}
     \label{fig:l456_hm}
 \end{figure}
 
 \begin{figure}[ht]
+    \includegraphics[width=\textwidth]{detector/figs/pairing_l456}
+    \caption{The L4--6 pairing fixture, with one half-module in place.}
+    \label{fig:l456}
+\end{figure}
+
+\begin{figure}[ht]
     \includegraphics[angle=90,width=\textwidth]{detector/figs/drawers}
-    \caption{Inside the SVT box, looking downstream. The L4-6 U-channels are installed. The rails for the L1-3 U-channels can be seen at the top and bottom. When the U-channels are installed, bearings on the U-channels roll along the horizontal slots until they drop down into the vertical slots, guiding the U-channel onto its kinematic mounts.}
+    \caption{Inside the SVT box, looking downstream.
+    The L4--6 U-channels are installed.
+The rails for the L1--3 U-channels can be seen at the top and bottom. When the U-channels are installed, bearings on the U-channels roll along the horizontal slots until they drop down into the vertical slots, guiding the U-channel onto its kinematic mounts.}
     \label{fig:drawers}
 \end{figure}
 
