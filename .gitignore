@@ -1,4 +1,6 @@
 thesis.pdf
+*.mp
+*.t1
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

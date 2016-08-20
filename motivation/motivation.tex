@@ -6,10 +6,37 @@ A heavy photon is one of several ``portals'' by which a dark sector could intera
 The existence of such a heavy photon is a possible explanation for the cosmic ray positron excess and the muon $g-2$ anomaly.
 
 \section{Theory}
-The $A'$ can be massive or massless.
+%The $A'$ can be massive or massless.
+The basic assumption behind the heavy photon is that there exists a second $U(1)$ symmetry, and that it mixes with Standard Model hypercharge.
 
+If particles exist that are charged under both fields, a one-loop diagram 
+\begin{figure}[ht]
+    \begin{fmffile}{oneloop}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1}
+            \fmfright{o1}
+            \fmflabel{$\gamma$}{i1}
+            \fmflabel{$A'$}{o1}
+            \fmf{photon,tension=2}{i1,v1}
+            \fmf{photon,tension=2}{v2,o1}
+            \fmf{fermion,left}{v1,v2}
+            \fmf{fermion,left}{v2,v1}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \caption{kinetic mixing}
+    \label{fig:oneloop}
+\end{figure}
+
+\begin{equation}
+    \mathcal{L}_{\mathrm{gauge}}=-\frac{1}{4}F^{\mu\nu}F_{\mu\nu} - \frac{1}{4}F'^{\mu\nu}F'_{\mu\nu} + \frac{1}{4}\epsilon F^{\mu\nu}F'_{\mu\nu}
+\end{equation}
 
 Holdom \cite{holdom_two_1986} summarizes the implications.
+If the gauge fields 
+
+The gauge fields can be redefined to make them orthogonal, 
+: if the $U(1)'$ is broken, the 
 
 The kinetic mixing means that the two $U(1)$ fields are not orthogonal.
 If we diagonalize
@@ -36,6 +63,96 @@ millicharge \cite{davidson_updated_2000}
 
 one-loop coupling: fermions with both charges
 
+\begin{figure}[ht]
+    \hspace{5mm}
+    \begin{fmffile}{rad1}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i3}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i3,v1,v3,o2}
+            \fmf{heavy}{i1,v2,o1}
+            \fmf{photon,tension=0,label=$\gamma$}{v1,v2}
+            \fmf{fermion}{o3,v4,o4}
+            \fmf{photon,tension=2,label=$\gamma$}{v3,v4}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{10mm}
+    \begin{fmffile}{rad2}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i3}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i3,v1,v3,o2}
+            \fmf{heavy}{i1,v2,o1}
+            \fmf{fermion}{o3,v4,o4}
+            \fmf{photon,tension=2,label=$\gamma$}{v1,v4}
+            \fmffreeze
+            \fmf{photon,tension=0,label=$\gamma$}{v3,v2}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{5mm}
+    \caption{Trident diagrams.}
+    \label{fig:tridents_rad}
+\end{figure}
+
+\begin{figure}[ht]
+    \hspace{5mm}
+    \begin{fmffile}{bh1}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i4}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i4,v1,o4}
+            \fmf{heavy}{i1,v2,o1}
+            \fmffreeze
+            \fmf{photon,tension=1,label=$\gamma$}{v1,v3}
+            \fmf{photon,tension=1,label=$\gamma$}{v2,v4}
+            \fmf{fermion}{o2,v4,v3,o3}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{10mm}
+    \begin{fmffile}{bh2}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i4}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i4,v1,o4}
+            \fmf{heavy}{i1,v2,o1}
+            \fmffreeze
+            \fmf{photon,tension=2,label=$\gamma$}{v1,v3}
+            \fmf{photon,tension=2,label=$\gamma$}{v2,v4}
+            \fmf{fermion}{o2,v3,v4,o3}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{5mm}
+    \caption{Trident diagrams.}
+    \label{fig:tridents_bh}
+\end{figure}
 
 
 \section{Signatures}
