@@ -30,7 +30,7 @@ This modifies the interaction Lagrangian as follows:
 \end{equation}
 
 This implies that particles with electric charge acquire a coupling, proportional to $\epsilon$, to the heavy photon.
-The converse is not true: hidden-sector particles with heavy photon couplings do not acquire couplings to the photon (such ``millicharged'' particles do occur if the new $U(1)$ is unbroken \cite{prinz_search_1998}) \cite{holdom_two_1986}.
+The converse is not true: hidden-sector particles with heavy photon couplings do not acquire couplings to the photon (such ``millicharged'' particles do occur if the new $U(1)$ is unbroken \cite{prinz_search_1998,davidson_updated_2000}) \cite{holdom_two_1986}.
 
 If particles exist that are charged under both fields, kinetic mixing may arise from a one-loop diagram similar to Figure \ref{fig:oneloop}, with a natural scale of $\epsilon \sim 10^{-2}-10^{-4}$; on the other hand, GUT models require that one-loop contributions to $\epsilon$ vanish, and instead motivate two-loop contributions at $\epsilon \sim 10^{-3}-10^{-6}$ \cite{arkani-hamed_lhc_2008}.
 Because kinetic mixing is a renormalizable interaction, $\epsilon$ is independent of the masses of the particles that give rise to it.
@@ -60,27 +60,73 @@ There is a wide range of reasonable values for the mass $m_{A'}$.
 Models where supersymmetry breaking is communicated by the kinetic mixing lead to natural mass scales of MeV-GeV \cite{baumgart_non-abelian_2009, morrissey_abelian_2009, cheung_kinetic_2009}.
 String theory models typically tie the mass scale to $\epsilon$, and can motivate masses down to the meV scale \cite{goodsell_naturally_2009,cicoli_testing_2011}.
 
-If the new $U(1)$ is massless, the photon can be
-If the $A'$ is massless, the new $U(1)$ mixes 
-particles charged under the $A'$ gain a small electromagnetic charge. 
-
-Such millicharged particles have been the subject of direct experimental searches
-
-
-If the $A'$ is massive, particles charged under the $A'$ do not 
-
-massless U(1)': millicharge, paraphoton
-paraphoton doesn't couple to normal matter, para-matter gets millicharged
-
-massive U(1)': heavy photon
-photon doesn't couple to hidden sector, heavy photon couples to SM matter
+%If the new $U(1)$ is massless, the photon can be
+%If the $A'$ is massless, the new $U(1)$ mixes 
+%particles charged under the $A'$ gain a small electromagnetic charge. 
+%
+%Such millicharged particles have been the subject of direct experimental searches
 
 
-Snowmass \cite{essig_dark_2013}
+%If the $A'$ is massive, particles charged under the $A'$ do not 
+%
+%massless U(1)': millicharge, paraphoton
+%paraphoton doesn't couple to normal matter, para-matter gets millicharged
+%
+%massive U(1)': heavy photon
+%photon doesn't couple to hidden sector, heavy photon couples to SM matter
 
-millicharge \cite{davidson_updated_2000}
+\section{Astrophysical Motivations for a Heavy Photon}
 
-one-loop coupling: fermions with both charges
+\subsection{Dark Matter Annihilation}
+
+Dark matter annihilation mediated by a heavy photon has been proposed as an explanation for several anomalies that have been reported in cosmic ray and X-ray observations.
+
+The PAMELA satellite first observed that the positron fraction $\phi(e^+)/(\phi(e^+)+\phi(e^-))$ increases above 10 GeV.
+This is inconsistent with the assumption that high-energy positrons originate in secondary production processes, from cosmic-ray nuclei interactions with interstellar gas.
+Meanwhile, the antiproton fraction is consistent with secondary production.
+Measurements by the Fermi Large Area Telescope and the Alpha Magnetic Spectrometer (AMS) confirmed the observation and extended it to higher energies \cite{the_fermi_lat_collaboration_measurement_2012,ams_collaboration_first_2013}.
+
+The annihilation cross-section implied by the positron flux is large compared to the cross-section expected for a thermal relic, and also much larger than any observed annihilation to hadrons \cite{cholis_high_2009}.
+This is consistent with annihilation to heavy photons with then decay to electrons and positrons, as shown in Figure \ref{fig:dm_annihilation} \cite{arkani-hamed_theory_2009}.
+A heavy photon with $m_{A'}<2m_p$ cannot decay to $p\bar{p}$, and $m_{A'}$ in the MeV--GeV range (models with $m_{A'}$ in the 200--900 MeV range were tested in \cite{finkbeiner_consistent_2011}; if annihilation is dominated by local subhalos, lower mass ranges are allowed \cite{slatyer_sommerfeld-enhanced_2012}) creates Sommerfeld enhancement that boosts the annihilation cross-section at low velocities.
+
+\begin{figure}[ht]
+    \begin{center}
+        \begin{fmffile}{annihilation}
+            \begin{fmfgraph*}(150,150)
+                \fmfstraight 
+                \fmfleft{i1,i2}
+                \fmfright{o0,o1,o2,o3,o4,o5}
+                \fmflabel{$\chi$}{i1}
+                \fmflabel{$\chi$}{i2}
+                \fmflabel{$e^+$}{o1}
+                \fmflabel{$e^-$}{o2}
+                \fmflabel{$e^+$}{o3}
+                \fmflabel{$e^-$}{o4}
+                \fmf{fermion}{i1,v1,v2,i2}
+                \fmf{photon,label=$A'$}{v1,v3}
+                \fmf{photon,label=$A'$}{v2,v4}
+                \fmf{fermion}{o1,v3,o2}
+                \fmf{fermion}{o3,v4,o4}
+            \end{fmfgraph*}
+        \end{fmffile}
+    \end{center}
+    \caption{Dark matter annihilation through a heavy photon.}
+    \label{fig:dm_annihilation}
+\end{figure}
+
+The positron fraction has more recently been disfavored as a motivation for the heavy photon.
+A larger AMS data set shows the full shape of the positron spectrum is softer than would be expected from a heavy photon decaying directly to $e^+e^-$ \cite{ams_collaboration_high_2014}, but consistent with a pulsar origin for cosmic ray positrons \cite{cholis_dark_2013}.
+Meanwhile, CMB observations put limits on the DM annihilation rate at recombination; measurements by Planck constrain the DM annihilation explanation for the positron fraction \cite{madhavacheril_current_2014}.
+The positron spectrum may still be consistent with heavy photons decaying to intermediate states that then decay to $e^+e^-$ \cite{cholis_dark_2013}.
+
+Gamma ray and X-ray excesses also motivate models of dark matter that include heavy photons.
+Dark matter annihilation has been proposed as a source for an excess of high-energy gamma rays from the Galactic Center in Fermi data \cite{hooper_dark_2011}.
+A 3.5 keV line seen in galaxy cluster X-ray spectra \cite{bulbul_detection_2014,boyarsky_unidentified_2014} has been suggested to come from collisional excitation and de-excitation of dark matter, in a model named eXciting Dark Matter (XDM) \cite{finkbeiner_x-ray_2014}.
+
+\subsection{Halo Structure}
+
+\subsection{Light Dark Matter}
 
 \begin{figure}[ht]
     \hspace{5mm}
