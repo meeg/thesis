@@ -75,7 +75,7 @@ String theory models typically tie the mass scale to $\epsilon$, and can motivat
 %massive U(1)': heavy photon
 %photon doesn't couple to hidden sector, heavy photon couples to SM matter
 
-\section{Astrophysical Motivations for a Heavy Photon}
+\section{Observations Motivating a Heavy Photon}
 
 \subsection{Dark Matter Annihilation}
 
@@ -125,8 +125,42 @@ Dark matter annihilation has been proposed as a source for an excess of high-ene
 A 3.5 keV line seen in galaxy cluster X-ray spectra \cite{bulbul_detection_2014,boyarsky_unidentified_2014} has been suggested to come from collisional excitation and de-excitation of dark matter, in a model named eXciting Dark Matter (XDM) \cite{finkbeiner_x-ray_2014}.
 
 \subsection{Halo Structure}
+Observations of dark matter halos of galaxies and dwarf galaxies disagree with predictions based on the assumption of collisionless cold dark matter \cite{weinberg_cold_2013}.
+These discrepancies have motivated models (``self-interacting dark matter,'' or SIDM) in which dark matter is self-interacting with a large but velocity-dependent cross-section, consistent with a heavy photon mediator.
+This allows momentum diffusion in halos without disrupting high-velocity events such as the Bullet Cluster \cite{spergel_observational_2000,tulin_beyond_2013}.
+
+Rotational velocities of observed Milky Way dwarf satellite galaxies are lower than the rotational velocities that simulations predict for the Milky Way's largest dark matter subhaloes.
+This suggests that either the most massive dark matter subhalos fail to form dwarf galaxies, the massive subhalos do not exist, or the rotational velocities for a given subhalo mass are lower than predicted; this is known as the ``too big to fail'' problem \cite{boylan-kolchin_too_2011}.
+Self-interacting dark matter reduces the central densities of subhalos and thus the rotational velocities \cite{vogelsberger_subhaloes_2012}.
+Similarly, the observed density profiles of galaxies are better fit with a constant density core than the cuspy models from collisionless dark matter: this is the ``cusp-core'' problem \cite{de_naray_baryons_2011}
+Both the observational evidence and the simulations continue to develop, and it may be possible to resolve the conflicts without abandoning collisionless dark matter \cite{oman_unexpected_2015,governato_cuspy_2012}.
 
 \subsection{Light Dark Matter}
+
+\subsection{Muon $g-2$}
+\cite{2558}
+\cite{1030}
+
+\begin{figure}[ht]
+    \begin{center}
+        \begin{fmffile}{gm2}
+            \begin{fmfgraph*}(150,150)
+                \fmfstraight 
+                \fmftop{o1}
+                \fmfbottom{i1,i2}
+                \fmflabel{$\mu$}{i1}
+                \fmflabel{$\mu$}{i2}
+                %\fmflabel{$e^+$}{o1}
+                \fmf{fermion}{i1,v1,v2,v3,i2}
+                \fmf{photon,label=$\gamma$}{v2,o1}
+                \fmffreeze
+                \fmf{photon,label=$A'$}{v1,v3}
+            \end{fmfgraph*}
+        \end{fmffile}
+    \end{center}
+    \caption{Heavy photon correction to the muon magnetic moment.}
+    \label{fig:gm2}
+\end{figure}
 
 \begin{figure}[ht]
     \hspace{5mm}
