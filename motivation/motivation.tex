@@ -96,22 +96,20 @@ A heavy photon with $m_{A'}<2m_p$ cannot decay to $p\bar{p}$, and $m_{A'}$ in th
             \begin{fmfgraph*}(150,150)
                 \fmfstraight 
                 \fmfleft{i1,i2}
-                \fmfright{o0,o1,o2,o3,o4,o5}
+                \fmfright{o0,o1,o2,o3}
                 \fmflabel{$\chi$}{i1}
                 \fmflabel{$\chi$}{i2}
-                \fmflabel{$e^+$}{o1}
-                \fmflabel{$e^-$}{o2}
-                \fmflabel{$e^+$}{o3}
-                \fmflabel{$e^-$}{o4}
+                \fmflabel{$A'$}{o1}
+                \fmflabel{$A'$}{o2}
                 \fmf{fermion}{i1,v1,v2,i2}
-                \fmf{photon,label=$A'$}{v1,v3}
-                \fmf{photon,label=$A'$}{v2,v4}
-                \fmf{fermion}{o1,v3,o2}
-                \fmf{fermion}{o3,v4,o4}
+                \fmf{photon}{v1,o1}
+                \fmf{photon}{v2,o2}
+                %\fmf{fermion}{o1,v3,o2}
+                %\fmf{fermion}{o3,v4,o4}
             \end{fmfgraph*}
         \end{fmffile}
     \end{center}
-    \caption{Dark matter annihilation through a heavy photon.}
+    \caption{Dark matter annihilation to a heavy photon, which can then decay to Standard Model particles.}
     \label{fig:dm_annihilation}
 \end{figure}
 
@@ -135,11 +133,13 @@ Self-interacting dark matter reduces the central densities of subhalos and thus 
 Similarly, the observed density profiles of galaxies are better fit with a constant density core than the cuspy models from collisionless dark matter: this is the ``cusp-core'' problem \cite{de_naray_baryons_2011}
 Both the observational evidence and the simulations continue to develop, and it may be possible to resolve the conflicts without abandoning collisionless dark matter \cite{oman_unexpected_2015,governato_cuspy_2012}.
 
-\subsection{Light Dark Matter}
+%\subsection{Light Dark Matter}
 
-\subsection{Muon $g-2$}
-\cite{2558}
-\cite{1030}
+\subsection{Muon $g-2$ Anomaly}
+The measured value of the muon $g-2$ (anomalous magnetic moment, also known as $a_\mu=(g-2)/2$) is more than 3 standard deviations away from the value predicted by the Standard Model \cite{muon_final_2006,blum_muon_2013}.
+A heavy photon can contribute to the magnetic moment through the diagram shown in Figure \ref{fig:gm2}; there is a specific band in the $\epsilon-m_{A'}$ parameter space (shown in green in Figure \ref{fig:reach}) where the heavy photon correction accounts for the anomaly \cite{pospelov_secluded_2009}.
+The good agreement of the electron $g-2$ with the Standard Model excludes a different region (drawn in red); similarly, there is an excluded region (drawn in green, above the favored band) where the heavy photon correction to muon $g-2$ exceeds the observed anomaly \cite{endo_constraints_2012}.
+This favored region has been targeted by many experiments, and is now excluded for the case of heavy photon decays to visible particles.
 
 \begin{figure}[ht]
     \begin{center}
@@ -150,7 +150,6 @@ Both the observational evidence and the simulations continue to develop, and it 
                 \fmfbottom{i1,i2}
                 \fmflabel{$\mu$}{i1}
                 \fmflabel{$\mu$}{i2}
-                %\fmflabel{$e^+$}{o1}
                 \fmf{fermion}{i1,v1,v2,v3,i2}
                 \fmf{photon,label=$\gamma$}{v2,o1}
                 \fmffreeze
@@ -253,16 +252,50 @@ Both the observational evidence and the simulations continue to develop, and it 
     \label{fig:tridents_bh}
 \end{figure}
 
-
 \section{Signatures}
+The heavy photon's only coupling to the Standard Model is through kinetic mixing with the photon.
+So assuming that heavy photon decays to the dark sector are kinematically forbidden, the production and decay of a heavy photon are closely related to the production and decay of a virtual photon with the same mass.
 
-production cross-section
+The branching fractions for decay, as a function of $m_{A'}$, can be derived from the ratios of cross sections for different final states of $e^+e^-$ collisions, as a function of center-of-mass energy: see Figure \ref{fig:branching}.
+The proper lifetime is given in Equation \ref{eq:lifetime}, where $N_{eff}$ is the effective number of possible available decay products: neglecting phase-space corrections, $N_{eff}=1$ for $m_{A'}<2m_\mu$, and $N_{eff}=2+R(m_{A'})$ for $m_{A'}\ge 2m_\mu$, where $R(Q)=\frac{\sigma(e^+e^-\to \mathrm{hadrons},Q)}{\sigma(e^+e^-\to \mu^+\mu^-,Q)}$.
 
-decay length
+\begin{equation}
+    \tau = \frac{3\hbar}{N_{eff}m_{A'} \alpha \epsilon^2}
+    \label{eq:lifetime}
+\end{equation}
+
+\begin{figure}[ht]
+    \includegraphics[width=\textwidth]{motivation/figs/darkphoton-BR-1-3000-LOG}
+    \caption{Branching ratios for the heavy photon decay to Standard Model particles \cite{liu_signals_2015}.}
+    \label{fig:branching}
+\end{figure}
+
+In general, the rate of production of a heavy photon with mass $m_{A'}$ is proportional to the rate of the corresponding process for virtual photons, integrated over the mass range bounded by $m_{A'}\pm \frac{\delta m}{2}$.
+The ratio is given in Equation \ref{eq:production}.
+
+\begin{equation}
+    \frac{\mathrm{d}\sigma(X \to A' Y \to Z Y)}{\mathrm{d}\sigma(X \to \gamma^* Y \to Z Y)} = \left(\frac{3\pi\epsilon^2}{2N_{eff} \alpha} \right) \left(\frac{m_{A'}}{\delta m} \right)
+    \label{eq:production}
+\end{equation}
 
 \section{Other Searches}
 
+\subsection{Beam Dumps}
+An electron or proton beam dump will generate heavy photons through bremsstrahlung or Drell-Yan processes.
+If the decay length is comparable to the dump length, heavy photons can travel through the dump and decay to visible particles after the dump.
+A detector downstream of the dump will detect the decay products.
 
+Beam dump experiments have very high luminosities, due to the high currents and thick targets.
+Several electron beam dump experiments were run as searches for axion-like or Higgs-like particles, but were reinterpreted to give limits on a heavy photon: E137 \cite{bjorken_search_1988} and E141 \cite{riordan_search_1987} at SLAC, E774 \cite{bross_search_1991} at Fermilab, and an experiment at Orsay \cite{davier_unambiguous_1989}.
+Similarly, a proton beam dump experiment at the U70 accelerator has been reinterpreted to give limits for heavy photons, both from $\pi^0$ decay and from proton bremsstrahlung \cite{blumlein_new_2014}.
+
+Planned experiments
+
+\subsection{Thin Fixed Targets}
+An electron beam incident on a thin target will generate heavy photons through bremsstrahlung.
+
+
+\subsection{Colliders}
 colliders
 
 meson decays (LHCb)
