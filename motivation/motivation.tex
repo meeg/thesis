@@ -161,6 +161,106 @@ This favored region has been targeted by many experiments, and is now excluded f
     \label{fig:gm2}
 \end{figure}
 
+
+\section{Signatures}
+\label{sec:signatures}
+
+The heavy photon's only coupling to the Standard Model is through kinetic mixing with the photon.
+So assuming that heavy photon decays to the dark sector are kinematically forbidden, the production and decay of a heavy photon are closely related to the production and decay of a virtual photon with the same mass.
+
+The branching fractions for decay, as a function of $m_{A'}$, can be derived from the ratios of cross sections for different final states of $e^+e^-$ collisions, as a function of center-of-mass energy: see Figure \ref{fig:branching}.
+The decay width and proper lifetime are given in Equations \ref{eq:width} and \ref{eq:lifetime}, where $N_{eff}$ is the effective number of possible available decay products: neglecting phase-space corrections, $N_{eff}=1$ for $m_{A'}<2m_\mu$, and $N_{eff}=2+R(m_{A'})$ for $m_{A'}\ge 2m_\mu$, where $R(Q)=\frac{\sigma(e^+e^-\to \mathrm{hadrons},Q)}{\sigma(e^+e^-\to \mu^+\mu^-,Q)}$.
+
+\begin{equation}
+    \Gamma = \frac{N_{eff}m_{A'} \alpha \epsilon^2}{3}
+    \label{eq:width}
+\end{equation}
+
+\begin{equation}
+    \tau = \frac{\hbar}{\Gamma} = \frac{3\hbar}{N_{eff}m_{A'} \alpha \epsilon^2}
+    \label{eq:lifetime}
+\end{equation}
+
+\begin{figure}[ht]
+    \includegraphics[width=\textwidth]{motivation/figs/darkphoton-BR-1-3000-LOG}
+    \caption{Branching ratios for the heavy photon decay to Standard Model particles \cite{liu_signals_2015}.}
+    \label{fig:branching}
+\end{figure}
+
+In general, the rate of production of a heavy photon with mass $m_{A'}$ is proportional to the rate of the corresponding process for virtual photons, integrated over the mass range bounded by $m_{A'}\pm \frac{\delta m}{2}$.
+The kinematics are the same, so the virtual photon process is an irreducible background except that the heavy photon is on-shell and can travel a measurable distance.
+The ratio of differential cross-sections is given in Equation \ref{eq:production}.
+
+\begin{equation}
+    \frac{\mathrm{d}\sigma(X \to A' Y \to Z Y)}{\mathrm{d}\sigma(X \to \gamma^* Y \to Z Y)} = \left(\frac{3\pi\epsilon^2}{2N_{eff} \alpha} \right) \left(\frac{m_{A'}}{\delta m} \right)
+    \label{eq:production}
+\end{equation}
+
+\section{Overview of Searches}
+Recent and planned searches for heavy photons can be categorized by the production mechanism, the signature for detection, and the type of facility.
+
+Detection signatures include a mass resonance in the decay products ($e^+e^-$, $\mu^+\mu^-$, or $\pi^+\pi^-$ pairs), missing mass (which allows a search for heavy photons decaying to the dark sector), or displaced vertices.
+
+The common production mechanisms are bremsstrahlung ($e^- Z \to e^- Z A'$), Drell-Yan ($q \bar{q} \to \gamma A'$), $e^+e^-$ annihilation ($e^+e^- \to \gamma A'$), and meson decay ($\pi^0 \to \gamma A'$, $\eta \to \gamma A'$, $\phi \to \eta A'$, and others).
+Some experiments look for mass resonances by making all possible pairs (for example, all $\mu^+\mu^-$ pairs) without identifying the production process; these are called ``inclusive'' searches.
+
+Fixed-target experiments and colliders are complementary.
+The higher luminosities at fixed-target experiments allow sensitivity at smaller $\epsilon$, particularly for displaced-vertex searches.
+Colliders, with their higher center-of-mass energy, can reach larger $m_{A'}$.
+
+\subsection{Beam Dumps}
+An electron or proton beam dump will generate heavy photons through bremsstrahlung, Drell-Yan, or meson decays.
+If the heavy photon decay length is comparable to the dump length, heavy photons can travel through the dump and decay to visible particles after the dump.
+A detector downstream of the dump detects the decay products.
+
+
+Beam dump experiments have very high luminosities, due to the high currents and thick targets.
+Several electron beam dump experiments were run as searches for axion-like or Higgs-like particles, but were reinterpreted to give limits on a heavy photon: E137 \cite{bjorken_search_1988} and E141 \cite{riordan_search_1987} at SLAC, E774 \cite{bross_search_1991} at Fermilab, and an experiment at Orsay \cite{davier_unambiguous_1989}.
+Similarly, a proton beam dump experiment at the U70 accelerator was reinterpreted to give limits for heavy photons, both from $\pi^0$ decay and from proton bremsstrahlung \cite{blumlein_new_2014}.
+
+Planned proton beam dump experiments include SHiP at CERN and SeaQuest E1067 at Fermilab.
+SHiP is a general-purpose search for dark sector particles \cite{ship_collaboration_facility_2015}; E1067 is an upgrade to an existing dimuon spectrometer to allow parasitic searches for heavy photons \cite{gardner_new_2016}.
+NA64 at CERN is an electron beam experiment that uses an electromagnetic calorimeter as an active dump \cite{gninenko_search_2014}.
+
+\subsection{Thin Fixed Targets}
+An electron beam incident on a thin target will generate heavy photons through bremsstrahlung, $e^- Z \to e^- Z A'$.
+The signature is a mass resonance in the decay products (typically $e^+e^-$ for the mass range accessible by this technique).
+The mass resolution can be improved by detecting the recoiling beam electron and/or nucleus.
+HPS is the first experiment of this type to attempt a displaced-vertex search.
+
+Two experiments have been run with existing fixed-target spectrometers: one experiment using the A1 spectrometer at MAMI \cite{merkel_search_2014}, and the APEX experiment using the HRS spectrometer at JLab Hall A (a test run was completed, a full run is scheduled) \cite{essig_electron_2011,abrahamyan_search_2011}.
+Two experiments are planned: DarkLight at the JLab LERF \cite{balewski_darklight_2014}, and MAGIX at MESA \cite{denig_recent_2016}.
+
+A positron beam incident on a thin target will generate heavy photons through annihilation.
+Experiments of this type can detect monophoton final states ($e^+e^- \to \gamma A' \to \gamma \mathrm{dark}$) and identify the heavy photon in the missing mass spectrum. Experiments are proposed at INFN Frascati (PADME \cite{raggi_padme_2015}) and VEPP-3 \cite{wojtsekhowski_searching_2012}.
+
+Proton or ion beams can also be used: the HADES spectrometer was used to measure inclusive $e^+e^-$ pairs from $p$-on-$p$, $p$-on-Nb, and Ar-on-KCl interactions.
+The assumed signal was from meson decays \cite{hades_collaboration_searching_2013}.
+
+\subsection{Colliders}
+Most collider searches for heavy photons have come from flavor factories, where meson decays are a natural source of heavy photon production.
+$e^+e^-$ annihilation or Drell-Yan can also be a significant source of heavy photons.
+Displaced-vertex searches are often possible.
+
+Among $e^+e^-$ colliders, BaBar has set limits using $\upsilon \to \gamma A'$, $A'\to\mu^+\mu^-$ \cite{babar_collaboration_search_2009,soffer_constraints_2014}; KLOE has set limits using $\phi\to \eta A'$ and $e^+e^- \to \gamma A'$ production modes and dielectron, dimuon, and dipion decays \cite{collaboration_search_2012,collaboration_limit_2013,babusci_search_2014,anastasi_limit_2015,collaboration_limit_2016}.
+Belle-II is expected to improve on the BaBar result \cite{inguglia_belle_2016}.
+
+$p-p$ colliders have also been used. WASA at COSY looked for $\pi^0 \to \gamma A'$, $A'\to e^+e^-$ \cite{collaboration_search_2013}.
+LHCb plans to make a significant impact with a search in $m_{A'}<2m_\mu$ using $D^* \to D^0 A'$, $A'\to e^+e^-$, a search in $m_{A'}>2m_\mu$ using inclusive production and $A'\to \mu^+\mu^-$, and a displaced-vertex search using $\eta \to \gamma A'$, $A'\to \mu^+\mu^-$ \cite{ilten_dark_2015,ilten_inclusive_2016}.
+
+\section{Signal and Background Kinematics for HPS}
+
+In HPS, the heavy photon is generated through electron bremsstrahlung off of a tungsten nucleus, and detected in its decay to $e^+e^-$.
+This process is the analogue of the radiative trident process shown in Figure \ref{fig:tridents_rad}, with a heavy photon substituted for the radiated photon.
+
+The kinematics of heavy photon production can be calculated using the Weizs\:acker-Williams approximation (where the nucleus is replaced by an effective photon flux); this is done in \cite{bjorken_new_2009}.
+The 
+
+
+As discussed in Section \ref{sec:signatures}, the radiative trident and heavy photon processes have the same kinematics.
+
+The Bethe-Heitler trident process (Figure \ref{fig:tridents_bh}), and its interference with the radiative trident process, is another background.
+
 \begin{figure}[ht]
     \hspace{5mm}
     \begin{fmffile}{rad1}
@@ -202,7 +302,7 @@ This favored region has been targeted by many experiments, and is now excluded f
         \end{fmfgraph*}
     \end{fmffile}
     \hspace{5mm}
-    \caption{Trident diagrams.}
+    \caption{Radiative trident diagrams.}
     \label{fig:tridents_rad}
 \end{figure}
 
@@ -248,96 +348,6 @@ This favored region has been targeted by many experiments, and is now excluded f
         \end{fmfgraph*}
     \end{fmffile}
     \hspace{5mm}
-    \caption{Trident diagrams.}
+    \caption{Bethe-Heitler trident diagrams.}
     \label{fig:tridents_bh}
 \end{figure}
-
-\section{Signatures}
-The heavy photon's only coupling to the Standard Model is through kinetic mixing with the photon.
-So assuming that heavy photon decays to the dark sector are kinematically forbidden, the production and decay of a heavy photon are closely related to the production and decay of a virtual photon with the same mass.
-
-The branching fractions for decay, as a function of $m_{A'}$, can be derived from the ratios of cross sections for different final states of $e^+e^-$ collisions, as a function of center-of-mass energy: see Figure \ref{fig:branching}.
-The decay width and proper lifetime are given in Equations \ref{eq:width} and \ref{eq:lifetime}, where $N_{eff}$ is the effective number of possible available decay products: neglecting phase-space corrections, $N_{eff}=1$ for $m_{A'}<2m_\mu$, and $N_{eff}=2+R(m_{A'})$ for $m_{A'}\ge 2m_\mu$, where $R(Q)=\frac{\sigma(e^+e^-\to \mathrm{hadrons},Q)}{\sigma(e^+e^-\to \mu^+\mu^-,Q)}$.
-
-\begin{equation}
-    \Gamma = \frac{N_{eff}m_{A'} \alpha \epsilon^2}{3}
-    \label{eq:width}
-\end{equation}
-
-\begin{equation}
-    \tau = \frac{\hbar}{\Gamma} = \frac{3\hbar}{N_{eff}m_{A'} \alpha \epsilon^2}
-    \label{eq:lifetime}
-\end{equation}
-
-\begin{figure}[ht]
-    \includegraphics[width=\textwidth]{motivation/figs/darkphoton-BR-1-3000-LOG}
-    \caption{Branching ratios for the heavy photon decay to Standard Model particles \cite{liu_signals_2015}.}
-    \label{fig:branching}
-\end{figure}
-
-In general, the rate of production of a heavy photon with mass $m_{A'}$ is proportional to the rate of the corresponding process for virtual photons, integrated over the mass range bounded by $m_{A'}\pm \frac{\delta m}{2}$.
-The ratio is given in Equation \ref{eq:production}.
-
-\begin{equation}
-    \frac{\mathrm{d}\sigma(X \to A' Y \to Z Y)}{\mathrm{d}\sigma(X \to \gamma^* Y \to Z Y)} = \left(\frac{3\pi\epsilon^2}{2N_{eff} \alpha} \right) \left(\frac{m_{A'}}{\delta m} \right)
-    \label{eq:production}
-\end{equation}
-
-\section{Overview of Searches}
-Recent and planned searches for heavy photons can be categorized by the production mechanism, the signature for detection, and the type of facility.
-
-The common production mechanisms are bremsstrahlung ($e^- Z \to e^- Z A'$), Drell-Yan ($q \bar{q} \to \gamma A'$), $e^+e^-$ annihilation ($e^+e^- \to \gamma A'$), and meson decay ($\pi^0 \to \gamma A'$, $\eta \to \gamma A'$, $\phi \to \eta A'$, and others).
-
-Detection signatures include a mass resonance in the decay products ($e^+e^-$, $\mu^+\mu^-$, or $\pi^+\pi^-$ pairs), missing mass (which allows a search for heavy photons decaying to the dark sector), or displaced vertices.
-
-\subsection{Beam Dumps}
-An electron or proton beam dump will generate heavy photons through bremsstrahlung, Drell-Yan, or meson decays.
-If the heavy photon decay length is comparable to the dump length, heavy photons can travel through the dump and decay to visible particles after the dump.
-A detector downstream of the dump detects the decay products.
-
-
-Beam dump experiments have very high luminosities, due to the high currents and thick targets.
-Several electron beam dump experiments were run as searches for axion-like or Higgs-like particles, but were reinterpreted to give limits on a heavy photon: E137 \cite{bjorken_search_1988} and E141 \cite{riordan_search_1987} at SLAC, E774 \cite{bross_search_1991} at Fermilab, and an experiment at Orsay \cite{davier_unambiguous_1989}.
-Similarly, a proton beam dump experiment at the U70 accelerator was reinterpreted to give limits for heavy photons, both from $\pi^0$ decay and from proton bremsstrahlung \cite{blumlein_new_2014}.
-
-Planned proton beam dump experiments include SHiP at CERN and SeaQuest E1067 at Fermilab.
-SHiP is a general-purpose search for dark sector particles \cite{04956}; E1067 is an upgrade to an existing dimuon spectrometer to allow parasitic searches for heavy photons \cite{00050}.
-NA64 at CERN is an electron beam experiment that uses an electromagnetic calorimeter as an active dump \cite{6521}.
-
-\subsection{Thin Fixed Targets}
-An electron beam incident on a thin target will generate heavy photons through bremsstrahlung, $e^- Z \to e^- Z A'$.
-The signature is a mass resonance in the decay products (typically $e^+e^-$ for the mass range accessible by this technique).
-The mass resolution can be improved by detecting the recoiling beam electron and/or nucleus.
-HPS is the first experiment of this type to attempt a displaced-vertex search.
-
-Two experiments have been run with existing fixed-target spectrometers: one experiment using the A1 spectrometer at MAMI \cite{5502}, and the APEX experiment using the HRS spectrometer at JLab Hall A (a test run was completed, a full run is scheduled) \cite{2557,2750}.
-Two experiments are planned: DarkLight at the JLab LERF \cite{4717}, and MAGIX at MESA \cite{020006}.
-
-A positron beam incident on a thin target will generate heavy photons through annihilation.
-Experiments of this type can detect monophoton final states ($e^+e^- \to \gamma A' \to \gamma \mathrm{dark}$) and identify the heavy photon in the missing mass spectrum. Experiments are proposed at INFN Frascati (PADME \cite{01867}) and VEPP-3 \cite{5089}.
-
-Proton or ion beams can also be used: the HADES spectrometer was used to measure $e^+e^-$ pairs from $p$-on-$p$, $p$-on-Nb, and Ar-on-KCl interactions.
-The assumed signal was from meson decays \cite{0216}.
-
-\subsection{Colliders}
-Meson factories
-annihilation, meson decay, dark higgsstrahlung
-
-BaBar: $\upsilon(3S)$ dimuon \cite{081803} \cite{5263}
-WASA: $\pi^0$ decay \cite{0671}
-Belle-II: \cite{02089}
-KLOE: $\phi$ factory, production through annihilation or meson decay, detection through lepton or pion pairs, vertexing possible \cite{3927,0411,06086,06795,00740,7772}
-
-
-LHCb:
-
-
-colliders
-
-meson decays (LHCb)
-
-positron on fixed target (VEPP)
-
-old beam dumps
-
-SeaQuest
