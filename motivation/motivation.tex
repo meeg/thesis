@@ -189,6 +189,7 @@ The decay width and proper lifetime are given in Equations \ref{eq:width} and \r
 
 In general, the rate of production of a heavy photon with mass $m_{A'}$ is proportional to the rate of the corresponding process for virtual photons, integrated over the mass range bounded by $m_{A'}\pm \frac{\delta m}{2}$.
 The kinematics are the same, so the virtual photon process is an irreducible background except that the heavy photon is on-shell and can travel a measurable distance.
+A measurement of the virtual photon process can be used to normalize the sensitivity of a search in a data-driven way.
 The ratio of differential cross-sections is given in Equation \ref{eq:production}.
 
 \begin{equation}
@@ -248,18 +249,54 @@ Belle-II is expected to improve on the BaBar result \cite{inguglia_belle_2016}.
 $p-p$ colliders have also been used. WASA at COSY looked for $\pi^0 \to \gamma A'$, $A'\to e^+e^-$ \cite{collaboration_search_2013}.
 LHCb plans to make a significant impact with a search in $m_{A'}<2m_\mu$ using $D^* \to D^0 A'$, $A'\to e^+e^-$, a search in $m_{A'}>2m_\mu$ using inclusive production and $A'\to \mu^+\mu^-$, and a displaced-vertex search using $\eta \to \gamma A'$, $A'\to \mu^+\mu^-$ \cite{ilten_dark_2015,ilten_inclusive_2016}.
 
-\section{Signal and Background Kinematics for HPS}
+\section{Overview of HPS}
 
 In HPS, the heavy photon is generated through electron bremsstrahlung off of a tungsten nucleus, and detected in its decay to $e^+e^-$.
 This process is the analogue of the radiative trident process shown in Figure \ref{fig:tridents_rad}, with a heavy photon substituted for the radiated photon.
+Only the $e^+e^-$ pair is triggered on and reconstructed; the recoil electron is typically outside the detector acceptance.
+Both the pair invariant mass and vertex position are reconstructed.
 
-The kinematics of heavy photon production can be calculated using the Weizs\:acker-Williams approximation (where the nucleus is replaced by an effective photon flux); this is done in \cite{bjorken_new_2009}.
-The 
+Two analyses are performed on the same data set.
+A pure bump-hunt search at large $\epsilon$ assumes the heavy photon decays at the target, which improves the mass resolution.
+This is a search for a mass resonance, using only the pair invariant mass; it is described fully in \cite{moreno_search_2016}.
+A displaced-vertex search at small $\epsilon$ rejects pairs originating from the target.
+Because the heavy photon must travel a measurable distance, this search is not sensitive to large $\epsilon$.
 
+\subsection{Signal Kinematics}
+The kinematics of heavy photon production can be calculated using the Weizs{\"a}cker-Williams approximation (where the nucleus is replaced by an effective photon flux); this is done in \cite{bjorken_new_2009}, based on work in \cite{tsai_pair_1974,tsai_axion_1986}.
+An exact (to leading order, with radiative corrections) calculation shows similar results \cite{beranek_theoretical_2013,beranek_study_2014}
+The differential cross-section for an electron with energy $E_0$ to produce a heavy photon with energy $E_{A'}=xE_0$, at angle $\theta_{A'}$ from the beam (in the lab frame), is
+\begin{equation}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}x \mathrm{d}\cos \theta_{A'}} \approx \frac{8 Z^2 \alpha^3\epsilon^2E_0^2}{U^2} \frac{\chi}{Z^2} \left( 1-x+\frac{x^2}{2} - \frac{x(1-x)m^2_{A'} (E_0^2 x \theta_{A'}^2)}{U^2} \right)
+    \label{eq:cx_xtheta}
+\end{equation}
+where $\chi/Z^2$ ($\sim 5-10$ for values of $m_{A'}<100$ MeV, where HPS is sensitive) depends on atomic form factors and kinematics, and $U(x,\theta_{A'}) = E_0^2x\theta_{A'}^2 + m_{A'}^2\frac{1-x}{x} + m_e^2 x$ is the virtuality of the electron in the intermediate state.
+The approximation assumes $m_e \ll m_{A'} \ll E_0$ and $x\theta_{A'}^2 \ll 1$.
+The characteristic angle of emission is set by $U(x,\theta_{A'})-U(x,0)\sim U(x,0)$, which occurs at $\theta_{A'}\sim \frac{m_{A'}\sqrt{1-x}}{xE_0}$.
+
+Integrating out $\theta_{A'}$ and ignoring $m_e$, the differential cross-section is
+\begin{equation}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}x} \approx \frac{8 Z^2 \alpha^3\epsilon^2 x}{m_{A'}^2} \frac{\chi}{Z^2} \left( 1 + \frac{x^2}{3(1-x)} \right)
+    \label{eq:cx_x}
+\end{equation}
+There is a cutoff at $1-x = \max \left(\frac{m_e^2}{m_{A'}^2},\frac{m_{A'}^2}{E_0^2} \right)$, and the median value of $1-x$ is $\max \left(\frac{m_e}{m_{A'}},\frac{m_{A'}}{E_0} \right)$.
+
+The overall rate is controlled by $\frac{\alpha^3\epsilon^2}{m_{A'}^2}$, so heavy photon production is increasingly less likely at larger $m_{A'}$.
+From Equation \ref{eq:cx_x}, the heavy photon typically takes most of the incident electron's momentum: $E_{A'}\approx E_0$.
+This means that the typical opening angle of the decay products is $2m_{A'}/E_0$, and the typical vertex displacement is
+\begin{equation}
+    \gamma c\tau \approx \frac{3\hbar E_0}{N_{eff}m_{A'}^2\alpha\epsilon^2 c}
+\end{equation}
+From Equation \ref{eq:cx_xtheta}, $\theta_{A'}$ is dominated by small values: the typical value of $\theta_{A'}$ is $\left(\frac{m_{A'}}{E_0}\right)^{3/2}$, so $\theta_{A'}$ is smaller than the opening angle of the decay products and it is a good approximation to assume the heavy photon is emitted in the beam direction.
+
+The recoiling incident electron is soft and also largely balances the $p_\perp$ of the heavy photon, and therefore is at relatively wide angle $\theta_R\sim \sqrt{\frac{m_{A'}}{E_0}}$.
+It is usually not in the HPS acceptance.
+
+\subsection{Physics Backgrounds}
+The major sources of $e^+e^-$ backgrounds are radiative tridents, Bethe-Heitler tridents, and pair conversions of wide-angle bremsstrahlung photons.
 
 As discussed in Section \ref{sec:signatures}, the radiative trident and heavy photon processes have the same kinematics.
-
-The Bethe-Heitler trident process (Figure \ref{fig:tridents_bh}), and its interference with the radiative trident process, is another background.
+The radiative trident process is therefore an irreducible background.
 
 \begin{figure}[ht]
     \hspace{5mm}
@@ -306,6 +343,10 @@ The Bethe-Heitler trident process (Figure \ref{fig:tridents_bh}), and its interf
     \label{fig:tridents_rad}
 \end{figure}
 
+The Bethe-Heitler trident process (Figure \ref{fig:tridents_bh}), and its interference with the radiative trident process, is another background.
+In contrast to heavy photons and radiative tridents, pairs from non-radiative tridents are not peaked at high $x$.
+In general, the two electrons are not distinguishable and either $e^+e^-$ pair is a potential background.
+
 \begin{figure}[ht]
     \hspace{5mm}
     \begin{fmffile}{bh1}
@@ -351,3 +392,7 @@ The Bethe-Heitler trident process (Figure \ref{fig:tridents_bh}), and its interf
     \caption{Bethe-Heitler trident diagrams.}
     \label{fig:tridents_bh}
 \end{figure}
+
+Wide-angle bremsstrahlung (where the photon and electron are both at large angles from the beam axis), followed by pair conversion of the photon (either in the target or in the first parts of the detector), is another significant background.
+Since the photon is on-shell, the $e^+e^-$ pair from the pair conversion is generally not in the HPS acceptance.
+However, the scattered incident electron and the positron from the pair conversion are often in the acceptance.
