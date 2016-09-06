@@ -1,13 +1,19 @@
 \chapter{Vertexing Search}
 
 \section{Data and Monte Carlo Samples}
+All of the events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph_2007}.
+Background
 
 \subsection{Data Processing and Normalization}
 
 \subsection{Trident and Wide-Angle Bremsstrahlung Monte Carlo}
+The background 
 
 \subsection{Heavy Photon Monte Carlo}
 \label{sec:ap_mc}
+Heavy photon Monte Carlo is generated at values of $m_{A'}$ spaced out across the region of interest: 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 35, 40, 50, 60, 70, 80, and 90 MeV.
+In order to get complete coverage of $z>z_{target}$ for the purposes of the vertexing analysis, the decay vertices were displaced (in the direction of the heavy photon momentum, and accounting for variations in $\gamma$) according to an arbitrary decay length of $c\tau=1$ mm.
+
 \section{Event Selection}
 require layer 1
 
@@ -19,8 +25,9 @@ The events passing cuts are reduced to a 2-D dataset of points $(m,z)$, where ea
 
 To test for a heavy photon at mass $m_{A'}$ and coupling $\epsilon^2$:
 
-The dataset is cut to keep only events with $|m-m_{A'}|<1.25 \sigma_m(m_{A'},z)$.
-This mass window is chosen to maximize significance by accepting a large fraction of the signal events, without accepting too many background events.
+The dataset is cut to keep only events with $|m-m_{A'}|<1.4 \sigma_m(m_{A'},z)$.
+This mass window is chosen to accept a large fraction of the signal events, without accepting too many background events.
+A window of $\pm1.4\sigma$ optimizes significance for high-statistics, high-background experiments where significance is proportional to $S/\sqrt{B}$; it is not 
 The mass resolution depends on the mass and the vertex position, and is estimated using Monte Carlo: this is explained in Section \ref{sec:mres}.
 
 After cutting on $m$, the dataset is reduced to one dimension.
@@ -81,7 +88,7 @@ If this effect is subtracted out, the mass resolution becomes constant with resp
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=6,angle=-90]{vertexing/figs/acceptance_40}
 \end{center}
-    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons, corrected for the opening angle in X. The resolution is roughly constant with respect to $z$.}
+    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons, corrected for the opening angle in the X-Z plane. The resolution is roughly constant with respect to $z$.}
     \label{fig:fixed_mres}
 \end{figure}
 
@@ -119,14 +126,20 @@ The exponential function is the distribution of decays along $z$, and is normali
 $\epsilon_{reco}(z)$ is the efficiency to detect and reconstruct an $e^+e^-$ pair produced at a given $z$.
 In principle, this distribution should be smeared by $\sigma_z$, the resolution of the vertex position: this is not done since the signal distribution varies slowly on the scale of $\sigma_z$ (which is 3-6 mm, depending on $m$).
 
-
-%The amplitude of the signal distribution is estimated using Equation \ref{eq:production}, which shows that the heavy photon production rate is linked to the rate of radiative tridents; the shape is the product of the decay length distribution and detector efficiency (from Monte Carlo).
-
 \subsubsection{Production Rate and Radiative Fraction}
 
 $N_{A'}\epsilon_{reco}(z_{target})$ is estimated using data and Equation \ref{eq:production}, which shows that $N_{A'}$ is linked to $\frac{\mathrm{d}N_{rad}}{\mathrm{d}m}$, the number of radiative tridents produced with masses around $m_{A'}$.
 The data gives $\frac{\mathrm{d}N_{e^+e^-}}{\mathrm{d}m}\epsilon_{reco}(z_{target})$, the number of $e^+e^-$ pairs produced and detected in a mass window around $m_{A'}$; some fraction of these are radiative tridents.
-The fraction 
+The fraction is estimated using Monte Carlo.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.35\textwidth,page=5,angle=-90]{vertexing/figs/frac}
+    \includegraphics[width=0.35\textwidth,page=6,angle=-90]{vertexing/figs/frac}
+\end{center}
+    \caption{Left: rates of processes producing $e^+e^-$ pairs, with the sum in black. Right: the radiative fraction, which is calculated by dividing the black histogram by the red histogram.}
+    \label{fig:radfrac}
+\end{figure}
 
 \subsubsection{Decay Length}
 The decay length is calculated using Equation \ref{eq:lifetime}, which gives the lifetime $\tau$ for a given $m_{A'}$ and $\epsilon^2$.
@@ -168,7 +181,7 @@ The parameters $p_3$, $p_2$, $p_1$, and $p_0$ are fit with polynomials in $m_{A'
     \label{fig:eff_z}
 \end{figure}
 
-\subsection{Estimating the Background Distribution}
+\subsection{Fitting the Background Distribution}
 \label{sec:tails}
 The background distribution consists of a Gaussian core and a non-Gaussian tail.
 The width of the Gaussian core is set by multiple scattering and is well understood, but the tails extend much farther than the Gaussian.
@@ -186,22 +199,53 @@ The background distribution is estimated from Monte Carlo.
 This is necessary because if the background distribution were fit from the data, and there is actually a heavy photon signal in the data, the fit would be pulled so as to understate the size of the signal.
 Comparisons of the background distribution in Monte Carlo and data show that the Monte Carlo accurately simulates the processes that create the tails.
 
-The 2-dimensional vertex distribution from Monte Carlo is scanned in $m$
+The 2-dimensional vertex distribution from Monte Carlo is scanned in $m$, using the same mass cut that is used for the analysis.
 
-The tail is fit well by an exponential.
+The background distribution is fit with a 4-parameter piecewise function defined from a Gaussian and an exponential.
+The Gaussian is defined with the usual parameters of mean and standard deviation.
+The parameter $z_{tail}$ defines the distance from the Gaussian's mean where the distribution transitions to the exponential.
+The exponential is defined in terms of a decay length, and its amplitude is fixed by the requirement that the function be continuous.
+This function is similar to the ``GaussExp'' function described in \cite{search_cms_2015}, except GaussExp fixes the exponential's decay length by requiring that the function be continuously differentiable.
+\begin{equation}
+B(z;\bar{z},\sigma,b,l)=
+\begin{cases}
+e^{-\frac{(z-\bar{z})^2}{2\sigma^2}} &\text{if } z\le\bar{z}+b,\\
+e^{-\frac{b^2}{2\sigma^2} - (z-\bar{z}-b)/l}  &\text{if } z\ge\bar{z}+b
+\end{cases}
+\end{equation}
 
-The tail is measured in Monte Carlo.
+The values of $b$ and $l$ found at each $m_{A'}$ are fitted to cubic polynomials in $m_{A'}$.
+When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the values found for Monte Carlo, but the Gaussian parameters are allowed to float.
 
-
-
-
-%S/(sqrt(B))
-\subsection{Vertex Tails}
-as a function of mass, scaled to rate: from MC
-checked against same distribution from data
-(WABs present but not dominant)
-\subsection{Radiative Fraction}
-as a function of mass: from MC
 \section{Setting Limits}
 
-\cite{yellin_finding_2002}
+
+\subsection{Optimum Interval Method}
+The method chosen for setting limits is the ``optimum interval'' method by Yellin \cite{yellin_finding_2002}.
+This method was developed for direct detection experiments, and is intended for low-statistics experiments where the signal shape is known, but the backgrounds are not fully understood and there is the possibility of an unexpected background.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.35\textwidth,page=4,angle=-90]{vertexing/figs/toy_nothing}
+    \includegraphics[width=0.35\textwidth,page=4,angle=-90]{vertexing/figs/toy_nosignal}
+\end{center}
+    \caption{Comparison of the optimum interval method with cut-and-count using Feldman-Cousins limits. The background (10000 events) has decay length 2, the signal has decay length 20, and the unexpected background (100 events) has decay length 5. Left plot is with only the expected background (no signal); right plot is with the unexpected background added (still no signal). The $z_{cut}$ for 0.5 expected background events is 19.8.}
+    \label{fig:optimum_interval_demo}
+\end{figure}
+
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=5,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+    \caption{Number of detectable heavy photon events expected past $z_{cut}$. The highest contour is at 0.3 events.}
+    \label{fig:detectable}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+    \caption{90\% CL upper limit on the heavy photon production rate. A value of 1 would mean exclusion; the lowest contour on this plot is 200.}
+    \label{fig:upper_limit}
+\end{figure}
