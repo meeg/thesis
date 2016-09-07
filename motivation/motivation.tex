@@ -30,7 +30,7 @@ This modifies the interaction Lagrangian as follows:
 \end{equation}
 
 This implies that particles with electric charge acquire a coupling, proportional to $\epsilon$, to the heavy photon.
-The converse is not true: hidden-sector particles with heavy photon couplings do not acquire couplings to the photon (such ``millicharged'' particles do occur if the new $U(1)$ is unbroken \cite{prinz_search_1998,davidson_updated_2000}) \cite{holdom_two_1986}.
+%The converse is not true: hidden-sector particles with heavy photon couplings do not acquire couplings to the photon (such ``millicharged'' particles do occur if the new $U(1)$ is unbroken \cite{prinz_search_1998,davidson_updated_2000}) \cite{holdom_two_1986}.
 
 If particles exist that are charged under both fields, kinetic mixing may arise from a one-loop diagram similar to Figure \ref{fig:oneloop}, with a natural scale of $\epsilon \sim 10^{-2}-10^{-4}$; on the other hand, GUT models require that one-loop contributions to $\epsilon$ vanish, and instead motivate two-loop contributions at $\epsilon \sim 10^{-3}-10^{-6}$ \cite{arkani-hamed_lhc_2008}.
 Because kinetic mixing is a renormalizable interaction, $\epsilon$ is independent of the masses of the particles that give rise to it.
@@ -87,7 +87,7 @@ Meanwhile, the antiproton fraction is consistent with secondary production.
 Measurements by the Fermi Large Area Telescope and the Alpha Magnetic Spectrometer (AMS) confirmed the observation and extended it to higher energies \cite{the_fermi_lat_collaboration_measurement_2012,ams_collaboration_first_2013}.
 
 The annihilation cross-section implied by the positron flux is large compared to the cross-section expected for a thermal relic, and also much larger than any observed annihilation to hadrons \cite{cholis_high_2009}.
-This is consistent with annihilation to heavy photons with then decay to electrons and positrons, as shown in Figure \ref{fig:dm_annihilation} \cite{arkani-hamed_theory_2009}.
+This is consistent with annihilation to heavy photons which then decay to electrons and positrons, as shown in Figure \ref{fig:dm_annihilation} \cite{arkani-hamed_theory_2009}.
 A heavy photon with $m_{A'}<2m_p$ cannot decay to $p\bar{p}$, and $m_{A'}$ in the MeV--GeV range (models with $m_{A'}$ in the 200--900 MeV range were tested in \cite{finkbeiner_consistent_2011}; if annihilation is dominated by local subhalos, lower mass ranges are allowed \cite{slatyer_sommerfeld-enhanced_2012}) creates Sommerfeld enhancement that boosts the annihilation cross-section at low velocities.
 
 \begin{figure}[ht]
@@ -115,11 +115,11 @@ A heavy photon with $m_{A'}<2m_p$ cannot decay to $p\bar{p}$, and $m_{A'}$ in th
 
 The positron fraction has more recently been disfavored as a motivation for the heavy photon.
 A larger AMS data set shows the full shape of the positron spectrum is softer than would be expected from a heavy photon decaying directly to $e^+e^-$ \cite{ams_collaboration_high_2014}, but consistent with a pulsar origin for cosmic ray positrons \cite{cholis_dark_2013}.
-Meanwhile, CMB observations put limits on the DM annihilation rate at recombination; measurements by Planck constrain the DM annihilation explanation for the positron fraction \cite{madhavacheril_current_2014}.
+Meanwhile, CMB observations put limits on the DM annihilation rate at recombination; measurements by Planck severely limit the DM annihilation explanation for the positron fraction \cite{madhavacheril_current_2014}.
 The positron spectrum may still be consistent with heavy photons decaying to intermediate states that then decay to $e^+e^-$ \cite{cholis_dark_2013}.
 
 Gamma ray and X-ray excesses also motivate models of dark matter that include heavy photons.
-Dark matter annihilation has been proposed as a source for an excess of high-energy gamma rays from the Galactic Center in Fermi data \cite{hooper_dark_2011}.
+Dark matter annihilation has been proposed as a source for an excess of high-energy gamma rays from the Galactic Center in Fermi data, and hidden sectors can play a role \cite{hooper_dark_2011}.
 A 3.5 keV line seen in galaxy cluster X-ray spectra \cite{bulbul_detection_2014,boyarsky_unidentified_2014} has been suggested to come from collisional excitation and de-excitation of dark matter, in a model named eXciting Dark Matter (XDM) \cite{finkbeiner_x-ray_2014}.
 
 \subsection{Halo Structure}
@@ -137,7 +137,7 @@ Both the observational evidence and the simulations continue to develop, and it 
 
 \subsection{Muon $g-2$ Anomaly}
 The measured value of the muon $g-2$ (anomalous magnetic moment, also known as $a_\mu=(g-2)/2$) is more than 3 standard deviations away from the value predicted by the Standard Model \cite{muon_final_2006,blum_muon_2013}.
-A heavy photon can contribute to the magnetic moment through the diagram shown in Figure \ref{fig:gm2}; there is a specific band in the $\epsilon-m_{A'}$ parameter space (shown in green in Figure \ref{fig:reach}) where the heavy photon correction accounts for the anomaly \cite{pospelov_secluded_2009}.
+A heavy photon can contribute to the magnetic moment through the diagram shown in Figure \ref{fig:gm2}; there is a specific band in the $\epsilon-m_{A'}$ parameter space (shown in green in Figure \ref{fig:reach}) where the heavy photon correction accounts for the anomaly \cite{pospelov_secluded_2009-1}.
 The good agreement of the electron $g-2$ with the Standard Model excludes a different region (drawn in red); similarly, there is an excluded region (drawn in green, above the favored band) where the heavy photon correction to muon $g-2$ exceeds the observed anomaly \cite{endo_constraints_2012}.
 This favored region has been targeted by many experiments, and is now excluded for the case of heavy photon decays to visible particles.
 
@@ -180,6 +180,8 @@ The decay width and proper lifetime are given in Equations \ref{eq:width} and \r
     \tau = \frac{\hbar}{\Gamma} = \frac{3\hbar}{N_{eff}m_{A'} \alpha \epsilon^2}
     \label{eq:lifetime}
 \end{equation}
+
+Since $\epsilon^2$ is small, the decay width is very narrow ($\Gamma/m_{A'}\propto \alpha \epsilon^2$) and the heavy photon appears as a sharp resonance.
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{motivation/figs/darkphoton-BR-1-3000-LOG}
@@ -225,7 +227,7 @@ NA64 at CERN is an electron beam experiment that uses an electromagnetic calorim
 
 \subsection{Thin Fixed Targets}
 An electron beam incident on a thin target will generate heavy photons through bremsstrahlung, $e^- Z \to e^- Z A'$.
-The signature is a mass resonance in the decay products (typically $e^+e^-$ for the mass range accessible by this technique).
+The signature is a mass resonance in the decay products (typically $e^+e^-$; $\mu^+\mu^-$ and $\pi^+\pi^-$ are accessible with beam energies above a couple of GeV).
 In contrast to beam dump experiments, these experiments are sensitive to heavy photons that decay promptly, without a resolvable decay length.
 The mass resolution can be improved by detecting the recoiling beam electron and/or nucleus.
 HPS is the first experiment of this type to attempt a displaced-vertex search.
@@ -233,8 +235,8 @@ HPS is the first experiment of this type to attempt a displaced-vertex search.
 Two experiments have been run with existing fixed-target spectrometers: one experiment using the A1 spectrometer at MAMI \cite{merkel_search_2014}, and the APEX experiment using the HRS spectrometer at JLab Hall A (a test run was completed, a full run is scheduled) \cite{essig_electron_2011,abrahamyan_search_2011}.
 Two experiments are planned: DarkLight at the JLab LERF \cite{balewski_darklight_2014}, and MAGIX at MESA \cite{denig_recent_2016}.
 
-A positron beam incident on a thin target will generate heavy photons through annihilation.
-Experiments of this type can detect monophoton final states ($e^+e^- \to \gamma A' \to \gamma \mathrm{dark}$) and identify the heavy photon in the missing mass spectrum. Experiments are proposed at INFN Frascati (PADME \cite{raggi_padme_2015}) and VEPP-3 \cite{wojtsekhowski_searching_2012}.
+A positron beam incident on a thin target could generate heavy photons through annihilation.
+Experiments of this type can detect monophoton final states ($e^+e^- \to \gamma A' \to \gamma \mathrm{dark}$) and identify the heavy photon in the missing mass spectrum. Experiments are proposed at INFN Frascati (PADME \cite{raggi_padme_2015}), VEPP-3 at the Budker Institute at Novosibirsk \cite{wojtsekhowski_searching_2012}.
 
 Proton or ion beams can also be used: the HADES spectrometer was used to measure inclusive $e^+e^-$ pairs from $p$-on-$p$, $p$-on-Nb, and Ar-on-KCl interactions.
 The assumed signal was from meson decays \cite{hades_collaboration_searching_2013}.
@@ -244,7 +246,7 @@ Most collider searches for heavy photons have come from flavor factories, where 
 $e^+e^-$ annihilation or Drell-Yan can also be a significant source of heavy photons.
 Displaced-vertex searches are often possible.
 
-Among $e^+e^-$ colliders, BaBar has set limits using $\upsilon \to \gamma A'$, $A'\to\mu^+\mu^-$ \cite{babar_collaboration_search_2009,soffer_constraints_2014}; KLOE has set limits using $\phi\to \eta A'$ and $e^+e^- \to \gamma A'$ production modes and dielectron, dimuon, and dipion decays \cite{collaboration_search_2012,collaboration_limit_2013,babusci_search_2014,anastasi_limit_2015,collaboration_limit_2016}.
+Among $e^+e^-$ colliders, BaBar has set limits using $\Upsilon \to \gamma A'$, $A'\to\mu^+\mu^-$ \cite{babar_collaboration_search_2009,soffer_constraints_2014}; KLOE has set limits using $\phi\to \eta A'$ and $e^+e^- \to \gamma A'$ production modes and dielectron, dimuon, and dipion decays \cite{collaboration_search_2012,collaboration_limit_2013,babusci_search_2014,anastasi_limit_2015,collaboration_limit_2016}.
 Belle-II is expected to improve on the BaBar result \cite{inguglia_belle_2016}.
 
 $p-p$ colliders have also been used. WASA at COSY looked for $\pi^0 \to \gamma A'$, $A'\to e^+e^-$ \cite{collaboration_search_2013}.
@@ -253,15 +255,63 @@ LHCb plans to make a significant impact with a search in $m_{A'}<2m_\mu$ using $
 \section{Overview of HPS}
 
 In HPS, the heavy photon is generated through electron bremsstrahlung off of a tungsten nucleus, and detected in its decay to $e^+e^-$.
+The process is shown in Figure \ref{fig:ap_prod}.
 This process is the analogue of the radiative trident process shown in Figure \ref{fig:tridents_rad}, with a heavy photon substituted for the radiated photon.
 Only the $e^+e^-$ pair is triggered on and reconstructed; the recoil electron is typically outside the detector acceptance.
 Both the pair invariant mass and vertex position are reconstructed.
+
+\begin{figure}[ht]
+    \hspace{5mm}
+    \begin{fmffile}{rad1}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i3}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i3,v1,v3,o2}
+            \fmf{heavy}{i1,v2,o1}
+            \fmf{photon,tension=0,label=$\gamma$}{v1,v2}
+            \fmf{fermion}{o3,v4,o4}
+            \fmf{photon,tension=2,label=$A'$}{v3,v4}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{10mm}
+    \begin{fmffile}{ap2}
+        \begin{fmfgraph*}(150,150)
+            \fmfstraight 
+            \fmfleft{i1,i2,i3,i4}
+            \fmfright{o1,o2,o3,o4}
+            \fmflabel{$Z$}{i1}
+            \fmflabel{$Z$}{o1}
+            \fmflabel{$e^-$}{i3}
+            \fmflabel{$e^-$}{o2}
+            \fmflabel{$e^+$}{o3}
+            \fmflabel{$e^-$}{o4}
+            \fmf{fermion}{i3,v1,v3,o2}
+            \fmf{heavy}{i1,v2,o1}
+            \fmf{fermion}{o3,v4,o4}
+            \fmf{photon,tension=2,label=$\gamma$}{v1,v4}
+            \fmffreeze
+            \fmf{photon,tension=0,label=$A'$}{v3,v2}
+        \end{fmfgraph*}
+    \end{fmffile}
+    \hspace{5mm}
+    \caption{Heavy photon production and decay. The heavy photon ($A'$) is on-shell, and can travel some distance before decaying in free space.}
+    \label{fig:ap_prod}
+\end{figure}
 
 Two analyses are performed on the same data set.
 A pure bump-hunt search at large $\epsilon$ assumes the heavy photon decays at the target, which improves the mass resolution.
 This is a search for a mass resonance, using only the pair invariant mass; it is described fully in \cite{moreno_search_2016}.
 A displaced-vertex search at small $\epsilon$ rejects pairs originating from the target.
 Because the heavy photon must travel a measurable distance, this search is not sensitive to large $\epsilon$.
+
+This dissertation presents the displaced-vertex search.
 
 \subsection{Signal Kinematics}
 The kinematics of heavy photon production can be calculated using the Weizs{\"a}cker-Williams approximation (where the nucleus is replaced by an effective photon flux); this is done in \cite{bjorken_new_2009}, based on work in \cite{tsai_pair_1974,tsai_axion_1986}.
@@ -291,13 +341,13 @@ This means that the typical opening angle of the decay products is $2m_{A'}/E_0$
 From Equation \ref{eq:cx_xtheta}, $\theta_{A'}$ is dominated by small values: the typical value of $\theta_{A'}$ is $\left(\frac{m_{A'}}{E_0}\right)^{3/2}$, so $\theta_{A'}$ is smaller than the opening angle of the decay products and it is a good approximation to assume the heavy photon is emitted in the beam direction.
 
 The recoiling incident electron is soft and also largely balances the $p_\perp$ of the heavy photon, and therefore is at relatively wide angle $\theta_R\sim \sqrt{\frac{m_{A'}}{E_0}}$.
-It is usually not in the HPS acceptance.
+It rarely makes it through the full length of the detector, and is not easily tracked.
 
 \subsection{Physics Backgrounds}
 The major sources of $e^+e^-$ backgrounds are radiative tridents, Bethe-Heitler tridents, and pair conversions of wide-angle bremsstrahlung photons.
 
 As discussed in Section \ref{sec:signatures}, the radiative trident and heavy photon processes have the same kinematics.
-The radiative trident process is therefore an irreducible background.
+The radiative trident process is therefore an irreducible background, except that heavy photons can be distinguished by the mass resonance and measurable decay length.
 
 \begin{figure}[ht]
     \hspace{5mm}
