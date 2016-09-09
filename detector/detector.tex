@@ -316,7 +316,7 @@ The right side of the board operates in air, and has two MPO multi-fiber connect
 \end{figure}
 
 
-\section{Electromagnetic Calorimeter}
+\section{Electromagnetic Calorimeter and Trigger}
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/ECal}
     \caption{Beam's-eye-view of the ECal.}
@@ -328,4 +328,23 @@ The right side of the board operates in air, and has two MPO multi-fiber connect
     \caption{One ECal crystal with its readout electronics. The optical fiber was used in the CLAS IC for calibration and monitoring, but was removed for HPS. HPS uses LEDs mounted directly in front of the crystals.}
     \label{fig:ecal_module}
 \end{figure}
+
+\subsection{Trigger Cuts}
+\label{sec:trigger_cuts}
+
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{lc}   
+            \hline \hline
+            Cluster energy & $54<E<630$ MeV \\
+            Energy sum & $180<E_{top}+E_{bot}<860$ MeV \\
+            Energy difference & $|E_{top}-E_{bot}|<540$ MeV \\
+            Coplanarity & $|\phi_{top}-\phi_{bot}-180^\circ|<30^\circ$ \\
+            Energy-distance cut & $E_{low}+(5.5\text{ MeV/mm})r_{low}>600$ MeV \\
+            \hline \hline
+        \end{tabular}
+        \caption{Trigger cuts for the ``pairs-1'' trigger.}
+        \label{tab:trigger_cuts} 
+    \end{center}
+\end{table}
 

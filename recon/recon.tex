@@ -1,15 +1,71 @@
 \chapter{Event Reconstruction and Selection}
-track recon
-cluster recon
-global alignment
-initial event selection
+\section{Reconstruction}
+\subsection{Tracking}
+\label{sec:track_recon}
+track finding
 
+GBL refit
+
+\subsection{Vertexing}
+\label{sec:vertex_recon}
+Pairs of tracks are vertexed using a fast vertex fit that finds the best-fit vertex position and track parameters based on the track parameters and covariance matrices, and optional additional vertex constraints \cite{billoir_fast_1992}.
+
+The HPS vertex reconstruction uses constraints on the $x$, $y$, and $z$ of the vertex.
+All constraints are limited by the vertex resolutions in those directions; the $x$ and $y$ constraints are limited by the beamspot size, and the $z$ constraint is limited by knowledge of the target position, but these are all smaller than the vertex resolutions.
+%Three types of constraints are used, all using knowledge about the target and/or beamspot.
+The ``z-constrained'' fit requires that the vertex be located at the target $z$.
+The ``target-constrained'' fit requires that the vertex be located at the target $z$, and that the $x$ and $y$ be located at the beamspot.
+The ``beamspot-constrained'' fit requires that the vertex position and momentum are such that the vertex momentum points back to the beamspot at the target $z$.
+
+\subsection{Clustering}
+\label{sec:clustering}
+
+\subsection{Track-Cluster Matching}
+\label{sec:matching}
 \section{Tracker Performance and Alignment}
 \subsection{Internal Alignment}
 millepede
 \subsection{Elastic Electrons}
+\label{sec:target_z}
 \subsection{M{\o}ller Electrons}
 \label{sec:mollers}
 
-\section{Event Selection Cuts}
+\section{$e^+e^-$ Selection Cuts}
 \label{sec:event_selection}
+After reconstruction, all possible $e^+e^-$ pairs in the event are tested against a set of cuts.
+There is no explicit requirement that the electron and positron be the pair of particles that caused the trigger.
+The base selection is intended to remove accidental coincidences from the event sample.
+
+The ``pairs-1'' trigger is the HPS physics trigger, described in Section \ref{sec:trigger_cuts}.
+It is tuned to accept $e^+e^-$ pairs, and is the overwhelming majority of the event rate (16.6 kHz out of 19 kHz).
+
+Track-cluster matching is important for two reasons: the cluster time resolution is better than the track time resolution, and track-cluster matching eliminates many misreconstructed tracks.
+Two checks are done on the quality of the track-cluster matching for both particles.
+First, a cut is made on the $\chi^2$ of the track-cluster match; this is a requirement on the distance between the cluster position and the track extrapolation to the ECal.
+Second, a cut is made on the track-cluster time difference.
+Since the track and cluster times are referenced differently (the track time is relative to the trigger time, and the cluster time is relative to the start of the ECal readout window), a constant offset of 43 ns is subtracted.
+
+
+
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{lc}   
+            \hline \hline
+            Trigger type & ``pairs-1'' trigger \\
+            Track-cluster matching (position) & $\chi^2_{match}<10$ \\
+            Track-cluster matching (time) & $|t_{cl}-t_{trk}-43|<4$ ns \\
+            Cluster time coincidence & $|t_{cl}(e^-)-t_{cl}(e^+)|<2$ ns \\
+            Top-bottom requirement & $\sign(y_{cl}(e^-))\neq\sign(y_{cl}(e^-))$ \\
+            Track quality & $\chi^2_{trk}<50$ \\
+            Elastics cut & $p(e^-)<0.75E_{beam}$ \\
+            Momentum sum cut & $p_{tot}(e^+e^-)<1.15E_{beam}$ \\
+            Radiative cut & $p_{tot}(e^+e^-)>0.8E_{beam}$ \\
+            \hline \hline
+        \end{tabular}
+        \caption{Base event selection cuts for HPS.}
+        \label{tab:basic_cuts} 
+    \end{center}
+\end{table}
+
+\subsection{Data Processing and Normalization}
+\label{sec:luminosity}

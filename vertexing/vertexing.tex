@@ -14,6 +14,7 @@ These vertex quality cuts are tuned to suppress the tails of the vertex distribu
 \end{figure}
 
 The events passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex Z-coordinate $z$ of an event: see Figure \ref{fig:zvsmass}.
+The vertex $z$ is defined relative to the nominal target position; as explained in Section \ref{sec:target_z}, the actual target position is at $z_{target}\approx 5$ mm.
 A rectangular window is scanned across the distribution to search for a heavy photon with $m_{A'}=m$: the width of the distribution is set by the mass resolution, and the minimum $z$ is set to remove the large background from prompt $e^+e^-$ pairs.
 %This distribution is then scanned in $m$ to search for a heavy photon with $m_{A'}=m$.
 %At each $m_{A'}$, a mass slice is made to restrict the dataset to the resolution-limited region where the heavy photon signal would be present, and a cut is made on $z$ to remove the large background from prompt $e^+e^-$ pairs.
@@ -24,10 +25,9 @@ Two types of analyses are performed on the data in the window.
 The first is a cut-and-count analysis, where the number of events found in the rectangular region is compared to the number expected; this analysis gives the significance of the observed excess over background, and is described in Section \ref{sec:significance}.
 The second analysis uses the optimum interval method to set an upper limit on the heavy photon production rate, and is described in Section \ref{sec:limits}.
 
-\section{Data and Monte Carlo Samples}
+\section{Monte Carlo Samples}
 All of the events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
-
-\subsection{Data Processing and Normalization}
+Beam backgrounds, such as elastically scattered electrons, that are created in the target and create pileup in the detector, are simulated using EGS5 \cite{hirayama_egs5_2005} and Geant4 \cite{agostinelli_geant4simulation_2003}.
 
 \subsection{Trident and Wide-Angle Bremsstrahlung Monte Carlo}
 \label{sec:tri_mc}
@@ -35,20 +35,89 @@ Both ``full-diagram'' and radiative tridents are simulated using MadGraph/MadEve
 The generator for full-diagram tridents includes radiative tridents, Bethe-Heitler tridents, and the interference terms.
 Since radiative tridents are important for normalizing the heavy photon rate, radiative tridents are generated separately.
 
-Wide-angle bremsstrahlung is the other important source of $e^+e^-$ pairs.
+Wide-angle bremsstrahlung is the other important source of $e^+e^-$ pairs; as explained in \ref{sec:physics_backgrounds}, the primary electron and the positron from the pair conversion can fake an $e^+e^-$ pair.
 MadGraph/MadEvent is used to produce $e^-\gamma$ events because it handles the angle correlations and the momentum transfer to the nucleus correctly.
 The photon pair conversion is simulated in EGS5 (if in the target) or Geant4 (if in the tracker).
 
 \subsection{Heavy Photon Monte Carlo}
 \label{sec:ap_mc}
 Heavy photon Monte Carlo is generated at values of $m_{A'}$ spaced out across the region of interest: 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 35, 40, 50, 60, 70, 80, and 90 MeV.
+The generator uses MadGraph/MadEvent, and fully simulates the momentum and angle spectra of the produced heavy photons.
 In order to get complete coverage of $z>z_{target}$ for the purposes of the vertexing analysis, the decay vertices were displaced (in the direction of the heavy photon momentum, and accounting for variations in $\gamma$) according to an arbitrary decay length of $c\tau=1$ mm.
 
 \section{Vertex Cuts}
 \label{sec:vertex_cuts}
-require layer 1
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{lc}   
+            \hline \hline
+            Trigger type & ``pairs-1'' trigger \\
+            Track-cluster matching (position) & $\chi^2_{match}<10$ \\
+            Track-cluster matching (time) & $|t_{cl}-t_{trk}-43|<4$ ns \\
+            Cluster time coincidence & $|t_{cl}(e^-)-t_{cl}(e^+)|<2$ ns \\
+            Top-bottom requirement & $\sign(y_{cl}(e^-))\neq\sign(y_{cl}(e^-))$ \\
+            Elastics cut & $p(e^-)<0.75E_{beam}$ \\
+            Momentum sum cut & $p_{tot}(e^+e^-)<1.15E_{beam}$ \\
+            Radiative cut & $p_{tot}(e^+e^-)>0.8E_{beam}$ \\
+            \hline \hline
+            Track quality & $\chi^2_{trk}<30$ \\
+            Layer 1 isolation & 0.5 \\
+            Beamspot-constrained vertex quality & $\chi^2<10$ \\
+            Layer 1 requirement & layer 1 hits for both tracks \\
+            Momentum asymmetry & $|p(e^-)-p(e^+)|/(p(e^-)+p(e^+))<0.4$ \\
+            Positron DOCA & $d_0(e^+)<1.5$ mm \\
+            \hline \hline
+        \end{tabular}
+        \caption{The full set of event selection cuts for the vertexing analysis.
+        Cuts carried over from the base selection are on top; cuts specific (or tightened) for vertexing are on bottom.}
+        \label{tab:vertex_cuts} 
+    \end{center}
+\end{table}
+
+Broadly speaking, there are three types of events that the vertexing cuts are meant to eliminate: layer 1 scatters, mishits, and wide-angle bremsstrahlung pairs.
+
+Multiple scattering in layer 1 is the source of the Gaussian core of the vertex distribution, and also plays a role in the tails.
+If one of the particles scatters in the first layer of the tracker, the track parameters at the vertex will be shifted.
+The distribution of scattering angles is Gaussian at small angles where the scattering process is approximated by a random walk, but at large angles, the distribution is described by the Moli\`ere distribution, which approaches the power-law Rutherford scattering distribution.
+
+Mishits happen when a particle scatters in the second (or later) layer of the tracker.
+The scatter can shift the track so that a layer-1 hit from a different particle is more in line with the hits from layers 2 on; the track fit will then add the wrong hit to the track, and the track parameters at the vertex will be shifted.
+
+The electron and positron of a wide-angle bremsstrahlung pair do not have the same origin: the electron comes from the bremsstrahlung interaction in the target, and the positron comes from a pair conversion that may happen in the target or in the tracker.
+If the pair conversion happens in the tracker, the positron will not extrapolate to the target, and the reconstructed vertex may be pulled away from the target.
+Because the positron is typically collinear with the photon, the effect on vertex $z$ is typically small, but these events are a identifiable component of the vertex distribution tails.
+
 \subsection{Layer 1 Requirement}
+\label{sec:layer1_cut}
+The track reconstruction will find tracks with hits in any 5 out of the 6 layers.
+This means that tracks can be reconstructed without layer 1 hits (as long as they have hits in all other layers).
+Tracks without layer 1 hits have degraded mass and vertex resolution.
+Furthermore, the tails of the vertex distribution extend to larger values of $z$.
+For these reasons, it is not possible to use tracks with and without layer 1 hits as part of the same data set.
+
+The background from wide-angle bremsstrahlung conversions is also significantly reduced by this cut.
+In order to create charged tracks, the bremsstrahlung photon must convert in the target, either layer 1 sensor, or early enough in the upstream layer 2 sensor to make a hit there.
+But in order to create charged tracks with layer 1 hits, the photon must convert in the target or the upstream layer 1 sensor.
+The silicon sensors (0.35\% $X_0$) are significantly thicker than the portion of the target traversed by the average photon (half of 0.125\% $X_0$), so requiring that the track have a layer 1 hit cuts this background by roughly a factor of three.
+
+The layer 1 requirement has a significant effect on the efficiency for long-lived, low-mass heavy photons.
+As seen from the target, all layers of the tracker have their inner edges at $\pm 15$ mrad vertical angle from the beam plane.
+As seen by a heavy photon decaying downstream of the target, layer 1 is at a significantly larger vertical angle than the others, and so the minimum $m_{A'}$ needed to hit layer 1 is larger.
+Put another way, this means that the maximum $z$ for detecting a heavy photon of given $m_{A'}$ is smaller if layer 1 is required; this is shown in Figure \ref{fig:eff_z_alllayers}.
+The impact of this effect is discussed in Section \ref{sec:reach_projections}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.35\textwidth,page=7,angle=-90]{vertexing/figs/acceptance_data}
+    \includegraphics[width=0.35\textwidth,page=7,angle=-90]{vertexing/figs/acceptance_alllayers_data}
+\end{center}
+\caption{Efficiency curves for $m_{A'}=40$ MeV. Left: requiring layer 1 hits for both tracks. Right: full HPS acceptance.}
+    \label{fig:eff_z_alllayers}
+\end{figure}
+
 \subsection{Beamspot Constraint}
+
+
 \subsection{Isolation Cut}
 %\subsection{Track Momentum}
 %\subsection{Positron DOCA}
@@ -230,17 +299,9 @@ The background distribution consists of a Gaussian core and a non-Gaussian tail.
 The width of the Gaussian core is set by multiple scattering and is well understood, but the tails extend much farther than the Gaussian.
 For $z>z_{cut}$, the background distribution is dominated by the tails: $z_{cut}$ is typically at least $5\sigma_z$.
 
-The tails of the vertex distribution mostly come from two sources: multiple scattering and mishits.
-
-Multiple scattering is the source of the Gaussian core, and also plays a role in the tails.
-If one of the particles scatters in the first layer of the tracker, the track parameters at the vertex will be shifted.
-The distribution of scattering angles is Gaussian at small angles where the scattering process is approximated by a random walk, but at large angles, the distribution approaches the Rutherford scattering distribution, which is a power law.
-
-If a particle scatters in the second (or later) layer of the tracker, the track may be shifted so that a layer-1 hit from a different particle is more in line with the hits from layers 2 on; the track fit will then add the wrong hit to the track, and the track parameters at the vertex will be shifted.
-
 The background distribution is estimated from Monte Carlo.
 This is necessary because if the background distribution were fit from the data, and there is actually a heavy photon signal in the data, the fit would be pulled so as to understate the size of the signal.
-As in Figure \ref{fig:vertex_data-mc}, comparisons of the background distribution in Monte Carlo and data show that the Monte Carlo accurately simulates the processes that create the tails and the tails found in Monte Carlo are good fits to the data.
+As in Figure \ref{fig:vertex_data-mc}, comparisons of the background distribution in Monte Carlo and data show that the Monte Carlo accurately simulates the processes that control the vertex resolution: the resolution in the Gaussian core and tails found in Monte Carlo are good fits to the data.
 
 \begin{figure}[ht]
 \begin{center}
@@ -253,9 +314,9 @@ As in Figure \ref{fig:vertex_data-mc}, comparisons of the background distributio
 The 2-dimensional vertex distribution from Monte Carlo is scanned in $m$, using the same mass cut that is used for the analysis.
 
 The background distribution is fit with a 4-parameter piecewise function defined from a Gaussian and an exponential.
-The Gaussian is defined with the usual parameters of mean and standard deviation.
-The parameter $z_{tail}$ defines the distance from the Gaussian's mean where the distribution transitions to the exponential.
-The exponential is defined in terms of a decay length, and its amplitude is fixed by the requirement that the function be continuous.
+The Gaussian is defined with the usual parameters of mean $\bar{z}$ and standard deviation $\sigma$.
+The parameter $b$ defines the distance from the Gaussian's mean where the distribution transitions to the exponential.
+The exponential is defined in terms of a decay length $l$, and its amplitude is fixed by the requirement that the function be continuous.
 This function is similar to the ``GaussExp'' function described in \cite{cms_collaboration_search_2015}, except GaussExp fixes the exponential's decay length by requiring that the function be continuously differentiable.
 \begin{equation}
 B(z;\bar{z},\sigma,b,l)=
@@ -316,6 +377,7 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
 \label{sec:limits}
 
 
+
 \subsection{Optimum Interval Method}
 The method chosen for setting limits is the ``optimum interval'' method by Yellin \cite{yellin_finding_2002}.
 This method was developed for direct detection experiments, and is intended for low-statistics experiments where the signal shape is known, but the backgrounds are not fully understood and there is the possibility of an unexpected background.
@@ -349,7 +411,9 @@ As expected, the optimum interval method always performs as well, or better than
 Optimum interval limits are insensitive to background events at the edge of the search range.
 This can be seen around $z=22$ and $z=26$ in the right-hand plot, where there are events from the nuisance background: the cut-and-count limits jump up discontinuously when $z_{cut}$ moves past the event, but the optimum interval limits vary smoothly.
 It is still clear that it makes sense to avoid as much background as possible, so setting $z_{cut}$ for expected 0.5 background events is still appropriate.
-Since the background distributions are steep
+
+The optimum interval method can be used with or without subtracting a known background.
+This test shows that the performance is not dramatically better when subtracting the known background.
 
 \begin{figure}[ht]
 \begin{center}
@@ -364,7 +428,8 @@ Since the background distributions are steep
 \subsection{Results}
 The optimum interval method gives limits on the number of signal events past $z_{cut}$ and after acceptance and efficiency effects.
 After these factors are divided out, the limits can be expressed relative to the expected production rate for a heavy photon of given $m_{A'}$ and $\epsilon^2$.
-This is shown in Figure \ref{fig:upper_limit}, which shows that this analysis, on this data, is a factor of 106 from excluding any portion of the parameter space.
+In these units, a limit of 1 or less means the heavy photon is excluded at that $m_{A'}$ and $\epsilon^2$.
+The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which shows that this analysis, on this data, is a factor of 106 from excluding any portion of the parameter space.
 
 \begin{figure}[ht]
 \begin{center}
@@ -382,6 +447,8 @@ This is shown in Figure \ref{fig:upper_limit}, which shows that this analysis, o
     \label{fig:detectable}
 \end{figure}
 
+\subsubsection{Reach Projections with Planned Improvements}
+\label{sec:reach_projections}
 Several factors will improve this reach in future iterations of this analysis.
 First, the number of events with $z>z_{cut}$ was larger than predicted by the background fit.
 Better event cuts may be able to reduce this background.
@@ -410,18 +477,11 @@ As shown in Figure \ref{fig:upper_limit_fullset}, this improves the exclusion to
 \end{figure}
 
 Finally, this analysis only used the events where both tracks made hits in layer 1 of the tracker.
+As explained in Section \ref{sec:layer1_cut}
 Figure \ref{fig:eff_z_alllayers} shows the difference in efficiency between the current analysis and the full acceptance.
 Doing this will require tuning cuts separately for the sets of events that miss layer 1, and combining the data sets (the optimum interval method can be used for this \cite{yellin_ways_2011}).
 As shown in Figure \ref{fig:upper_limit_fullset_alllayers}, this improves the exclusion to 6.82.
-
-\begin{figure}[ht]
-\begin{center}
-    \includegraphics[width=0.35\textwidth,page=7,angle=-90]{vertexing/figs/acceptance_data}
-    \includegraphics[width=0.35\textwidth,page=7,angle=-90]{vertexing/figs/acceptance_alllayers_data}
-\end{center}
-\caption{Efficiency curves for $m_{A'}=40$ MeV. Left: requiring layer 1 hits for both tracks. Right: full HPS acceptance.}
-    \label{fig:eff_z_alllayers}
-\end{figure}
+The mass range of the search is also substantially improved, because the lower values of $m_{A'}$ are more strongly affected by the layer 1 requirement.
 
 \begin{figure}[ht]
 \begin{center}
