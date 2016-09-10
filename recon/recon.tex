@@ -30,11 +30,12 @@ millepede
 \subsection{M{\o}ller Electrons}
 \label{sec:mollers}
 
-\section{$e^+e^-$ Selection Cuts}
+\section{\texorpdfstring{$e^+e^-$}{e+e-} Selection Cuts}
 \label{sec:event_selection}
 After reconstruction, all possible $e^+e^-$ pairs in the event are tested against a set of cuts.
 There is no explicit requirement that the electron and positron be the pair of particles that caused the trigger.
-The base selection is intended to remove accidental coincidences from the event sample.
+There is also no fiducial requirement, since the inner edge of the detector acceptance is key for sensitivity to low-mass heavy photons.
+The base selection is intended to remove accidental coincidences from the pair sample.
 
 The ``pairs-1'' trigger is the HPS physics trigger, described in Section \ref{sec:trigger_cuts}.
 It is tuned to accept $e^+e^-$ pairs, and is the overwhelming majority of the event rate (16.6 kHz out of 19 kHz).
@@ -45,7 +46,18 @@ First, a cut is made on the $\chi^2$ of the track-cluster match; this is a requi
 Second, a cut is made on the track-cluster time difference.
 Since the track and cluster times are referenced differently (the track time is relative to the trigger time, and the cluster time is relative to the start of the ECal readout window), a constant offset of 43 ns is subtracted.
 
+The electron and positron are required to be in opposite halves of the detector: this cut is implemented as a requirement that the $y$-coordinates of the two clusters have opposite signs.
+This avoids any possibility of confusion in the track or cluster reconstruction, since the hits from the electron and positron are guaranteed to be well separated.
+A heavy photon can have enough transverse momentum that both decay products land in the same half of the detector, but the rate is low, and two particles in the same half of the ECal will not make a trigger.
 
+Three more simple cleanup cuts are applied.
+A loose track quality cut is applied on the $\chi^2$ of each GBL fit; this is only meant to reject very poor track fits.
+Elastically scattered electrons with $p(e^-)\approx E_{beam}$ are the main pileup background in the tracker, and are rejected with a maximum momentum requirement on electrons.
+A momentum sum cut rejects pairs with a momentum sum too far in excess of $E_{beam}$; this further reduces the rate of random coincidences with elastic electrons.
+
+Finally, a ``radiative cut'' is applied for heavy photon analyses.
+This is a minimum requirement on the momentum sum, at $0.8E_{beam}$.
+As shown in Section \ref{sec:signal_kinematics}, most heavy photons and radiative tridents are produced with energy near $E_{beam}$; the radiative cut keeps most of these and rejects the Bethe-Heitler tridents which dominate at low momentum.
 
 \begin{table}[h]
     \begin{center}
@@ -62,10 +74,16 @@ Since the track and cluster times are referenced differently (the track time is 
             Radiative cut & $p_{tot}(e^+e^-)>0.8E_{beam}$ \\
             \hline \hline
         \end{tabular}
-        \caption{Base event selection cuts for HPS.}
+        \caption{Base pair selection cuts for HPS.}
         \label{tab:basic_cuts} 
     \end{center}
 \end{table}
 
-\subsection{Data Processing and Normalization}
+\subsection{Tuning Cuts}
+The pair selection cuts are tuned on the data, using the cluster time difference to separate ``good'' and ``bad'' events.
+Pairs with large cluster time difference ($|t_{cl}(e^-)-t_{cl}(e^+)|>3$ ns) are accidental coincidences; pairs with small cluster time difference ($|t_{cl}(e^-)-t_{cl}(e^+)|<1$ ns) are dominated by true time coincidences.
+An effective cut should reject pairs with large cluster time difference, and not pairs with small cluster time difference.
+
+
+\section{Data Processing and Normalization}
 \label{sec:luminosity}
