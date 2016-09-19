@@ -2,31 +2,51 @@
 The HPS vertexing search is a low-background search for heavy photons with displaced vertices.
 This search is sensitive to heavy photons with low coupling, and therefore low production but long decay lengths.
 
-The event selection for the vertexing search requires cuts in addition to the basic cuts described in \ref{sec:event_selection}.
+The pair selection for the vertexing search requires cuts in addition to the basic cuts described in \ref{sec:event_selection}.
 These vertex quality cuts are tuned to suppress the tails of the vertex distribution, and are described in \ref{sec:vertex_cuts}.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=1,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-    \caption{Dataset for the vertexing analysis.}
+    \caption{Dataset for the vertexing analysis. The core of the vertex distribution is the horizontal band at $z=-5$; a heavy photon signal would appear as a band reaching upwards from the core.}
     \label{fig:zvsmass}
 \end{figure}
 
-The events passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex Z-coordinate $z$ of an event: see Figure \ref{fig:zvsmass}.
-The vertex $z$ is defined relative to the nominal target position; as explained in Section \ref{sec:target_z}, the actual target position is at $z_{target}\approx 5$ mm.
-A rectangular window is scanned across the distribution to search for a heavy photon with $m_{A'}=m$: the width of the distribution is set by the mass resolution, and the minimum $z$ is set to remove the large background from prompt $e^+e^-$ pairs.
-%This distribution is then scanned in $m$ to search for a heavy photon with $m_{A'}=m$.
-%At each $m_{A'}$, a mass slice is made to restrict the dataset to the resolution-limited region where the heavy photon signal would be present, and a cut is made on $z$ to remove the large background from prompt $e^+e^-$ pairs.
-%The combined effect is to select events in a rectangular region in $(m,z)$ that
+
+The pairs passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex Z-coordinate $z$ of a pair: see Figure \ref{fig:zvsmass}.
+The vertex $z$ is defined relative to the nominal target position; as explained in Section \ref{sec:target_z}, the actual target position is at $z_{target}\approx -5$ mm.
+To test for a heavy photon with $m_{A'}=m$, a resolution-limited mass slice is taken from the 2-D data set, and the vertex $z$ of the pairs in this mass slice are plotted as in Figure \ref{fig:vz_1d}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=51,angle=-90]{vertexing/figs/golden_mres}
+\end{center}
+\caption{Vertex Z for a resolution-limited mass slice (in data). A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
+    For this mass slice, $z_{cut}=26.55$; there are three events with $z>z_{cut}$.}
+    \label{fig:vz_1d}
+\end{figure}
+
+A cut is made at a minimum $z>z_{cut}$ to remove the large background from prompt $e^+e^-$ pairs.
+$z_{cut}$ (plotted in Figure \ref{fig:zcut}) is set so the expected number of events past $z_{cut}$ is 0.5 according to a model of the prompt pairs distribution, described in Section \ref{sec:tails}.
 This minimizes the prompt backgrounds and maximizes the heavy photon signal.
 
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=1,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+\caption{The value of the cut $z>z_{cut}$, as a function of the center of the mass slice.}
+    \label{fig:zcut}
+\end{figure}
+
+
+
 Two types of analyses are performed on the data in the window.
-The first is a cut-and-count analysis, where the number of events found in the rectangular region is compared to the number expected; this analysis gives the significance of the observed excess over background, and is described in Section \ref{sec:significance}.
+The first is a cut-and-count analysis, where the number of pairs found in the rectangular region is compared to the number expected; this analysis gives the significance of the observed excess over background, and is described in Section \ref{sec:significance}.
 The second analysis uses the optimum interval method to set an upper limit on the heavy photon production rate, and is described in Section \ref{sec:limits}.
 
 \section{Monte Carlo Samples}
-All of the events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
+All of the $e^+e^-$ pair events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
 Beam backgrounds, such as elastically scattered electrons, that are created in the target and create pileup in the detector, are simulated using EGS5 \cite{hirayama_egs5_2005} and Geant4 \cite{agostinelli_geant4simulation_2003}.
 
 \subsection{Trident and Wide-Angle Bremsstrahlung Monte Carlo}
@@ -47,7 +67,7 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
 
 \section{Vertex Cuts}
 \label{sec:vertex_cuts}
-\begin{table}[h]
+\begin{table}[ht]
     \begin{center}
         \begin{tabular}{lc}   
             \hline \hline
@@ -61,14 +81,14 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
             Radiative cut & $p_{tot}(e^+e^-)>0.8E_{beam}$ \\
             \hline \hline
             Track quality & $\chi^2_{trk}<30$ \\
-            Layer 1 isolation & 0.5 \\
-            Beamspot-constrained vertex quality & $\chi^2<10$ \\
             Layer 1 requirement & layer 1 hits for both tracks \\
+            Layer 1 isolation & 0.5 mm \\
+            Beamspot-constrained vertex quality & $\chi^2<10$ \\
             Momentum asymmetry & $|p(e^-)-p(e^+)|/(p(e^-)+p(e^+))<0.4$ \\
             Positron DOCA & $d_0(e^+)<1.5$ mm \\
             \hline \hline
         \end{tabular}
-        \caption{The full set of event selection cuts for the vertexing analysis.
+        \caption{The full set of pair selection cuts for the vertexing analysis.
         Cuts carried over from the base selection are on top; cuts specific (or tightened) for vertexing are on bottom.}
         \label{tab:vertex_cuts} 
     \end{center}
@@ -116,11 +136,37 @@ The impact of this effect is discussed in Section \ref{sec:reach_projections}.
 \end{figure}
 
 \subsection{Beamspot Constraint}
+The beamspot constraint uses the vertex fit to identify the common situation where one track points back to the beamspot at the target as it should, but the other does not.
+If the second track (due to scattering, mishits or any other effect) intersects the beam axis downstream of the target, the reconstructed vertex will be pulled downstream along the first track.
+The effect is that the reconstructed $z$ will be pulled downstream of the target, but the reconstructed vertex $y$ is also pulled up or down in a way that is inconsistent with a true displaced decay.
+The beamspot constraint is meant to identify these inconsistencies.
 
+As explained in Section \ref{sec:vertex_recon}, the vertex reconstruction can use a ``beamspot-constrained'' fit where the vertex momentum is required to point back to the beamspot at $z_{target}$.
+The $\chi^2$ of this vertex fit is the sum of two factors: the consistency of the vertex (how close the tracks are to intersecting each other) and the consistency with the beamspot constraint (how close the vertex is to pointing back to the beamspot).
 
 \subsection{Isolation Cut}
-%\subsection{Track Momentum}
-%\subsection{Positron DOCA}
+The isolation cut rejects possible mishits by looking at the other hits in layer 1 of the tracker.
+If a mishit on a track pulls the vertex downstream, the real hit from the particle will be close to the hit that was mistakenly associated with the track, but further away from the beam plane.
+Therefore an ``isolation'' value is calculated for each of the layer 1 hits, as the distance to the closest hit in the outwards direction.
+If any of the four isolations (one for each layer 1 sensor) is less than 0.5 mm, the pair is rejected.
+
+\subsection{Momentum Asymmetry and Positron DOCA}
+Two cuts are meant to reject wide-angle bremsstrahlung pairs.
+
+Because the electron from a bremsstrahlung interaction typically carries more momentum than the photon, the electron in a WAB pair usually has higher momentum than the positron.
+Heavy photons and radiative tridents have a symmetric distribution of electron and positron momentum, so a cut is used to reject pairs where the electron has much higher momentum than the positron.
+
+If the pair conversion happens in the tracker, the positron track will curve wide of the target since the positron is roughly collinear with the photon, which does not bend in the magnetic field.
+This appears in the track parameters as a positive DOCA (distance of closest approach) in the X-Z plane.
+Therefore, pairs with large positive positron DOCA are rejected.
+
+\subsection{Tuning Cuts}
+Data is used to tune the cuts to keep pairs with $z$ close to $z_{target}$, and reject pairs with large positive $z$.
+In general, tuning cuts on the data can introduce bias.
+In this case, only the unblinded 10\% of the full dataset is being used (and will be used, even after the data is unblinded) for tuning cuts; even if a heavy photon is present in the tuning data, the number of expected events is negligible.
+Also, since the cuts are not tuned for individual mass slices, any possible heavy photon signal will not be as prominent in the tuning process as it would be in the analysis.
+
+Heavy photon Monte Carlo is used to check that none of the cuts have an unexpected adverse effect on efficiency for displaced vertices.
 
 \section{Fit Inputs}
 
@@ -330,8 +376,8 @@ e^{-\frac{b^2}{2\sigma^2} - (z-\bar{z}-b)/l}  &\text{if } z\ge\bar{z}+b
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=51,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Vertex Z for a mass slice, in data. The transition from Gaussian to exponential is at roughly z=2. For this mass slice, $z_{cut}=26.55$; there are three events with $z>z_{cut}$.}
-    \label{fig:vz_1d}
+\caption{Vertex Z for a mass slice in data, with the background model in blue.}
+    \label{fig:vz_fit}
 \end{figure}
 
 The values of $b$ and $l$ found at each $m_{A'}$ are fitted to cubic polynomials in $m_{A'}$.
@@ -339,6 +385,18 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
 
 \section{Finding Signal Significance}
 \label{sec:significance}
+The signal significance is a measure of the inconsistency of the data with the background-only assumption.
+It is expressed in terms of a $p$-value, which is the probability under the background-only hypothesis of observing an apparent signal that is at least as significant as what was seen in the data.
+By convention, the $p$-value is converted to an equivalent significance $Z$, defined such that $p$ equals the $p$-value of a $Z$-sigma upward fluctuation in a Gaussian variable.
+
+For this analysis, the significance is calculated using $n$, the number of pairs counted past $z_{cut}$, and $b$, the number of background events expected.
+$p$ equals the probability $P(n;b) = \sum^{\infty}_{k=n} \frac{b^k}{k!} e^{-b}$ of drawing at least $n$ events from a Poisson distribution with mean $b$.
+%However, a value of $P(n;b)>0.5$ indicates that the observed number of events is small relative to the expected background.
+%In this case a downward statistical fluctuation is assumed, and the data is considered consistent with the background-only assumption: in this case $p=0.5$, since under the background-only assumption downward fluctuations happen half the time.
+
+According to the expected background distribution and the definition of $z_{cut}$, $b$ should equal 0.5.
+However, as shown in Figure \ref{fig:n_candidates}, there appears to be an unexpected level of background that is above the 0.5 level, and varies smoothly with $m$.
+This cannot be a heavy photon.
 
 \begin{figure}[ht]
 \begin{center}
@@ -348,13 +406,9 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
     \label{fig:n_candidates}
 \end{figure}
 
-\begin{figure}[ht]
-\begin{center}
-    \includegraphics[width=0.7\textwidth,page=7,angle=-90]{vertexing/figs/golden_mres_output}
-\end{center}
-\caption{$p$-value for finding the observed number of events at each $m_{A'}$.}
-    \label{fig:pval}
-\end{figure}
+Since the background is larger than 0.5, $b$ must be approximated using the data.
+$b$ for a given $m_{A'}$ hypothesis must be approximated in a way that is not biased by the data in the $m_{A'}$ mass slice.
+This is done as shown in Figure \ref{fig:bkg_fit} by taking the mass slices that do not overlap with the $m_{A'}$ mass slice, and fitting the trend in $n$ as a quadratic function of $m_{A'}$.
 
 \begin{figure}[ht]
 \begin{center}
@@ -363,6 +417,29 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
 \caption{Unbiased fit to estimate the background rate past $z_{cut}$ in the mass slice centered at 30 MeV.}
     \label{fig:bkg_fit}
 \end{figure}
+
+The $p$-values from this procedure are shown in Figure \ref{fig:pval}.
+The smallest $p$-value is 0.0372, but it is not correct to use this as the significance of the data set.
+These are ``local'' $p$-values: the $p$-value for a mass slice represents the consistency of that slice of the data with the background-only hypothesis.
+But the objective of this analysis is to find the significance of the full data set, not individual slices: how consistent is the data with the background-only hypothesis?
+This is expressed by a ``global'' $p$-value.
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=7,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+\caption{Local $p$-value for finding the observed number of events at each $m_{A'}$. The minimum value is 0.0372.}
+    \label{fig:pval}
+\end{figure}
+
+
+The ``global'' $p$-value is found by taking the minimum of all local $p$-values, and finding the probability of finding a $p$-value at least as significant as this one.
+The global $p$-value is always larger (less significant) than the local $p$-value because there are multiple local $p$-values.
+This is known as the ``look-elsewhere effect.''
+
+A simple brute-force method of finding the global $p$-value is to run a Monte Carlo simulation of the background-only hypothesis and tabulate the probability of finding a given minimum local $p$-value.
+The cumulative distribution of minimum local $p$-values, scaled to 1, gives the mapping to global $p$-value.
+The distribution of events past $z_{cut}$ is fit to a quadratic function, and data sets are drawn from this distribution: there are 12 events past $z_{cut}$, and so the number of events in each Monte Carlo data set is drawn from a Poisson distribution with a mean of 12.
+The distribution of minimum local $p$-values is shown on the left side of Figure \ref{fig:trials}, and the cumulative distribution is on the right.
 
 \begin{figure}[ht]
 \begin{center}
@@ -373,10 +450,16 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
     \label{fig:trials}
 \end{figure}
 
+After this procedure, the global $p$-value is found to be 0.537 for a local $p$-value of 0.0372.
+This is completely consistent with the background-only hypothesis; it means that in fact the local $p$-value is less significant than the median $p$-value.
+
 \section{Setting Limits}
 \label{sec:limits}
+An upper limit on the heavy photon production at a given $m_{A'}$ and $\epsilon^2$ is the maximum rate at which heavy photons could be produced, and still be consistent with the data.
+The confidence level used for this analysis is 90\%: in other words, if a heavy photon signal does exist at a given rate, the limit set by this analysis will (incorrectly) exclude that signal rate only 10\% of the time.
+The meaningful target for this analysis is the heavy photon production rate given by Equation \ref{eq:production}; if the upper limit at a given $m_{A'}$ and $\epsilon^2$ is below that rate, the analysis has excluded the possibility of a heavy photon at that $m_{A'}$ and $\epsilon^2$.
 
-
+Upper limits do not distinguish between a lack of sensitivity (insufficient data to say anything meaningful about the presence or absence of a signal) and the presence of a signal: the upper limit will be high in either case.
 
 \subsection{Optimum Interval Method}
 The method chosen for setting limits is the ``optimum interval'' method by Yellin \cite{yellin_finding_2002}.
@@ -490,3 +573,7 @@ The mass range of the search is also substantially improved, because the lower v
 \caption{90\% CL upper limit on the heavy photon production rate, projected for the full 2015 data set, using the full HPS acceptance, and assuming no events past $z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 7, and the lowest point is 6.82.}
     \label{fig:upper_limit_fullset_alllayers}
 \end{figure}
+
+
+\subsubsection{Reach Comparison with 2014 Proposal}
+\label{sec:proposal_reach}
