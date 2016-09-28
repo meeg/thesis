@@ -1,7 +1,7 @@
 \chapter{The HPS Detector}
 
-The HPS detector is a spectrometer with a silicon vertex tracker (SVT) for momentum measurement and a electromagnetic calorimeter (ECal) for energy measurement and trigger.
-The detector is installed in the middle dipole of a three-magnet chicane, with the field extending from the target foil to the end of the tracker.
+The HPS detector is a spectrometer with a silicon vertex tracker (SVT) for momentum measurement and an electromagnetic calorimeter (ECal) for energy measurement and trigger.
+The detector is installed in the middle dipole of a three-magnet chicane (see Figure \ref{fig:hps-pic}), with the field extending from the target foil to the end of the tracker.
 
 The detector design is determined by physics needs.
 To capture low-mass $A'$, the detector must have acceptance at small angles from the beam.
@@ -17,16 +17,9 @@ This is set by the maximum rate tolerable in the first layer of the SVT: the occ
 
 \begin{figure}[ht]
     \includegraphics[width=\textwidth]{detector/figs/HPS-pic}
-    \caption{View of the HPS setup.}
+    \caption{View of the HPS setup.
+    The beam direction is left to right.}
     \label{fig:hps-pic}
-\end{figure}
-
-\begin{figure}[ht]
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{detector/figs/hallb}
-    \end{center}
-    \caption{Location of the HPS setup in Hall B.}
-    \label{fig:hallb}
 \end{figure}
 
 \section{Beamline}
@@ -55,6 +48,16 @@ A larger bunch spacing or lower duty cycle would increase the amount of beam bac
     \label{fig:cebaf}
 \end{figure}
 
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{detector/figs/hallb}
+    \end{center}
+    \caption{Location of the HPS setup, in the downstream alcove of Hall B.
+    The beam direction is left to right.}
+    \label{fig:hallb}
+\end{figure}
+
+
 \subsection{Target}
 
 target
@@ -74,52 +77,15 @@ For HPS this stereo angle is kept small, so all sensors have their strips pointi
 A small stereo angle is a compromise: it sacrifices measurement resolution in the strip direction, but it is less likely that two particles will create ``ghost hits'' when the strips they hit intersect.
 The stereo angle is not uniform throughout the SVT (it is 100 milliradians in the upstream half, 50 milliradians in the downstream half), which prevents ghost hits from creating ghost tracks.
 
-The SVT is made up of six layers at different distances from the target: this number allows for 5-hit tracking even if a particle misses one layer.
-Layer 1 is at 10 cm from the target; this is the closest we can safely operate while allowing 500 $\mu$m distance from the beam to the edge of the sensors, which have a 1 mm border of inactive silicon.
-Layer 6 is at 90 cm from the target, just at the end of the uniform field region of the analyzing magnet; maximizing the length of the tracker maximizes the momentum resolution.
+The SVT is made of six layers at different distances from the target: this number allows for 5-hit tracking even if a particle misses one layer.
+Layer 1 is 10 cm from the target; this is the closest we can safely operate while allowing 500 $\mu$m distance from the beam to the edge of the sensors, which have a 1 mm border of inactive silicon.
+Layer 6 is 90 cm from the target, just at the end of the uniform field region of the analyzing magnet; maximizing the length of the tracker maximizes the momentum resolution.
 Layers 1--3 use single sensors; layers 4--6, where tracks have bent out to the sides, use two sensors joined end to end.
-
-Because the SVT operates in a high magnetic field and in vacuum, materials must be compatible.
-All materials are checked for vacuum compatibility by pumping test samples to high vacuum in a test chamber.
-Only nonmagnetic materials are used; inductors used on the frontend boards are air-core (instead of ferrite, which would saturate).
-
-\subsection{Sensors and Readout}
-HPS uses silicon microstrip sensors that were originally produced for the run IIb upgrade of the D{\O} detector at Fermilab.
-This upgrade would have replaced the entire SMT (silicon microstrip tracker).
-The full SMT upgrade was cancelled in favor of an insertable Layer 0, but not before sensors had already been procured.
-The sensors used for HPS are those that would have been used for layers 2--5 of the new D{\O} tracker.
-
-The HPS sensors are single-sided p+n with AC-coupled readout: the bulk is lightly doped n-type silicon with $<$100$>$ crystal orientation, and the strip implants are strongly p-type doped.
-The strips are biased through polysilicon resistors at the ends of the strips, and capacitively coupled to aluminum readout strips that run on top of the strips.
-Only every other strip is read out; the ``readout'' strips capacitively couple to the intermediate ``sense'' strips.
-
-Radiation damage limits the useful lifetime of silicon sensors.
-Incident particles can displace silicon atoms from their places in the crystal lattice, which effectively converts the n-type bulk of the sensor to p-type (type inversion).
-This increases the depletion voltage, so the sensor bias must be increased to keep the same charge collection efficiency; the sensor lifetime is therefore limited by the breakdown voltage of the sensor.
-The defects also increase the leakage current, which leads to increased sensor heating.
-The HPS sensors are specified to have a breakdown voltage of greater than 350 V, and a further selection was made to only use sensors with a breakdown voltage in excess of 1000 V.
+The layout of the six layers is summarized in Table \ref{tab:svt_layout}.
 
 \begin{table}[ht]
     \begin{center}
-        \begin{tabular}{lc}   
-            \hline \hline
-            Thickness & 320 $\mu$m \\
-            Overall area (L$\times$W) & 100 $\times$ 40.34 mm\\
-            Active area (L$\times$W) & 98.33 $\times$ 38.34 mm\\
-            Strip pitch (count) & 30 $\mu$m (1277)\\
-            Readout pitch (count) & 60 $\mu$m (639)\\
-            Depletion voltage & 110-130 V (typical)\\
-            Breakdown voltage & $>$1000 V\\
-            \hline \hline
-        \end{tabular}
-        \caption{Specifications of the SVT sensors.
-        Breakdown voltage specification is value accepted for use in HPS; procurement specification was looser.}
-        \label{tab:sensor_spec} 
-    \end{center}
-\end{table}
-
-\begin{table}[ht]
-    \begin{center}
+        \caption{Layout of the HPS SVT.  The angle of stereo sensors is relative to the bend plane.}
         \begin{tabular}{lcccccc}   
             \hline \hline 
             Layer number & 1 & 2 & 3 & 4 & 5 & 6 \\      
@@ -133,8 +99,46 @@ The HPS sensors are specified to have a breakdown voltage of greater than 350 V,
             Module power consumption (W) & 6.9 & 6.9 & 6.9 & 13.8 & 13.8 & 13.8 \\
             \hline \hline
         \end{tabular}
-        \caption{Layout of the HPS SVT.  The angle of stereo sensors is relative to the bend plane.}
         \label{tab:svt_layout} 
+    \end{center}
+\end{table}
+
+Because the SVT operates in a high magnetic field and in vacuum, materials must be compatible.
+All materials are checked for vacuum compatibility by pumping test samples to high vacuum in a test chamber.
+Only nonmagnetic materials are used; inductors used on the frontend boards are air-core (instead of ferrite, which would saturate).
+
+\subsection{Sensors and Readout}
+HPS uses silicon microstrip sensors that were originally produced for the run IIb upgrade of the D{\O} detector at Fermilab.
+This upgrade would have replaced the entire SMT (silicon microstrip tracker).
+The full SMT upgrade was cancelled in favor of an insertable Layer 0, but not before sensors had already been procured.
+The sensors used for HPS are those that would have been used for layers 2--5 of the new D{\O} tracker.
+
+The HPS sensors are single-sided p+n with AC-coupled readout: the bulk is lightly doped n-type silicon with $<$100$>$ crystal orientation, and the strip implants are strongly p-type doped.
+The strips are biased through polysilicon resistors at the ends of the strips, and capacitively coupled to aluminum readout strips that run on top of the strips.
+Only every other strip is read out; the ``readout'' strips capacitively couple to the intermediate ``sense'' strips, so a hit in a sense strip splits its charge between the neighboring readout strips.
+
+Radiation damage limits the useful lifetime of silicon sensors.
+Incident particles can displace silicon atoms from their places in the crystal lattice, which effectively converts the n-type bulk of the sensor to p-type (type inversion).
+This increases the depletion voltage, so the sensor bias must be increased to keep the same charge collection efficiency; the sensor lifetime is therefore limited by the breakdown voltage of the sensor.
+The defects also increase the leakage current, which leads to increased sensor heating.
+The HPS sensors are specified to have a breakdown voltage of greater than 350 V, and a further selection was made to only use sensors with a breakdown voltage in excess of 1000 V.
+
+\begin{table}[ht]
+    \begin{center}
+        \caption{Specifications of the SVT sensors.
+        Breakdown voltage specification is value accepted for use in HPS; procurement specification was looser.}
+        \begin{tabular}{lc}   
+            \hline \hline
+            Thickness & 320 $\mu$m \\
+            Overall area (L$\times$W) & 100 mm $\times$ 40.34 mm\\
+            Active area (L$\times$W) & 98.33 mm $\times$ 38.34 mm\\
+            Strip pitch (count) & 30 $\mu$m (1277)\\
+            Readout pitch (count) & 60 $\mu$m (639)\\
+            Depletion voltage & 110-130 V (typical)\\
+            Breakdown voltage & $>$1000 V\\
+            \hline \hline
+        \end{tabular}
+        \label{tab:sensor_spec} 
     \end{center}
 \end{table}
 
@@ -334,6 +338,7 @@ The right side of the board operates in air, and has two MPO multi-fiber connect
 
 \begin{table}[ht]
     \begin{center}
+        \caption{Trigger cuts for the ``pairs-1'' trigger.}
         \begin{tabular}{lc}   
             \hline \hline
             Cluster energy & $54<E<630$ MeV \\
@@ -343,7 +348,6 @@ The right side of the board operates in air, and has two MPO multi-fiber connect
             Energy-distance cut & $E_{low}+(5.5\text{ MeV/mm})r_{low}>600$ MeV \\
             \hline \hline
         \end{tabular}
-        \caption{Trigger cuts for the ``pairs-1'' trigger.}
         \label{tab:trigger_cuts} 
     \end{center}
 \end{table}

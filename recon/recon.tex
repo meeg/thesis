@@ -10,11 +10,11 @@ GBL refit
 \label{sec:vertex_recon}
 Pairs of tracks are vertexed using a fast vertex fit that finds the best-fit vertex position and track parameters based on the track parameters and covariance matrices, and optional additional vertex constraints \cite{billoir_fast_1992}.
 
-The HPS vertex reconstruction uses constraints on the $x$, $y$, and $z$ of the vertex.
+The HPS vertex reconstruction uses constraints on the $x$, $y$, and $z$ location of the vertex.
 All constraints are limited by the vertex resolutions in those directions; the $x$ and $y$ constraints are limited by the beamspot size, and the $z$ constraint is limited by knowledge of the target position, but these are all smaller than the vertex resolutions.
 %Three types of constraints are used, all using knowledge about the target and/or beamspot.
-The ``z-constrained'' fit requires that the vertex be located at the target $z$.
-The ``target-constrained'' fit requires that the vertex be located at the target $z$, and that the $x$ and $y$ be located at the beamspot.
+The ``$z$-constrained'' fit requires that the vertex be consistent with the $z$ location of the target.
+The ``target-constrained'' fit requires that the vertex be consistent with the $z$ location of the target, and with the $x$ and $y$ location of the beam spot.
 The ``beamspot-constrained'' fit requires that the vertex position and momentum are such that the vertex momentum points back to the beamspot at the target $z$.
 
 \subsection{Clustering}
@@ -47,8 +47,9 @@ Second, a cut is made on the track-cluster time difference.
 Since the track and cluster times are referenced differently (the track time is relative to the trigger time, and the cluster time is relative to the start of the ECal readout window), a constant offset of 43 ns is subtracted.
 
 The electron and positron are required to be in opposite halves of the detector: this cut is implemented as a requirement that the $y$-coordinates of the two clusters have opposite signs.
+The trigger requires a top-bottom coincidence, so repeating the requirement as an event selection cut does not reduce the efficiency.
 This avoids any possibility of confusion in the track or cluster reconstruction, since the hits from the electron and positron are guaranteed to be well separated.
-A heavy photon can have enough transverse momentum that both decay products land in the same half of the detector, but the rate is low, and two particles in the same half of the ECal will not make a trigger.
+%A heavy photon can have enough transverse momentum that both decay products land in the same half of the detector, but the rate is low.
 
 Three more simple cleanup cuts are applied.
 A loose track quality cut is applied on the $\chi^2$ of each GBL fit; this is only meant to reject very poor track fits.
@@ -57,7 +58,7 @@ A momentum sum cut rejects pairs with a momentum sum too far in excess of $E_{be
 
 Finally, a ``radiative cut'' is applied for heavy photon analyses.
 This is a minimum requirement on the momentum sum, at $0.8E_{beam}$.
-As shown in Section \ref{sec:signal_kinematics}, most heavy photons and radiative tridents are produced with energy near $E_{beam}$; the radiative cut keeps most of these and rejects the Bethe-Heitler tridents which dominate at low momentum.
+As shown in Section \ref{sec:signal_kinematics}, most heavy photons and radiative tridents are produced with energy near $E_{beam}$; the radiative cut keeps most of these and rejects the Bethe-Heitler tridents that dominate at low momentum.
 
 \begin{table}[h]
     \begin{center}

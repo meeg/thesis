@@ -1,35 +1,38 @@
-\chapter{Vertexing Search}
+\chapter{Search for Displaced Vertices}
 The HPS vertexing search is a low-background search for heavy photons with displaced vertices.
 This search is sensitive to heavy photons with low coupling, and therefore low production but long decay lengths.
 
-The pair selection for the vertexing search requires cuts in addition to the basic cuts described in \ref{sec:event_selection}.
-These vertex quality cuts are tuned to suppress the tails of the vertex distribution, and are described in \ref{sec:vertex_cuts}.
+The pair selection for the vertexing search requires cuts in addition to the basic cuts described in Section \ref{sec:event_selection}.
+These vertex quality cuts are tuned to suppress the tails of the vertex distribution, and are described in Section \ref{sec:vertex_cuts}.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=1,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-    \caption{Dataset for the vertexing analysis. The core of the vertex distribution is the horizontal band at $z=-5$; a heavy photon signal would appear as a band reaching upwards from the core.}
+    \caption{Dataset for the vertexing analysis. The core of the vertex distribution is the horizontal band at $z=-5$ mm; a heavy photon signal would appear as a vertical band extending upwards from the core.}
     \label{fig:zvsmass}
 \end{figure}
 
-
-The pairs passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex Z-coordinate $z$ of a pair: see Figure \ref{fig:zvsmass}.
+The pairs passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex location $z$ of a pair: see Figure \ref{fig:zvsmass}.
 The vertex $z$ is defined relative to the nominal target position; as explained in Section \ref{sec:target_z}, the actual target position is at $z_{target}\approx -5$ mm.
 To test for a heavy photon with $m_{A'}=m$, a resolution-limited mass slice is taken from the 2-D data set, and the vertex $z$ of the pairs in this mass slice are plotted as in Figure \ref{fig:vz_1d}.
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=51,angle=-90]{vertexing/figs/golden_mres}
+    \includegraphics[width=0.7\textwidth,page=61,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Vertex Z for a resolution-limited mass slice (in data). A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
-    For this mass slice, $z_{cut}=26.55$; there are three events with $z>z_{cut}$.}
+\caption{Vertex $z$ for a resolution-limited mass slice (in data) centered at $m_{A'}=35.5$ MeV. A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
+    For this mass slice, $z_{cut}=26.6$ mm; there are four events with $z>z_{cut}$.}
     \label{fig:vz_1d}
 \end{figure}
 
 A cut is made at a minimum $z>z_{cut}$ to remove the large background from prompt $e^+e^-$ pairs.
 $z_{cut}$ (plotted in Figure \ref{fig:zcut}) is set so the expected number of events past $z_{cut}$ is 0.5 according to a model of the prompt pairs distribution, described in Section \ref{sec:tails}.
 This minimizes the prompt backgrounds and maximizes the heavy photon signal.
+The rectangular region formed by the mass and $z$ cuts is the signal box for the heavy photon with mass $m_{A'}$.
+
+If a heavy photon exists at some $m_{A'}$, heavy photon decays will appear in the data with a Gaussian mass distribution centered at $m_{A'}$, and a distribution of locations that extend from $z_{target}$ to positive $z$.
+These events will appear in those mass slices that are close enough to $m_{A'}$ that they substantially overlap the Gaussian.
 
 \begin{figure}[ht]
 \begin{center}
@@ -39,29 +42,29 @@ This minimizes the prompt backgrounds and maximizes the heavy photon signal.
     \label{fig:zcut}
 \end{figure}
 
-
-
-Two types of analyses are performed on the data in the window.
-The first is a cut-and-count analysis, where the number of pairs found in the rectangular region is compared to the number expected; this analysis gives the significance of the observed excess over background, and is described in Section \ref{sec:significance}.
+Two types of analyses are performed on the data in the signal box.
+The first is a cut-and-count analysis, where the number of pairs found in the signal box is compared to the number expected; this analysis gives the significance of any observed excess over background, and is described in Section \ref{sec:significance}.
 The second analysis uses the optimum interval method to set an upper limit on the heavy photon production rate, and is described in Section \ref{sec:limits}.
 
 \section{Monte Carlo Samples}
-All of the $e^+e^-$ pair events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
+Simulated samples of all types of $e^+e^-$ pair events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
 Beam backgrounds, such as elastically scattered electrons, that are created in the target and create pileup in the detector, are simulated using EGS5 \cite{hirayama_egs5_2005} and Geant4 \cite{agostinelli_geant4simulation_2003}.
 
 \subsection{Trident and Wide-Angle Bremsstrahlung Monte Carlo}
 \label{sec:tri_mc}
-Both ``full-diagram'' and radiative tridents are simulated using MadGraph/MadEvent.
-The generator for full-diagram tridents includes radiative tridents, Bethe-Heitler tridents, and the interference terms.
-Since radiative tridents are important for normalizing the heavy photon rate, radiative tridents are generated separately.
+The trident processes (radiative and Bethe-Heitler tridents, as described in Section \ref{sec:physics_backgrounds}) are simulated using MadGraph/MadEvent.
+One generator, called the ``full-diagram'' generator, incorporates all of the trident diagrams and their interference terms, and thus simulates (to lowest order) the combined rate of all $e^-Z\to e^+e^-e^-Z$.
+%Both ``full-diagram'' and radiative tridents are simulated using MadGraph/MadEvent.
+%The generator for full-diagram tridents includes radiative tridents, Bethe-Heitler tridents, and the interference terms.
+Since radiative tridents are important for normalizing the heavy photon rate, a separate generator is used to generate radiative tridents on their own.
 
-Wide-angle bremsstrahlung is the other important source of $e^+e^-$ pairs; as explained in \ref{sec:physics_backgrounds}, the primary electron and the positron from the pair conversion can fake an $e^+e^-$ pair.
+Wide-angle bremsstrahlung is the other important source of $e^+e^-$ pairs; as explained in Section \ref{sec:physics_backgrounds}, the primary electron and the positron from the pair conversion can fake an $e^+e^-$ pair.
 MadGraph/MadEvent is used to produce $e^-\gamma$ events because it handles the angle correlations and the momentum transfer to the nucleus correctly.
 The photon pair conversion is simulated in EGS5 (if in the target) or Geant4 (if in the tracker).
 
 \subsection{Heavy Photon Monte Carlo}
 \label{sec:ap_mc}
-Heavy photon Monte Carlo is generated at values of $m_{A'}$ spaced out across the region of interest: 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 35, 40, 50, 60, 70, 80, and 90 MeV.
+Heavy photon Monte Carlo samples are generated for values of $m_{A'}$ spaced out across the region of interest: 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 35, 40, 50, 60, 70, 80, and 90 MeV.
 The generator uses MadGraph/MadEvent, and fully simulates the momentum and angle spectra of the produced heavy photons.
 In order to get complete coverage of $z>z_{target}$ for the purposes of the vertexing analysis, the decay vertices were displaced (in the direction of the heavy photon momentum, and accounting for variations in $\gamma$) according to an arbitrary decay length of $c\tau=1$ mm.
 
@@ -69,6 +72,8 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
 \label{sec:vertex_cuts}
 \begin{table}[ht]
     \begin{center}
+        \caption{The full set of pair selection cuts for the vertexing analysis.
+        Cuts carried over from the base selection are on top; cuts specific (or tightened) for vertexing are on bottom.}
         \begin{tabular}{lc}   
             \hline \hline
             Trigger type & ``pairs-1'' trigger \\
@@ -88,8 +93,6 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
             Positron DOCA & $d_0(e^+)<1.5$ mm \\
             \hline \hline
         \end{tabular}
-        \caption{The full set of pair selection cuts for the vertexing analysis.
-        Cuts carried over from the base selection are on top; cuts specific (or tightened) for vertexing are on bottom.}
         \label{tab:vertex_cuts} 
     \end{center}
 \end{table}
@@ -174,11 +177,11 @@ Heavy photon Monte Carlo is used to check that none of the cuts have an unexpect
 
 To test for a heavy photon at mass $m_{A'}$ and coupling $\epsilon^2$, the signal, background, and resolutions must be modeled as inputs to the analyses.
 
-The mass cut is set to keep only events with $|m-m_{A'}|<1.4 \sigma_m(m_{A'},z)$.
-This mass window is chosen to accept a large fraction of the signal events, without accepting too many background events.
-A window of $\pm1.4\sigma$ optimizes significance for high-statistics, high-background experiments where significance is proportional to $S/\sqrt{B}$.
-The optimality of this window is not exact for low statistics, but is still approximately true.
+The mass cut is set to keep only events with $|m-m_{A'}|<1.4 \sigma_m(m_{A'},z)$, where $\sigma_m$ is the mass resolution expected for heavy photons with mass $m_{A'}$.
 The mass resolution depends on the mass and the vertex position, and is estimated using Monte Carlo: this is explained in Section \ref{sec:mres}.
+This mass window is chosen to accept a large fraction of the signal events, without accepting too many background events.
+A window of $\pm1.4\sigma$ (which accepts 83.8\% of the signal events) optimizes significance for high-statistics, high-background experiments where significance is proportional to $S/\sqrt{B}$.
+The optimality of this window is not exact for low statistics (where the Poisson distribution cannot be safely approximated as a Gaussian), but is still approximately true.
 
 After cutting on $m$, the dataset is reduced to one dimension.
 An additional cut is made to keep only events with $z>z_{cut}$, rejecting the region where the background strongly dominates and there is no sensitivity to a signal.
@@ -186,12 +189,13 @@ $z_{cut}$ is chosen such that only 0.5 events are expected past $z=z_{cut}$, bas
 The amplitude of the background distribution is taken from the peak of the vertex distribution; the shape is taken from Monte Carlo as described in Section \ref{sec:tails}.
 
 Setting limits requires knowledge of the expected signal distribution, $S(z;m_{A'},\epsilon^2)$.
-Section \ref{sec:signal_shape} explains how the signal distribution is estimated.
+This is described in Section \ref{sec:signal_shape}.
 
 \subsection{Estimating the Mass Resolution}
 \label{sec:mres}
 
-The mass resolution $\sigma_m$ for a $e^+e^-$ pair depends on the momentum resolutions $\sigma_{p_{e^+}},\sigma_{p_{e^-}}$ for the two particles and the resolution $\sigma_\theta$ of the opening angle.
+The mass resolution $\sigma_m$ for a $e^+e^-$ pair depends on the momentum resolutions $\sigma_{p_{e^+}},\sigma_{p_{e^-}}$ for the two particles, the resolution $\sigma_\theta$ of the opening angle, and their covariances.
+Since the opening angle and momentum measurements predominantly rely on different parts of the tracker (opening angle on the upstream half of the tracker, momentum on the downstream half), their covariance is negligible.
 Neglecting the electron mass, and using the small-angle approximation for the opening angle,
 \begin{equation}
 m=\sqrt{(1-\cos\theta)p_{e^+}p_{e^-}} \approx \frac{1}{\sqrt{2}}\theta\sqrt{p_{e^+}p_{e^-}}
@@ -238,14 +242,17 @@ The result of this procedure is a model for the mass resolution: $\sigma_m(m_{A'
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=5,angle=-90]{vertexing/figs/acceptance_30}
 \end{center}
-    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons. The resolution is roughly constant with respect to $z$.}
+    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons.
+    Top: mass residual (difference between the reconstructed mass and the true mass) vs. $z$ for 40 MeV heavy photons.
+    Bottom: the widths of Gaussian fits to vertical slices of the top distribution (blue points), and a linear fit to the points (red line).
+    The slope of the linear fit is consistent with 0, showing that the mass resolution is constant with respect to $z$.}
     \label{fig:fixed_mres}
 \end{figure}
 
 The fitted values of $a_{10}$ and $a_{11}$ are consistent with 0, as expected.
-After this procedure, this is the mass resolution model:
+After this procedure, this is the mass resolution model (including statistical uncertainties in the last digits of the coefficients):
 \begin{equation}
-\sigma_m(m_{A'},z) = 0.000720 \mathrm{GeV} + 0.0382 m_{A'}
+\sigma_m(m_{A'},z) = 0.00072(2) \mathrm{GeV} + 0.0382(4) m_{A'}
 \end{equation}
 
 \begin{figure}[ht]
@@ -273,13 +280,16 @@ The difference between data and Monte Carlo resolutions is believed to be due to
 
 \subsection{Estimating the Signal Distribution}
 \label{sec:signal_shape}
-The signal distribution is as follows, where each term can depend on $m_{A'}$ and $\epsilon^2$:
+The expected distribution of signal events can be expressed as $\mu_{exp} s(z)$, where $\mu_{exp}$ is the expected number of reconstructed heavy photon events after the mass and $z$ cuts, and $s(z)$ is the probability density function (normalized to unit integral) of the $z$ locations.
+The distribution is estimated as the following product of terms, where each term can depend on $m_{A'}$ and $\epsilon^2$:
 \begin{equation}
-S(z) = (N_{A'}\epsilon_{reco}(z_{target}))\frac{e^{\frac{z_{target}-z}{\gamma c \tau}}}{\gamma c \tau}\frac{\epsilon_{reco}(z)}{\epsilon_{reco}(z_{target})}
+\mu_{exp} s(z) = (N_{A'}\epsilon_{reco}(z_{target}))\frac{e^{\frac{z_{target}-z}{\gamma c \tau}}}{\gamma c \tau}\frac{\epsilon_{reco}(z)}{\epsilon_{reco}(z_{target})} \epsilon_{cut}(z)
 \end{equation}
 $N_{A'}$ is the number of heavy photons produced in the target.
 The exponential function is the distribution of decays along $z$, and is normalized to 1.
 $\epsilon_{reco}(z)$ is the efficiency to detect and reconstruct an $e^+e^-$ pair produced at a given $z$.
+$\epsilon_{cut}(z)$ is the efficiency of the mass and $z$ cuts for a heavy photon with mass $m_{A'}$ decaying at a given $z$. It equals 0 for $z<z_{cut}$, and 0.838 for $z\ge z_{cut}$.
+
 In principle, this distribution should be smeared by $\sigma_z$, the resolution of the vertex position: this is not done since the signal distribution varies slowly on the scale of $\sigma_z$ (which is 3-6 mm, depending on $m$).
 
 \subsubsection{Production Rate and Radiative Fraction}
@@ -288,7 +298,10 @@ $N_{A'}\epsilon_{reco}(z_{target})$ is estimated using data and Equation \ref{eq
 The data gives $\frac{\mathrm{d}N_{e^+e^-}}{\mathrm{d}m}\epsilon_{reco}(z_{target})$, the number of $e^+e^-$ pairs produced and detected in a mass window around $m_{A'}$; some fraction of these are radiative tridents.
 The fraction is estimated using Monte Carlo.
 
-The Monte Carlo samples described in Section \ref{sec:tri_mc} are used to calculate the normalized cross-sections for 
+The Monte Carlo samples described in Section \ref{sec:tri_mc} are used to calculate the normalized cross-sections (after detector and reconstruction efficiencies, and all cuts) for radiative tridents only, for all tridents, and for wide-angle bremsstrahlung conversions.
+The radiative trident fraction is the ratio of the cross-section for radiative tridents to the total cross-section for $e^+e^-$ pairs.
+
+
 
 \begin{figure}[ht]
 \begin{center}
@@ -303,7 +316,7 @@ The Monte Carlo samples described in Section \ref{sec:tri_mc} are used to calcul
 The decay length is calculated using Equation \ref{eq:lifetime}, which gives the lifetime $\tau$ for a given $m_{A'}$ and $\epsilon^2$.
 The boost $\gamma$ equals $E_{beam}/m_{A'}$ if the heavy photon takes the full beam energy, but this is not completely accurate; in reality the average boost is slightly less than the maximum.
 
-Monte Carlo is used to get the correct distribution of decay lengths.
+Monte Carlo samples are used to find the correct distribution of decay lengths.
 The decay $z$ is plotted for an MC sample of heavy photons with mass $m_{A'}$ and an arbitrary lifetime, with the requirement that the heavy photon momentum be at least $0.8E_{beam}$ (matching the analysis cut), and fit with an exponential.
 The decay constant of the exponential is compared to the $\gamma c \tau$ that would be expected from $\gamma=E_{beam}/m_{A'}$; this shows that the typical $\gamma$ is roughly $0.95E_{beam}/m_{A'}$.
 
@@ -328,7 +341,7 @@ This effect is more severe for lower $m_{A'}$, where the opening angle is smalle
 The efficiency is measured using the Monte Carlo samples of generated and reconstructed heavy photons described in Section \ref{sec:ap_mc}.
 For each $m_{A'}$, the distribution of decay $z$ is filled both for generated and reconstructed heavy photons.
 The ratio of the two distributions gives $\epsilon_{reco}(m_{A'},z)$.
-This is scaled so it equals 1 at $z=z_target$, and is fitted with a function of the form $\frac{\epsilon_{reco}(m_{A'},z)}{\epsilon_{reco}(m_{A'},z_{target})} \approx \exp(p_3 z^3 + p_2 z^2 + p_1 z + p_0)$.
+This is scaled so it equals 1 at $z=z_{target}$, and is fitted with a function of the form $\frac{\epsilon_{reco}(m_{A'},z)}{\epsilon_{reco}(m_{A'},z_{target})} \approx \exp(p_3 z^3 + p_2 z^2 + p_1 z + p_0)$.
 The parameters $p_3$, $p_2$, $p_1$, and $p_0$ are fit with polynomials in $m_{A'}$: $p_0$ and $p_1$ are fit with first-order polynomials, and $p_2$ and $p_3$ are fit with third-order polynomials.
 
 \begin{figure}[ht]
@@ -362,7 +375,7 @@ The 2-dimensional vertex distribution from Monte Carlo is scanned in $m$, using 
 The background distribution is fit with a 4-parameter piecewise function defined from a Gaussian and an exponential.
 The Gaussian is defined with the usual parameters of mean $\bar{z}$ and standard deviation $\sigma$.
 The parameter $b$ defines the distance from the Gaussian's mean where the distribution transitions to the exponential.
-The exponential is defined in terms of a decay length $l$, and its amplitude is fixed by the requirement that the function be continuous.
+The exponential is defined in terms of a tail length $l$, and its amplitude is fixed by the requirement that the function be continuous.
 This function is similar to the ``GaussExp'' function described in \cite{cms_collaboration_search_2015}, except GaussExp fixes the exponential's decay length by requiring that the function be continuously differentiable.
 \begin{equation}
 B(z;\bar{z},\sigma,b,l)=
@@ -370,6 +383,7 @@ B(z;\bar{z},\sigma,b,l)=
 e^{-\frac{(z-\bar{z})^2}{2\sigma^2}} &\text{if } z\le\bar{z}+b,\\
 e^{-\frac{b^2}{2\sigma^2} - (z-\bar{z}-b)/l}  &\text{if } z\ge\bar{z}+b
 \end{cases}
+\label{eq:gaussexp}
 \end{equation}
 
 \begin{figure}[ht]
@@ -383,32 +397,108 @@ e^{-\frac{b^2}{2\sigma^2} - (z-\bar{z}-b)/l}  &\text{if } z\ge\bar{z}+b
 The values of $b$ and $l$ found at each $m_{A'}$ are fitted to cubic polynomials in $m_{A'}$.
 When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the values found for Monte Carlo, but the Gaussian parameters are allowed to float.
 
+\subsubsection{Characterizing Excess Backgrounds}
+\label{sec:excess_background}
+If the tails of the vertex distribution are completely described by the exponential tail of the background model of Equation \ref{eq:gaussexp}, each mass slice should by construction (on average, and in the absence of a possible heavy photon signal) contain 0.5 events with $z>z_{cut}$.
+But as seen in Figure \ref{fig:n_candidates}, most mass slices contain more than one event with $z>z_{cut}$, and some contain as many as 4 events; this is a significant excess.
+This indicates either that there is a heavy photon in the data, or that there is a background not described by the background model.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=8,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+\caption{Number of events found with $z>z_{cut}$ in each mass slice, as a function of the center mass of the mass slice.
+If the background model fully describes the data, the mean number per mass slice of events with $z>z_{cut}$ should be 0.5.}
+    \label{fig:n_candidates}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+\caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice.
+This is the same plot as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
+Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z>>z_{cut}$).}
+    \label{fig:zvsmass_candidates}
+\end{figure}
+
+The events with $z>z_{cut}$ can be characterized by their distributions in $z$ and in mass.
+Events consistent with the background model should have $z$ close to $z_{cut}$ (the median $z-z_{cut}$ is proportional to $l$), but be uniformly distributed, with an average of 0.5 events per mass slice.
+Any other component of the background might have a different distribution in $z$, but will be broadly distributed in mass.
+Events from heavy photon decays should have large $z$ and a tight distribution in mass (limited by the mass resolution).
+
+If the excess events are described by the background model, the events with $z>z_{cut}$ in a mass slice should be distributed according to the exponential distribution.
+Transforming by the cumulative distribution function of the exponential, $z\to 1-e^{(z_{cut}-z)/l}$, gives the quantile of each event in the background model; if the background model describes the events, the quantiles should be distributed uniformly.
+Some of the events with $z>z_{cut}$ do appear to follow this pattern, but some have large quantiles, meaning that they have $z$ larger than would be typical from sampling the background model.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=60,angle=-90]{vertexing/figs/golden_mres}
+\end{center}
+\caption{The background CDF values (quantiles) for events in the mass slice centered at $m_{A'}=35.5$ MeV that have $z>z_{cut}$ (this is the same mass slice as Figure \ref{fig:vz_1d}).
+The two events with $z\approx 35$ have quantiles close to 1, suggesting that their values of $z$ are larger than would be expected from the background model.}
+    \label{fig:candidates_rescaled}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=7,angle=-90]{vertexing/figs/golden_mres_output}
+\end{center}
+\caption{The background quantiles for events that have $z>z_{cut}$ in each mass slice.
+This is not a true histogram; each vertical column is a histogram similar to Figure \ref{fig:candidates_rescaled}, but a given event is plotted in every mass slice where it appears.
+The quantile for a given event changes with the mass slice because $z_{cut}$ depends on the mass slice.
+The two populations of events noted in Figure \ref{fig:zvsmass_candidates} are also distinguishable here: events with $z$ close to $z_{cut}$ have quantiles spread across the range of 0 to 1, while events with $z>>z_{cut}$ have quantiles close to 1.
+If only the events with quantiles less than 0.9 were counted, the mean number per mass slice of events with $z>z_{cut}$ would be 0.52.
+}
+    \label{fig:zvsmass_candidates_rescaled}
+\end{figure}
+
+If we (somewhat arbitrarily) separate the two sets of events by cutting at a quantile of 0.9, the events with low quantiles contribute 0.52 events per mass slice; this suggests that these events are consistent with the background model and occur with the correct frequency, but the high-$z$ events with quantiles above 0.9 are in excess of the expected background.
+These are the five events on the upper right of Figure \ref{fig:zvsmass_candidates}.
+
+The five events isolated by the quantile cut are spread broadly in mass: their RMS in mass is 4.2 MeV, much larger than the estimated mass resolution (2.2 MeV) at the mean mass (38.2 MeV).
+No mass slice captures more than three of these events; if all five events were decays of a heavy photon at a single $m_{A'}$, the lowest- and highest-mass events would be deviations of more than $2\sigma_m$ from $m_{A'}$.
+These events do not match the signature of a heavy photon.
+
+The rate of these events is also not consistent with a heavy photon, or with beam-gas interactions.
+The expected number of heavy photon decays in this data is much less than 1, as discussed in \ref{sec:results}.
+Beam-gas interactions, where beam electrons interact with residual gas in the beamline to create $e^+e^-$ pairs downstream of the target, are another potential source of displaced vertices, but cannot explain these events.
+The beamline vacuum was measured to be in the $10^{-5}$ torr range, which would (under generous assumptions) contribute less than 0.01 event to this data set.
+
+There is other evidence that these events are a rare detector background and not a heavy photon.
+A sample of trident Monte Carlo (with 1/7 as much integrated luminosity as the data used for this analysis) contains one similar event: see Figure \ref{fig:zvsmass_candidates_mc}.
+This suggests that these events are a background that can be reproduced and understood in Monte Carlo, and it may be possible to identify a cut to reject them.
+Since the current rate of these events is greater than the expected rate of heavy photon decays, this is essential to the full HPS analysis.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/mc_mres_output}
+\end{center}
+\caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice.
+This is the same plot as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
+Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z>>z_{cut}$).}
+    \label{fig:zvsmass_candidates_mc}
+\end{figure}
+
 \section{Finding Signal Significance}
 \label{sec:significance}
 The signal significance is a measure of the inconsistency of the data with the background-only assumption.
 It is expressed in terms of a $p$-value, which is the probability under the background-only hypothesis of observing an apparent signal that is at least as significant as what was seen in the data.
-By convention, the $p$-value is converted to an equivalent significance $Z$, defined such that $p$ equals the $p$-value of a $Z$-sigma upward fluctuation in a Gaussian variable.
+The convention in particle physics is to convert the $p$-value to an equivalent significance $Z$, defined such that $p$ equals the $p$-value of a $Z$-sigma upward fluctuation in a Gaussian variable.
 
-For this analysis, the significance is calculated using $n$, the number of pairs counted past $z_{cut}$, and $b$, the number of background events expected.
+For this analysis, the significance at a given $m_{A'}$ is calculated using $n$, the number of pairs in the mass slice with $z>z_{cut}$, and $b$, the number of background events expected.
 $p$ equals the probability $P(n;b) = \sum^{\infty}_{k=n} \frac{b^k}{k!} e^{-b}$ of drawing at least $n$ events from a Poisson distribution with mean $b$.
 %However, a value of $P(n;b)>0.5$ indicates that the observed number of events is small relative to the expected background.
 %In this case a downward statistical fluctuation is assumed, and the data is considered consistent with the background-only assumption: in this case $p=0.5$, since under the background-only assumption downward fluctuations happen half the time.
 
 According to the expected background distribution and the definition of $z_{cut}$, $b$ should equal 0.5.
-However, as shown in Figure \ref{fig:n_candidates}, there appears to be an unexpected level of background that is above the 0.5 level, and varies smoothly with $m$.
-This cannot be a heavy photon.
-
-\begin{figure}[ht]
-\begin{center}
-    \includegraphics[width=0.7\textwidth,page=3,angle=-90]{vertexing/figs/golden_mres_output}
-\end{center}
-\caption{Number of events found past $z_{cut}$, as a function of $m_{A'}$.}
-    \label{fig:n_candidates}
-\end{figure}
+However, as shown in Figure \ref{fig:n_candidates} and explained in \ref{sec:excess_background}, there appears to be an additional background that is above the 0.5 level, and varies smoothly with $m$.
+This cannot be a heavy photon, and must be treated as part of the background.
 
 Since the background is larger than 0.5, $b$ must be approximated using the data.
 $b$ for a given $m_{A'}$ hypothesis must be approximated in a way that is not biased by the data in the $m_{A'}$ mass slice.
 This is done as shown in Figure \ref{fig:bkg_fit} by taking the mass slices that do not overlap with the $m_{A'}$ mass slice, and fitting the trend in $n$ as a quadratic function of $m_{A'}$.
+Assuming there is only one heavy photon, this procedure yields an estimate of $b$ for a $m_{A'}$ hypothesis that is not perturbed by the possible presence of a heavy photon.
 
 \begin{figure}[ht]
 \begin{center}
@@ -438,6 +528,8 @@ This is known as the ``look-elsewhere effect.''
 
 A simple brute-force method of finding the global $p$-value is to run a Monte Carlo simulation of the background-only hypothesis and tabulate the probability of finding a given minimum local $p$-value.
 The cumulative distribution of minimum local $p$-values, scaled to 1, gives the mapping to global $p$-value.
+
+The Monte Carlo model of the background-only hypothesis must reflect the background seen in the data.
 The distribution of events past $z_{cut}$ is fit to a quadratic function, and data sets are drawn from this distribution: there are 12 events past $z_{cut}$, and so the number of events in each Monte Carlo data set is drawn from a Poisson distribution with a mean of 12.
 The distribution of minimum local $p$-values is shown on the left side of Figure \ref{fig:trials}, and the cumulative distribution is on the right.
 
@@ -450,33 +542,50 @@ The distribution of minimum local $p$-values is shown on the left side of Figure
     \label{fig:trials}
 \end{figure}
 
-After this procedure, the global $p$-value is found to be 0.537 for a local $p$-value of 0.0372.
-This is completely consistent with the background-only hypothesis; it means that in fact the local $p$-value is less significant than the median $p$-value.
+After this procedure, the global $p$-value is found to be 0.72 for a local $p$-value of 0.0661.
+This is completely consistent with the background-only hypothesis; it means that in fact the local $p$-value is slightly less significant than the median $p$-value.
+Expressed as a equivalent significance for a Gaussian, the significance of this result is $-0.59\sigma$.
 
 \section{Setting Limits}
 \label{sec:limits}
 An upper limit on the heavy photon production at a given $m_{A'}$ and $\epsilon^2$ is the maximum rate at which heavy photons could be produced, and still be consistent with the data.
 The confidence level used for this analysis is 90\%: in other words, if a heavy photon signal does exist at a given rate, the limit set by this analysis will (incorrectly) exclude that signal rate only 10\% of the time.
-The meaningful target for this analysis is the heavy photon production rate given by Equation \ref{eq:production}; if the upper limit at a given $m_{A'}$ and $\epsilon^2$ is below that rate, the analysis has excluded the possibility of a heavy photon at that $m_{A'}$ and $\epsilon^2$.
+The meaningful target for this analysis is the heavy photon production rate given by Equation \ref{eq:production}; if the upper limit at a given $m_{A'}$ and $\epsilon^2$ is below that rate, the analysis has (at 90\% CL) excluded the possibility of a heavy photon at that $m_{A'}$ and $\epsilon^2$.
 
 Upper limits do not distinguish between a lack of sensitivity (insufficient data to say anything meaningful about the presence or absence of a signal) and the presence of a signal: the upper limit will be high in either case.
 
 \subsection{Optimum Interval Method}
 The method chosen for setting limits is the ``optimum interval'' method by Yellin \cite{yellin_finding_2002}.
-This method was developed for direct detection experiments, and is intended for low-statistics experiments where the signal shape is known, but the backgrounds are not fully understood and there is the possibility of an unexpected background.
+This method was developed for dark matter direct detection experiments, and is intended for experiments where the signal shape is known, but the backgrounds are not fully understood and there is the possibility of an unexpected background.
 A particular strength of the method is that it minimizes the influence of a background that is concentrated in one part of the data distribution.
+HPS uses Yellin's implementation of the optimum interval method, which is publicly available  \cite{yellin_optimum_2011}.
 
-The optimum interval method sets a one-sided upper limit on the number of events in a signal with a known distribution.
+The optimum interval method sets a one-sided upper limit (with confidence level $C$) on the number of signal events $\mu$ in a one-dimensional data set, where the shape of the signal distribution is known.
+For HPS, the data set is the distribution of vertex $z$ locations, after applying the mass and $z_{cut}$ cuts; the signal distribution is the $s(z)$ found in Section \ref{sec:signal_shape} for the $m_{A'}$ and $\epsilon^2$ being tested.
+
 The method works by testing a proposed signal rate $\mu$ against the data with a confidence level $C$.
-A change of variables is made so the events in the data are spaced according to the signal probability density (in other words, the expected signal distribution is uniform, and has total width $\mu$).
-Then the program loops over every interval between two events, of width $x$ expected events and containing $n$ actual events.
-The function $C_n(x,\mu)$ is the probability that all intervals containing $n$ events are narrower than this one (that is, that no interval with $n$ events has this low a ratio of actual to expected events).
-The interval with largest value of $C_n(x,\mu)$ is the ``optimum interval'' that most strongly rejects the proposed signal rate.
-The largest value found is called $C_{Max}$, and if it exceeds a threshold $\bar{C}_{Max}(C,\mu)$, $\mu$ is rejected with confidence level $C$.
+The cumulative distribution function of the signal, $S(z)$, is known.
+A change of variables is made from the measured variable $z$ to a new variable $x=\mu S(z)$.
+Under the signal assumption, the expected distribution of the data is uniform in $x$ with unit density, and has total width $\mu$.
+An interval $(x_1,x_2)$, with $x_1, x_2 \in [0,\mu]$, contains a number of expected signal events equal to its width $\Delta x = x_2-x_1$.
+If an unexpected background is present and is distributed differently from the signal, the data will not be distributed uniformly in $x$, and events will be spaced more widely where the background is not present.
+
+The next step is to search for the ``optimum interval,'' the interval that most strongly rejects the proposed signal rate.
+This is the interval $(x_1,x_2)$ that contains the smallest number of actual events $n$ relative to its width $\Delta x$.
+Put another way, if the function $C_n(\Delta x,\mu)$ is the probability that all intervals of width $\Delta x$ contain more than $n$ events, the optimum interval is the $(x_1,x_2)$ that maximizes $C_n(\Delta x,\mu)$.
+
+For the optimum interval, $x_1$ and $x_2$ always coincide with 0, $\mu$, or events in the data (otherwise the interval can be widened to increase $\Delta x$ without changing $n$).
+Thus the program only needs to loop over every interval between two events, of width $x$ expected events and containing $n$ actual events.
+The value of $C_n(\Delta x,\mu)$ for the optimum interval is called $C_{Max}$, and if it exceeds a threshold $\bar{C}_{Max}(C,\mu)$, $\mu$ is rejected with confidence level $C$.
 The upper limit on $\mu$ is the value for which $C_{Max}=\bar{C}_{Max}(C,\mu)$.
 
-The functions $C_n(x,\mu)$ and $\bar{C}_{Max}(C,\mu)$ pay the statistical penalties for picking the best interval.
-Since they are not specific to the signal distribution, they are calculated using Monte Carlo and stored in lookup tables that are distributed with the software \cite{yellin_optimum_2011}.
+%The function $C_n(x,\mu)$ is the probability that all intervals containing $n$ events are narrower than this one (that is, that no interval with $n$ events has this low a ratio of actual to expected events).
+%The interval with largest value of $C_n(x,\mu)$ is the ``optimum interval'' that most strongly rejects the proposed signal rate.
+%The largest value found is called $C_{Max}$, and if it exceeds a threshold $\bar{C}_{Max}(C,\mu)$, $\mu$ is rejected with confidence level $C$.
+%The upper limit on $\mu$ is the value for which $C_{Max}=\bar{C}_{Max}(C,\mu)$.
+
+The functions $C_n(x,\mu)$ and $\bar{C}_{Max}(C,\mu)$ pay the statistical penalties for using the data to pick the best interval.
+Since they are not specific to the signal distribution, they are calculated using Monte Carlo and stored in lookup tables that are distributed with the software.
 
 The optimum interval method can be used with a known background; in this case, the known background density is added to the signal density.
 Since the known background for HPS falls off rapidly, relatively little is to be gained from this.
@@ -489,7 +598,7 @@ The different limits (as a number of signal events) are plotted as a function of
 
 The optimum interval method was compared against cut-and-count limits using the Feldman-Cousins method \cite{feldman_unified_1998}.
 Both methods were run with and without subtracting the known background.
-As expected, the optimum interval method always performs as well, or better than, cut-and-count given the same information.
+As expected, the upper limits from the optimum interval method are always as strong as, or stronger than, the upper limits from the cut-and-count method given the same information.
 
 Optimum interval limits are insensitive to background events at the edge of the search range.
 This can be seen around $z=22$ and $z=26$ in the right-hand plot, where there are events from the nuisance background: the cut-and-count limits jump up discontinuously when $z_{cut}$ moves past the event, but the optimum interval limits vary smoothly.
@@ -509,16 +618,23 @@ This test shows that the performance is not dramatically better when subtracting
 \end{figure}
 
 \subsection{Results}
-The optimum interval method gives limits on the number of signal events past $z_{cut}$ and after acceptance and efficiency effects.
-After these factors are divided out, the limits can be expressed relative to the expected production rate for a heavy photon of given $m_{A'}$ and $\epsilon^2$.
-In these units, a limit of 1 or less means the heavy photon is excluded at that $m_{A'}$ and $\epsilon^2$.
+\label{sec:results}
+The optimum interval method gives limits at 90\% confidence level on $\mu$, the number of signal events past $z_{cut}$ and after acceptance and efficiency effects.
+Dividing the limit on $\mu$ by $\mu_{exp}$, the expected number of signal events for a heavy photon, gives a limit on the dimensionless ratio of the true production rate to the expected production rate for a heavy photon.
+A limit on $\mu/\mu_{exp}$ of 1 or less means the heavy photon is excluded (at 90\% CL) at that $m_{A'}$ and $\epsilon^2$.
+
+The value $\mu_{exp}$ is itself of some interest: it relates directly to the strongest possible limit (obtained for the case where no events are observed in the mass slice with $z>z_{cut}$).
+An exclusion at 90\% CL is only possible if $\mu_{exp}>2.303$; this is true not only for the optimal interval method but in general, since if $\mu_{exp}<2.303$ there is at least a 10\% probability of seeing no signal events even if a heavy photon exists.
+%Conversely, if $\mu_{exp}>2.303$ the optimum interval method will find an exclusion as long as there are no background events in the signal box, or the background events in the signal box are clustered near $z_{cut}$.
+
 The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which shows that this analysis, on this data, is a factor of 106 from excluding any portion of the parameter space.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
-    \caption{90\% CL upper limit on the heavy photon production rate. A value of 1 would mean exclusion; the lowest contour on this plot is 200, and the lowest point is 106.}
+    \caption{90\% CL upper limit on $\mu/\mu_{exp}$, the ratio of the true production rate to the expected production rate for a heavy photon. A value of 1 would mean exclusion; the lowest contour on this plot is 200, and the lowest point is 106.
+    The vertical ridges in this plot correspond to the locations of events in mass space.}
     \label{fig:upper_limit}
 \end{figure}
 
@@ -526,7 +642,7 @@ The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which s
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=11,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
-    \caption{Number of detectable heavy photon events expected past $z_{cut}$. The highest contour is at 0.03 events.}
+    \caption{$\mu_{exp}$, the number of detectable heavy photon events expected with $z>z_{cut}$. The highest contour is at 0.03 events.}
     \label{fig:detectable}
 \end{figure}
 
@@ -534,28 +650,28 @@ The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which s
 \label{sec:reach_projections}
 Several factors will improve this reach in future iterations of this analysis.
 First, the number of events with $z>z_{cut}$ was larger than predicted by the background fit.
-Better event cuts may be able to reduce this background.
-The reach with zero events past $z_{cut}$ is shown in Figure \ref{fig:upper_limit_nosignal}, where the strongest exclusion is down to 88.1.
+Better background rejection cuts may be able to reduce this background.
+The reach with zero events with $z>z_{cut}$ is shown in Figure \ref{fig:upper_limit_nosignal}, where the strongest predicted limit is down to 88.1.
 If, after refining cuts, the background shape comes to match the exponential form used in this analysis, the reach will be very close to this zero-events reach.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_mres_nosignal_output}
 \end{center}
-\caption{90\% CL upper limit on the heavy photon production rate, assuming no events past $z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 100, and the lowest point is 88.1.}
+\caption{Predicted 90\% CL upper limit on $\mu/\mu_{exp}$, assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 100, and the lowest point is 88.1.}
     \label{fig:upper_limit_nosignal}
 \end{figure}
 
-
 Second, this analysis only used the unblinded fraction of the 2015 data.
-The full set increases statistics by a factor of 9.77, and therefore the number of detectable heavy photons.
+The full set increases integrated luminosity by a factor of 9.77, and therefore the number of detectable heavy photons.
+Since $z_{cut}$ must be increased to keep the level of background at 0.5 events per mass slice, $\mu_{exp}$ does not scale linearly with the amount of data.
 As shown in Figure \ref{fig:upper_limit_fullset}, this improves the exclusion to 14.7.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_fullset_mres_nosignal_output}
 \end{center}
-\caption{90\% CL upper limit on the heavy photon production rate, projected for the full 2015 data set, and assuming no events past $z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 20, and the lowest point is 14.7.}
+\caption{Predicted 90\% CL upper limit on $\mu/\mu_{exp}$, projected for the full 2015 data set, and assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 20, and the lowest point is 14.7.}
     \label{fig:upper_limit_fullset}
 \end{figure}
 
@@ -570,10 +686,14 @@ The mass range of the search is also substantially improved, because the lower v
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_fullset_mres_allayers_nosignal_output}
 \end{center}
-\caption{90\% CL upper limit on the heavy photon production rate, projected for the full 2015 data set, using the full HPS acceptance, and assuming no events past $z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 7, and the lowest point is 6.82.}
+\caption{Predicted 90\% CL upper limit on the heavy photon production rate, projected for the full 2015 data set, using the full HPS acceptance, and assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 7, and the lowest point is 6.82.}
     \label{fig:upper_limit_fullset_alllayers}
 \end{figure}
 
+Some data was taken in 2015 with the tracker opened wider than its nominal position (silicon at 1.5 mm from the beam, instead of 0.5 mm).
+The integrated luminosity is similar to the data that was used in this analysis, but the acceptance is worse.
+At best, this can only double $\mu_{exp}$, so even using this data there will be no excluded region.
 
 \subsubsection{Reach Comparison with 2014 Proposal}
 \label{sec:proposal_reach}
+The projected reach based on this analysis is substantially worse than the reach estimates in the 2014 proposal (see Figure \ref{fig:reach}), even if th the 1-week run that was 
