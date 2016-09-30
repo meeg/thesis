@@ -159,8 +159,13 @@ On a trigger, each channel reads out the appropriate pipeline cell, and the chip
     \label{fig:apv25}
 \end{figure}
 
+HPS runs the APV25 in its ``multi-peak'' readout mode, which allows us to read out six consecutive pipeline cells for each trigger.
+Six samples per trigger, combined with knowledge of the shaper pulse shape (from an offline calibration), allows us to fit the shaper output to the sum of one or two pulses.
+The result is a reconstructed hit time and amplitude that is unaffected by a pileup hit that comes before or after the hit of interest.
 
 \subsection{Mechanical Support}
+\label{sec:svt_mechanical}
+
 The base unit of the SVT is a ``half-module'' comprising a low-mass support structure, sensors, and hybrid readout circuit boards.
 Half-modules are the only unit of the SVT that cannot be disassembled and reworked.
 Two types of half-modules are used: layers 1--3 use single-ended half-modules with one sensor and hybrid each, and layers 4--6 use double-ended half-modules with two sensors and hybrids each.
@@ -193,6 +198,9 @@ Each U-channel is supported at three points using kinematic mounts, which guaran
 The L4--6 U-channels rest on three kinematic mounts.
 The L1--3 U-channels rest on two kinematic mounts, which serve as a hinge at the downstream end of the U-channels, and are supported on the upstream end by motion levers which tilt the U-channels up and down.
 In addition to modules, the L1--3 U-channels carry scan wires so that the beam position can be measured relative to the silicon.
+
+\subsubsection{Survey}
+\label{sec:svt_survey}
 
 \subsection{Power and Data Acquisition}
 The power and data paths for the SVT are constrained.
@@ -239,6 +247,7 @@ The DTM contains a single node, which handles timing and trigger distribution.
 An implementation of the JLab TI (Trigger Interface) module is integrated in the DTM firmware for HPS.
 
 \subsection{Services}
+\label{sec:svt_services}
 
 
 \begin{figure}[ht]

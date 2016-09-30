@@ -6,7 +6,7 @@ Multiple current and proposed experiments are dedicated to the search for a heav
 %The theoretical background, physics motivation, and 
 
 The Heavy Photon Search experiment (HPS) is designed to produce heavy photons by sending the electron beam of Jefferson Lab's CEBAF accelerator through a fixed target.
-The detector is a compact, large-acceptance forward spectrometer comprising a silicon microstrip tracker for momentum measurement and vertexing and an electromagnetic calorimeter for triggering.
+The detector is a compact, large-acceptance forward spectrometer comprising a silicon microstrip tracker (silicon vertex tracker, or SVT) for momentum measurement and vertexing and an electromagnetic calorimeter (ECal) for triggering.
 The experiment has recorded physics data in 2015 and 2016, with future running scheduled.
 
 The properties of a heavy photon are described by the heavy photon mass $m_{A'}$ and the dimensionless kinetic mixing strength $\epsilon$; the coupling to electric charge scales with $\epsilon^2$ and therefore it is common to quote results in terms of $\epsilon^2$.
@@ -30,11 +30,11 @@ This dissertation presents the vertexing search.
 
 The 2015 HPS run was at a beam energy of 1.056 GeV, and nominal current of 50 nA.
 The beam charge collected during physics data-taking is summarized in Figure \ref{fig:beamtime}.
-Because detector commissioning was in progress throughout the run, the tracker was not moved to its nominal position (0.5 mm from the beam) until late in the run.
-Roughly comparable amounts of data were recorded with the tracker at 1.5 mm and 0.5 mm from the beam.
+Because detector commissioning was in progress throughout the run, the SVT was not moved to its nominal position (0.5 mm from the beam) until late in the run.
+Roughly comparable amounts of data were recorded with the SVT at 1.5 mm and 0.5 mm from the beam.
 
-This dissertation uses only the 2015 data from operation at 0.5 mm, recorded from May 13 through May 18.
-A total of 1166 nb$^{-1}$ of good data was recorded under these conditions.
+This dissertation uses only the 2015 data from operation at 0.5 mm.
+A total of 1166 nb$^{-1}$ of good data was recorded under these conditions, from May 13 through May 18.
 This value is corrected for trigger deadtime and run quality, as described in Section \ref{sec:luminosity}; it is equivalent to 1.69 days of ideal running at the nominal beam current.
 Approximately 90\% of the data was blinded so detector performance studies and analysis development could be done on the other 10\% without biasing the ultimate result.
 This dissertation uses only the unblinded fraction, which is a total of 119 nb$^{-1}$ (0.172 days equivalent).
@@ -45,3 +45,14 @@ This dissertation uses only the unblinded fraction, which is a total of 119 nb$^
     \label{fig:beamtime}
 \end{figure}
 
+This dissertation presents the HPS experiment as a whole without specific reference to my personal contributions; those are summarized here.
+I was responsible for the survey of the SVT, and assembled the modules and U-channels (both described in Section \ref{sec:svt_mechanical}).
+I installed and documented the SVT cooling systems described in Section \ref{sec:svt_services}.
+I developed the hit time reconstruction algorithm used in the SVT, described in Section \ref{sec:svt_hit_recon}.
+I developed the detector readout and trigger simulations, which fully simulate the detector pileup, time evolution of pulses and readout pipelines, and trigger algorithms.
+I used this trigger simulation for the performance studies and tuning of trigger parameters presented in the 2014 HPS proposal; the final trigger parameters described in Section \ref{sec:trigger_cuts} are based on that work.
+
+
+Finally, I have had primary responsibility for the displaced-vertex search.
+The analysis presented in Chapter \ref{sec:vertexing} was outlined in the 2014 HPS proposal \cite{collaboration_heavy_2013}, but I implemented it.
+Section \ref{sec:proposal_reach} discusses differences between the proposal outline of the analysis, and what I have done.

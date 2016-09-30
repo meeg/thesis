@@ -1,4 +1,5 @@
 \chapter{Search for Displaced Vertices}
+\label{sec:vertexing}
 The HPS vertexing search is a low-background search for heavy photons with displaced vertices.
 This search is sensitive to heavy photons with low coupling, and therefore low production but long decay lengths.
 
@@ -21,7 +22,7 @@ To test for a heavy photon with $m_{A'}=m$, a resolution-limited mass slice is t
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=61,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Vertex $z$ for a resolution-limited mass slice (in data) centered at $m_{A'}=35.5$ MeV. A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
+\caption{Vertex $z$ (units of mm) for a resolution-limited mass slice (in data) centered at $m_{A'}=35.5$ MeV. A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
     For this mass slice, $z_{cut}=26.6$ mm; there are four events with $z>z_{cut}$.}
     \label{fig:vz_1d}
 \end{figure}
@@ -46,6 +47,7 @@ Two types of analyses are performed on the data in the signal box.
 The first is a cut-and-count analysis, where the number of pairs found in the signal box is compared to the number expected; this analysis gives the significance of any observed excess over background, and is described in Section \ref{sec:significance}.
 The second analysis uses the optimum interval method to set an upper limit on the heavy photon production rate, and is described in Section \ref{sec:limits}.
 
+\clearpage
 \section{Monte Carlo Samples}
 Simulated samples of all types of $e^+e^-$ pair events of interest (tridents, heavy photons, and wide-angle bremsstrahlung) are generated using MadGraph/MadEvent version 4 \cite{alwall_madgraph/madevent_2007}.
 Beam backgrounds, such as elastically scattered electrons, that are created in the target and create pileup in the detector, are simulated using EGS5 \cite{hirayama_egs5_2005} and Geant4 \cite{agostinelli_geant4simulation_2003}.
@@ -60,7 +62,7 @@ Since radiative tridents are important for normalizing the heavy photon rate, a 
 
 Wide-angle bremsstrahlung is the other important source of $e^+e^-$ pairs; as explained in Section \ref{sec:physics_backgrounds}, the primary electron and the positron from the pair conversion can fake an $e^+e^-$ pair.
 MadGraph/MadEvent is used to produce $e^-\gamma$ events because it handles the angle correlations and the momentum transfer to the nucleus correctly.
-The photon pair conversion is simulated in EGS5 (if in the target) or Geant4 (if in the tracker).
+The photon pair conversion is simulated in EGS5 (if in the target) or Geant4 (if in the SVT).
 
 \subsection{Heavy Photon Monte Carlo}
 \label{sec:ap_mc}
@@ -68,6 +70,7 @@ Heavy photon Monte Carlo samples are generated for values of $m_{A'}$ spaced out
 The generator uses MadGraph/MadEvent, and fully simulates the momentum and angle spectra of the produced heavy photons.
 In order to get complete coverage of $z>z_{target}$ for the purposes of the vertexing analysis, the decay vertices were displaced (in the direction of the heavy photon momentum, and accounting for variations in $\gamma$) according to an arbitrary decay length of $c\tau=1$ mm.
 
+\clearpage
 \section{Vertex Cuts}
 \label{sec:vertex_cuts}
 \begin{table}[ht]
@@ -85,10 +88,10 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
             Momentum sum cut & $p_{tot}(e^+e^-)<1.15E_{beam}$ \\
             Radiative cut & $p_{tot}(e^+e^-)>0.8E_{beam}$ \\
             \hline \hline
-            Track quality & $\chi^2_{trk}<30$ \\
             Layer 1 requirement & layer 1 hits for both tracks \\
-            Layer 1 isolation & 0.5 mm \\
-            Beamspot-constrained vertex quality & $\chi^2<10$ \\
+            Track quality & $\chi^2_{trk}<30$ \\
+            Beamspot constraint & $\chi_{bsc}^2<10$, $\chi_{bsc}^2-\chi_{unc}^2<5$ \\
+            Layer 1 isolation & see text \\
             Momentum asymmetry & $|p(e^-)-p(e^+)|/(p(e^-)+p(e^+))<0.4$ \\
             Positron DOCA & $d_0(e^+)<1.5$ mm \\
             \hline \hline
@@ -100,15 +103,29 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
 Broadly speaking, there are three types of events that the vertexing cuts are meant to eliminate: layer 1 scatters, mishits, and wide-angle bremsstrahlung pairs.
 
 Multiple scattering in layer 1 is the source of the Gaussian core of the vertex distribution, and also plays a role in the tails.
-If one of the particles scatters in the first layer of the tracker, the track parameters at the vertex will be shifted.
+If one of the particles scatters in the first layer of the SVT, the track parameters at the vertex will be shifted.
 The distribution of scattering angles is Gaussian at small angles where the scattering process is approximated by a random walk, but at large angles, the distribution is described by the Moli\`ere distribution, which approaches the power-law Rutherford scattering distribution.
 
-Mishits happen when a particle scatters in the second (or later) layer of the tracker.
+Mishits happen when a particle scatters in the second (or later) layer of the SVT.
 The scatter can shift the track so that a layer-1 hit from a different particle is more in line with the hits from layers 2 on; the track fit will then add the wrong hit to the track, and the track parameters at the vertex will be shifted.
 
-The electron and positron of a wide-angle bremsstrahlung pair do not have the same origin: the electron comes from the bremsstrahlung interaction in the target, and the positron comes from a pair conversion that may happen in the target or in the tracker.
-If the pair conversion happens in the tracker, the positron will not extrapolate to the target, and the reconstructed vertex may be pulled away from the target.
+The electron and positron of a wide-angle bremsstrahlung pair do not have the same origin: the electron comes from the bremsstrahlung interaction in the target, and the positron comes from a pair conversion that may happen in the target or in the SVT.
+If the pair conversion happens in the SVT, the positron will not extrapolate to the target, and the reconstructed vertex may be pulled away from the target.
 Because the positron is typically collinear with the photon, the effect on vertex $z$ is typically small, but these events are a identifiable component of the vertex distribution tails.
+
+Figure \ref{fig:vertcut_performance} shows the effect of the vertex cuts on a mass slice in data. The efficiency for vertices near $z_{target}$ (presumed to be well-reconstructed) is roughly 60\%, and is similar for different masses.
+The efficiency for displaced vertices (in Monte Carlo samples of heavy photons) is similar and does not degrade significantly with increasing $z$.
+The individual cuts are described below.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=2,angle=-90]{vertexing/figs/vertcutplots}
+\end{center}
+    \caption{Cumulative effect of the different vertex cuts on events in the mass slice centered at 30 MeV, passing base event selection cuts and meeting the layer 1 hit requirement.
+    The tails at high $z$ are greatly reduced as cuts are applied (going from the black to the magenta distributions).
+    }
+    \label{fig:vertcut_performance}
+\end{figure}
 
 \subsection{Layer 1 Requirement}
 \label{sec:layer1_cut}
@@ -124,7 +141,7 @@ But in order to create charged tracks with layer 1 hits, the photon must convert
 The silicon sensors (0.35\% $X_0$) are significantly thicker than the portion of the target traversed by the average photon (half of 0.125\% $X_0$), so requiring that the track have a layer 1 hit cuts this background by roughly a factor of three.
 
 The layer 1 requirement has a significant effect on the efficiency for long-lived, low-mass heavy photons.
-As seen from the target, all layers of the tracker have their inner edges at $\pm 15$ mrad vertical angle from the beam plane.
+As seen from the target, all layers of the SVT have their inner edges at $\pm 15$ mrad vertical angle from the beam plane.
 As seen by a heavy photon decaying downstream of the target, layer 1 is at a significantly larger vertical angle than the others, and so the minimum $m_{A'}$ needed to hit layer 1 is larger.
 Put another way, this means that the maximum $z$ for detecting a heavy photon of given $m_{A'}$ is smaller if layer 1 is required; this is shown in Figure \ref{fig:eff_z_alllayers}.
 The impact of this effect is discussed in Section \ref{sec:reach_projections}.
@@ -138,6 +155,21 @@ The impact of this effect is discussed in Section \ref{sec:reach_projections}.
     \label{fig:eff_z_alllayers}
 \end{figure}
 
+\subsection{Track Quality}
+As explained in Section \ref{sec:event_selection}, the track $\chi^2$ is not a very selective cut when studied as part of the base event selection (where the objective is to reject accidental coincidences).
+However, poor track fits can lead to poor vertex fits, and so events with poor track $\chi^2$ do contribute to the tails of the vertex $z$ distribution.
+This is shown in Figure \ref{fig:trkchisq_performance}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=3,angle=-90]{vertexing/figs/vertcutplots}
+\end{center}
+    \caption{Effect of the track quality cut on events in the mass slice centered at 30 MeV, and passing all other cuts.
+%    The $z$ distributions of events rejected by these cuts have longer tails, so these cuts 
+    }
+    \label{fig:trkchisq_performance}
+\end{figure}
+
 \subsection{Beamspot Constraint}
 The beamspot constraint uses the vertex fit to identify the common situation where one track points back to the beamspot at the target as it should, but the other does not.
 If the second track (due to scattering, mishits or any other effect) intersects the beam axis downstream of the target, the reconstructed vertex will be pulled downstream along the first track.
@@ -146,12 +178,54 @@ The beamspot constraint is meant to identify these inconsistencies.
 
 As explained in Section \ref{sec:vertex_recon}, the vertex reconstruction can use a ``beamspot-constrained'' fit where the vertex momentum is required to point back to the beamspot at $z_{target}$.
 The $\chi^2$ of this vertex fit is the sum of two factors: the consistency of the vertex (how close the tracks are to intersecting each other) and the consistency with the beamspot constraint (how close the vertex is to pointing back to the beamspot).
+The ``unconstrained'' vertex fit $\chi^2$ contains only the first factor.
+
+Cuts are applied on both the beamspot-constrained vertex $\chi^2$ and the difference between the beamspot-constrained and unconstrained vertex $\chi^2$.
+The effect of these cuts is shown in Figure \ref{fig:bsc_performance}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=4,angle=-90]{vertexing/figs/vertcutplots}
+\end{center}
+    \caption{Effect of the beamspot constraint cuts on events in the mass slice centered at 30 MeV, and passing all other cuts.
+%    The $z$ distributions of events rejected by these cuts have longer tails, so these cuts 
+    }
+    \label{fig:bsc_performance}
+\end{figure}
 
 \subsection{Isolation Cut}
-The isolation cut rejects possible mishits by looking at the other hits in layer 1 of the tracker.
+The isolation cut rejects possible mishits by looking at the other hits in layer 1 of the SVT.
 If a mishit on a track pulls the vertex downstream, the real hit from the particle will be close to the hit that was mistakenly associated with the track, but further away from the beam plane.
+Since the track parameters at the vertex are most strongly determined by the layer 1 and layer 2 hits, and the lever arm from the target to layer 2 is twice that from layer 1 to layer 2, typically the track $y$ at the target will shift by double the distance between the real hit and the mishit.
+This geometry is illustrated in Figure \ref{fig:isolation_schematic}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{vertexing/figs/isolation}
+\end{center}
+    \caption{Illustration of a track with a mishit.
+    This view shows the Z (beam direction, beam travels left to right) and Y (magnetic field direction) axes, and three SVT layers with hits (circles).
+    The true particle trajectory (black) starts at the target, is scattered at layer 2, and continues on to layer 3.
+    Because the true trajectory is not straight, a better track fit can be made using a hit (red circle) from a different particle.
+    The resulting track fit (red line) misses the target and, if used in a vertex fit, will lead to a best-fit vertex downstream of the target.
+    }
+    \label{fig:isolation_schematic}
+\end{figure}
+
 Therefore an ``isolation'' value is calculated for each of the layer 1 hits, as the distance to the closest hit in the outwards direction.
-If any of the four isolations (one for each layer 1 sensor) is less than 0.5 mm, the pair is rejected.
+If the isolation is less than 0.5 times the track's distance of closest approach to the beamspot in the $y-z$ plane, the hit on the track may be a mishit and the closest hit might be the real hit.
+If this is the case for any of the four isolations (one for each layer 1 sensor), the pair is rejected.
+The effect of this cut is shown in Figure \ref{fig:isolation_performance}.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=5,angle=-90]{vertexing/figs/vertcutplots}
+\end{center}
+    \caption{Effect of the isolation cut on events in the mass slice centered at 30 MeV, and passing all other cuts.
+    By design the isolation cut has little impact on vertices with $z\approx z_{target}$, since the tracks in those pairs pass close to the beamspot.
+    }
+    \label{fig:isolation_performance}
+\end{figure}
 
 \subsection{Momentum Asymmetry and Positron DOCA}
 Two cuts are meant to reject wide-angle bremsstrahlung pairs.
@@ -159,9 +233,20 @@ Two cuts are meant to reject wide-angle bremsstrahlung pairs.
 Because the electron from a bremsstrahlung interaction typically carries more momentum than the photon, the electron in a WAB pair usually has higher momentum than the positron.
 Heavy photons and radiative tridents have a symmetric distribution of electron and positron momentum, so a cut is used to reject pairs where the electron has much higher momentum than the positron.
 
-If the pair conversion happens in the tracker, the positron track will curve wide of the target since the positron is roughly collinear with the photon, which does not bend in the magnetic field.
+If the pair conversion happens in the SVT, the positron track will curve wide of the target since the positron is roughly collinear with the photon, which does not bend in the magnetic field.
 This appears in the track parameters as a positive DOCA (distance of closest approach) in the X-Z plane.
 Therefore, pairs with large positive positron DOCA are rejected.
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.35\textwidth,page=6,angle=-90]{vertexing/figs/vertcutplots}
+    \includegraphics[width=0.35\textwidth,page=7,angle=-90]{vertexing/figs/vertcutplots}
+\end{center}
+    \caption{Effect of the WAB rejection cuts on events in the mass slice centered at 30 MeV, and passing all other cuts.
+    The $z$ distributions of events rejected by these cuts are wider than the events that pass, showing that while wide-angle bremsstrahlung conversions do not have systematic shifts in vertex $z$, they contribute to the tails of the $z$ distribution.
+    }
+    \label{fig:wabcut_performance}
+\end{figure}
 
 \subsection{Tuning Cuts}
 Data is used to tune the cuts to keep pairs with $z$ close to $z_{target}$, and reject pairs with large positive $z$.
@@ -171,6 +256,7 @@ Also, since the cuts are not tuned for individual mass slices, any possible heav
 
 Heavy photon Monte Carlo is used to check that none of the cuts have an unexpected adverse effect on efficiency for displaced vertices.
 
+\clearpage
 \section{Fit Inputs}
 
 %The events passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex Z-coordinate $z$ of an event.
@@ -191,11 +277,12 @@ The amplitude of the background distribution is taken from the peak of the verte
 Setting limits requires knowledge of the expected signal distribution, $S(z;m_{A'},\epsilon^2)$.
 This is described in Section \ref{sec:signal_shape}.
 
+\clearpage
 \subsection{Estimating the Mass Resolution}
 \label{sec:mres}
 
 The mass resolution $\sigma_m$ for a $e^+e^-$ pair depends on the momentum resolutions $\sigma_{p_{e^+}},\sigma_{p_{e^-}}$ for the two particles, the resolution $\sigma_\theta$ of the opening angle, and their covariances.
-Since the opening angle and momentum measurements predominantly rely on different parts of the tracker (opening angle on the upstream half of the tracker, momentum on the downstream half), their covariance is negligible.
+Since the opening angle and momentum measurements predominantly rely on different parts of the SVT (opening angle on the upstream half of the SVT, momentum on the downstream half), their covariance is negligible.
 Neglecting the electron mass, and using the small-angle approximation for the opening angle,
 \begin{equation}
 m=\sqrt{(1-\cos\theta)p_{e^+}p_{e^-}} \approx \frac{1}{\sqrt{2}}\theta\sqrt{p_{e^+}p_{e^-}}
@@ -242,7 +329,7 @@ The result of this procedure is a model for the mass resolution: $\sigma_m(m_{A'
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=5,angle=-90]{vertexing/figs/acceptance_30}
 \end{center}
-    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons.
+    \caption{Mass resolution vs. $z$ for 40 MeV heavy photons in Monte Carlo.
     Top: mass residual (difference between the reconstructed mass and the true mass) vs. $z$ for 40 MeV heavy photons.
     Bottom: the widths of Gaussian fits to vertical slices of the top distribution (blue points), and a linear fit to the points (red line).
     The slope of the linear fit is consistent with 0, showing that the mass resolution is constant with respect to $z$.}
@@ -268,7 +355,7 @@ As explained in Section \ref{sec:mollers}, pairs of electrons from M{\o}ller sca
 The width of the M{\o}ller mass distribution is therefore a useful check.
 Figure \ref{fig:moller_mres} shows the M{\o}ller mass distribution in data, which has $\sigma_m=2.168$ MeV.
 As shown in Figure \ref{fig:mres_data}, this is within 10\% of the heavy photon mass resolution from Monte Carlo (1.973 MeV).
-The difference between data and Monte Carlo resolutions is believed to be due to the incomplete tracker alignment, for which work is still in progress.
+The difference between data and Monte Carlo resolutions is believed to be due to the incomplete SVT alignment, for which work is still in progress.
 
 \begin{figure}[ht]
 \begin{center}
@@ -278,6 +365,7 @@ The difference between data and Monte Carlo resolutions is believed to be due to
     \label{fig:moller_mres}
 \end{figure}
 
+\clearpage
 \subsection{Estimating the Signal Distribution}
 \label{sec:signal_shape}
 The expected distribution of signal events can be expressed as $\mu_{exp} s(z)$, where $\mu_{exp}$ is the expected number of reconstructed heavy photon events after the mass and $z$ cuts, and $s(z)$ is the probability density function (normalized to unit integral) of the $z$ locations.
@@ -300,8 +388,6 @@ The fraction is estimated using Monte Carlo.
 
 The Monte Carlo samples described in Section \ref{sec:tri_mc} are used to calculate the normalized cross-sections (after detector and reconstruction efficiencies, and all cuts) for radiative tridents only, for all tridents, and for wide-angle bremsstrahlung conversions.
 The radiative trident fraction is the ratio of the cross-section for radiative tridents to the total cross-section for $e^+e^-$ pairs.
-
-
 
 \begin{figure}[ht]
 \begin{center}
@@ -329,12 +415,13 @@ The decay constant of the exponential is compared to the $\gamma c \tau$ that wo
 \end{figure}
 
 \subsubsection{Efficiency}
+\label{sec:efficiency_z}
 
 The efficiency $\epsilon_{reco}$ for reconstructing a heavy photon decay depends on $m_{A'}$ and the decay $z$.
 The measurement of the radiative trident rate implicitly includes a factor of $\epsilon_{reco}(m_{A'},z_{target})$, so Monte Carlo is only needed to estimate $\frac{\epsilon_{reco}(m_{A'},z)}{\epsilon_{reco}(m_{A'},z_{target})}$, the efficiency falloff as a function of vertex displacement.
 This assumes that any detector-based inefficiencies not represented in the Monte Carlo are independent of $z$.
 
-The efficiency falls off with $z$ because the further downstream the decay, the larger the opening angle in the Y-Z plane necessary to hit layer 1 of the tracker.
+The efficiency falls off with $z$ because the further downstream the decay, the larger the opening angle in the Y-Z plane necessary to hit layer 1 of the SVT.
 At some cutoff value of $z$ it is no longer possible for both the electron and the positron to hit layer 1; the efficiency starts to fall off well before that cutoff.
 This effect is more severe for lower $m_{A'}$, where the opening angle is smaller.
 
@@ -352,6 +439,7 @@ The parameters $p_3$, $p_2$, $p_1$, and $p_0$ are fit with polynomials in $m_{A'
     \label{fig:eff_z}
 \end{figure}
 
+\clearpage
 \subsection{Fitting the Background Distribution}
 \label{sec:tails}
 The background distribution consists of a Gaussian core and a non-Gaussian tail.
@@ -388,9 +476,9 @@ e^{-\frac{b^2}{2\sigma^2} - (z-\bar{z}-b)/l}  &\text{if } z\ge\bar{z}+b
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=51,angle=-90]{vertexing/figs/golden_mres}
+    \includegraphics[width=0.7\textwidth,page=61,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Vertex Z for a mass slice in data, with the background model in blue.}
+\caption{Vertex $z$ (units of mm) for a mass slice in data, with the background model in blue.}
     \label{fig:vz_fit}
 \end{figure}
 
@@ -417,8 +505,8 @@ If the background model fully describes the data, the mean number per mass slice
     \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
 \caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice.
-This is the same plot as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
-Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z>>z_{cut}$).}
+This is the same histogram as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
+Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z\gg z_{cut}$).}
     \label{fig:zvsmass_candidates}
 \end{figure}
 
@@ -433,9 +521,9 @@ Some of the events with $z>z_{cut}$ do appear to follow this pattern, but some h
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=60,angle=-90]{vertexing/figs/golden_mres}
+    \includegraphics[width=0.6\textwidth,page=60,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{The background CDF values (quantiles) for events in the mass slice centered at $m_{A'}=35.5$ MeV that have $z>z_{cut}$ (this is the same mass slice as Figure \ref{fig:vz_1d}).
+\caption{The background CDF values (quantiles) for events in the mass slice centered at $m_{A'}=35.6$ MeV that have $z>z_{cut}$ (this is the same mass slice as Figure \ref{fig:vz_1d}).
 The two events with $z\approx 35$ have quantiles close to 1, suggesting that their values of $z$ are larger than would be expected from the background model.}
     \label{fig:candidates_rescaled}
 \end{figure}
@@ -447,8 +535,6 @@ The two events with $z\approx 35$ have quantiles close to 1, suggesting that the
 \caption{The background quantiles for events that have $z>z_{cut}$ in each mass slice.
 This is not a true histogram; each vertical column is a histogram similar to Figure \ref{fig:candidates_rescaled}, but a given event is plotted in every mass slice where it appears.
 The quantile for a given event changes with the mass slice because $z_{cut}$ depends on the mass slice.
-The two populations of events noted in Figure \ref{fig:zvsmass_candidates} are also distinguishable here: events with $z$ close to $z_{cut}$ have quantiles spread across the range of 0 to 1, while events with $z>>z_{cut}$ have quantiles close to 1.
-If only the events with quantiles less than 0.9 were counted, the mean number per mass slice of events with $z>z_{cut}$ would be 0.52.
 }
     \label{fig:zvsmass_candidates_rescaled}
 \end{figure}
@@ -466,20 +552,24 @@ Beam-gas interactions, where beam electrons interact with residual gas in the be
 The beamline vacuum was measured to be in the $10^{-5}$ torr range, which would (under generous assumptions) contribute less than 0.01 event to this data set.
 
 There is other evidence that these events are a rare detector background and not a heavy photon.
-A sample of trident Monte Carlo (with 1/7 as much integrated luminosity as the data used for this analysis) contains one similar event: see Figure \ref{fig:zvsmass_candidates_mc}.
-This suggests that these events are a background that can be reproduced and understood in Monte Carlo, and it may be possible to identify a cut to reject them.
-Since the current rate of these events is greater than the expected rate of heavy photon decays, this is essential to the full HPS analysis.
+A sample of trident Monte Carlo (with 1/3 as much integrated luminosity as the data used for this analysis) contains one similar event: see Figure \ref{fig:zvsmass_candidates_mc}.
+This suggests that these events are a background that can be reproduced and understood in Monte Carlo.
+
+Since the current rate of the excess background is greater than the expected rate of heavy photon decays, rejecting them is essential to the full HPS analysis.
+The current vertex cuts have mostly been tuned to reject the exponential tail of the vertex $z$ distribution, or to reject specific detector backgrounds.
+Studying the excess background in Monte Carlo is likely to identify a specific process that produces these events, and may lead to a specific cut that can reject them.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/mc_mres_output}
 \end{center}
-\caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice.
-This is the same plot as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
-Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z>>z_{cut}$).}
+\caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice (similar to Figure \ref{fig:zvsmass_candidates}), for a trident Monte Carlo sample.
+One event has $z\gg z_{cut}$.
+}
     \label{fig:zvsmass_candidates_mc}
 \end{figure}
 
+\clearpage
 \section{Finding Signal Significance}
 \label{sec:significance}
 The signal significance is a measure of the inconsistency of the data with the background-only assumption.
@@ -502,22 +592,22 @@ Assuming there is only one heavy photon, this procedure yields an estimate of $b
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=108,angle=-90]{vertexing/figs/golden_mres}
+    \includegraphics[width=0.7\textwidth,page=164,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Unbiased fit to estimate the background rate past $z_{cut}$ in the mass slice centered at 30 MeV.}
+\caption{Unbiased fit to estimate the background rate past $z_{cut}$ in the mass slice centered at 35 MeV.}
     \label{fig:bkg_fit}
 \end{figure}
 
 The $p$-values from this procedure are shown in Figure \ref{fig:pval}.
-The smallest $p$-value is 0.0372, but it is not correct to use this as the significance of the data set.
+The smallest $p$-value is 0.0661, but it is not correct to use this as the significance of the data set.
 These are ``local'' $p$-values: the $p$-value for a mass slice represents the consistency of that slice of the data with the background-only hypothesis.
 But the objective of this analysis is to find the significance of the full data set, not individual slices: how consistent is the data with the background-only hypothesis?
 This is expressed by a ``global'' $p$-value.
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=7,angle=-90]{vertexing/figs/golden_mres_output}
+    \includegraphics[width=0.7\textwidth,page=12,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
-\caption{Local $p$-value for finding the observed number of events at each $m_{A'}$. The minimum value is 0.0372.}
+\caption{Local $p$-value for finding the observed number of events at each $m_{A'}$. The minimum value is 0.0661.}
     \label{fig:pval}
 \end{figure}
 
@@ -546,6 +636,7 @@ After this procedure, the global $p$-value is found to be 0.72 for a local $p$-v
 This is completely consistent with the background-only hypothesis; it means that in fact the local $p$-value is slightly less significant than the median $p$-value.
 Expressed as a equivalent significance for a Gaussian, the significance of this result is $-0.59\sigma$.
 
+\clearpage
 \section{Setting Limits}
 \label{sec:limits}
 An upper limit on the heavy photon production at a given $m_{A'}$ and $\epsilon^2$ is the maximum rate at which heavy photons could be produced, and still be consistent with the data.
@@ -609,8 +700,8 @@ This test shows that the performance is not dramatically better when subtracting
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.35\textwidth,page=4,angle=-90]{vertexing/figs/toy_nothing}
-    \includegraphics[width=0.35\textwidth,page=4,angle=-90]{vertexing/figs/toy_nosignal}
+    \includegraphics[width=0.35\textwidth,page=5,angle=-90]{vertexing/figs/toy_nothing}
+    \includegraphics[width=0.35\textwidth,page=5,angle=-90]{vertexing/figs/toy_nosignal}
 \end{center}
     \caption{Comparison of the optimum interval method with cut-and-count using Feldman-Cousins limits. The y-axis is the limit on the total signal rate as a fraction of the background rate. 
         The background (10000 events) has decay length 2, the signal has decay length 20, and the unexpected background (100 events) has decay length 5. Left plot is with only the expected background (no signal); right plot is with the unexpected background added (still no signal). The $z_{cut}$ for 0.5 expected background events is 19.8.}
@@ -631,7 +722,7 @@ The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which s
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_mres_output}
+    \includegraphics[width=0.7\textwidth,page=15,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
     \caption{90\% CL upper limit on $\mu/\mu_{exp}$, the ratio of the true production rate to the expected production rate for a heavy photon. A value of 1 would mean exclusion; the lowest contour on this plot is 200, and the lowest point is 106.
     The vertical ridges in this plot correspond to the locations of events in mass space.}
@@ -640,13 +731,13 @@ The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which s
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=11,angle=-90]{vertexing/figs/golden_mres_output}
+    \includegraphics[width=0.7\textwidth,page=16,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
     \caption{$\mu_{exp}$, the number of detectable heavy photon events expected with $z>z_{cut}$. The highest contour is at 0.03 events.}
     \label{fig:detectable}
 \end{figure}
 
-\subsubsection{Reach Projections with Planned Improvements}
+\subsubsection{Reach Projections for the 2015 Run}
 \label{sec:reach_projections}
 Several factors will improve this reach in future iterations of this analysis.
 First, the number of events with $z>z_{cut}$ was larger than predicted by the background fit.
@@ -656,7 +747,7 @@ If, after refining cuts, the background shape comes to match the exponential for
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_mres_nosignal_output}
+    \includegraphics[width=0.7\textwidth,page=15,angle=-90]{vertexing/figs/golden_mres_nosignal_output}
 \end{center}
 \caption{Predicted 90\% CL upper limit on $\mu/\mu_{exp}$, assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 100, and the lowest point is 88.1.}
     \label{fig:upper_limit_nosignal}
@@ -669,31 +760,162 @@ As shown in Figure \ref{fig:upper_limit_fullset}, this improves the exclusion to
 
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_fullset_mres_nosignal_output}
+    \includegraphics[width=0.7\textwidth,page=15,angle=-90]{vertexing/figs/golden_fullset_mres_nosignal_output}
 \end{center}
 \caption{Predicted 90\% CL upper limit on $\mu/\mu_{exp}$, projected for the full 2015 data set, and assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 20, and the lowest point is 14.7.}
     \label{fig:upper_limit_fullset}
 \end{figure}
 
-Finally, this analysis only used the events where both tracks made hits in layer 1 of the tracker.
+Finally, this analysis only used the events where both tracks made hits in layer 1 of the SVT.
 As explained in Section \ref{sec:layer1_cut}
 Figure \ref{fig:eff_z_alllayers} shows the difference in efficiency between the current analysis and the full acceptance.
 Doing this will require tuning cuts separately for the sets of events that miss layer 1, and combining the data sets (the optimum interval method can be used for this \cite{yellin_ways_2011}).
 As shown in Figure \ref{fig:upper_limit_fullset_alllayers}, this improves the exclusion to 6.82.
 The mass range of the search is also substantially improved, because the lower values of $m_{A'}$ are more strongly affected by the layer 1 requirement.
 
+\begin{table}[ht]
+    \begin{center}
+        \caption{Assumptions used for the 2015 reach estimate.}
+        \begin{tabular}{lp{0.5\textwidth}}
+            \hline \hline
+            Beam energy & 1.056 GeV \\
+            Integrated luminosity & 1166 nb$^{-1}$ (equivalent to 50 nA, 1.69 days, target thickness 0.112\% $X_0$) \\
+            Efficiency dependence on $z$ & From Monte Carlo, with no layer 1 requirement \\
+            Efficiency at $z_{target}$ & From Monte Carlo \\
+            \hline \hline
+        \end{tabular}
+        \label{tab:reach_assumptions} 
+    \end{center}
+\end{table}
+
 \begin{figure}[ht]
 \begin{center}
-    \includegraphics[width=0.7\textwidth,page=10,angle=-90]{vertexing/figs/golden_fullset_mres_allayers_nosignal_output}
+    \includegraphics[width=0.7\textwidth,page=15,angle=-90]{vertexing/figs/golden_fullset_mres_allayers_nosignal_output}
 \end{center}
-\caption{Predicted 90\% CL upper limit on the heavy photon production rate, projected for the full 2015 data set, using the full HPS acceptance, and assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 7, and the lowest point is 6.82.}
+\caption{Predicted 90\% CL upper limit on $\mu/\mu_{exp}$, projected for the full 2015 data set, using the full HPS acceptance, and assuming no events with $z>z_{cut}$. A value of 1 would mean exclusion; the lowest contour on this plot is 7, and the lowest point is 6.82.}
     \label{fig:upper_limit_fullset_alllayers}
 \end{figure}
 
-Some data was taken in 2015 with the tracker opened wider than its nominal position (silicon at 1.5 mm from the beam, instead of 0.5 mm).
+Some data was taken in 2015 with the SVT opened wider than its nominal position (silicon at 1.5 mm from the beam, instead of 0.5 mm).
 The integrated luminosity is similar to the data that was used in this analysis, but the acceptance is worse.
 At best, this can only double $\mu_{exp}$, so even using this data there will be no excluded region.
 
+Reach projections for the 2016 data and the planned 2018 run are in progress.
+
 \subsubsection{Reach Comparison with 2014 Proposal}
 \label{sec:proposal_reach}
-The projected reach based on this analysis is substantially worse than the reach estimates in the 2014 proposal (see Figure \ref{fig:reach}), even if th the 1-week run that was 
+The reach estimates in the 2014 proposal (see Figure \ref{fig:reach}) are substantially different from the projected reach shown above.
+The proposal estimates were made assuming 1 week of beam time, and used some assumptions that are now understood to be inaccurate.
+In addition, the trident rates in data are different from the rates in Monte Carlo trident samples.
+Even accounting for these differences, there are significant differences between the $\mu_{exp}$ estimated using this analysis, and the $\mu_{exp}$ that was used for reach estimates in the proposal.
+
+The reach estimates for the proposal were made by calculating $\mu_{exp}$ assuming the same procedure presented here: apply cuts to reduce the backgrounds at large $z$, make a resolution-limited mass slice and apply a $z_{cut}$ that reduces the background to 0.5 expected events.
+
+%The exclusion region in $(m_{A'},\epsilon^2)$ space was defined as the region with $\mu_{exp}>2.4$ events.
+%This was intended as a $2\sigma$ confidence level exclusion, based on the probability of observing 0 events given a background rate of 0.5 events and a signal rate of 2.4 events.
+%This reasoning overestimates the exclusion region for a given confidence level, since it assumes that the exclusion region is found by a cut-and-count analysis that excludes parts of parameter space where $\mu_{exp}>2.4$ and 0 events were observed; there will be no exclusion in mass slices where background events are observed.
+
+These are assumptions that were made for the proposal, and how each differs from our current understanding of the experiment:
+\begin{itemize}
+\item The integrated luminosity was expected to be 1 week of 50 nA beam, on a target with the nominal thickness of 0.125\% of a radiation length; the actual target was somewhat thinner, at 0.112\% $X_0$.
+\item The beam energy was expected to be 1.1 GeV; in reality it was 1.056 GeV. The beam energy affects the vertex resolution, mass scale and production rates, but the difference in beam energy is small.
+\item Efficiency for heavy photons was assumed to be uniform to $z=100$ ($\epsilon_{reco}(m_{A'},z) = \epsilon_{reco}(m_{A'},z_{target})$).
+This is of course not true, as explained in Section \ref{sec:efficiency_z}.
+\item Rates for heavy photons and trident backgrounds were estimated using a MadGraph/MadEvent generator and a rough mock-up of the geometric acceptance (not a full Monte Carlo simulation of the detector, trigger, and reconstruction).
+The rate estimate from the mocked-up acceptance is high by roughly a factor of 2, compared to the rate of fully reconstructed $e^+e^-$ pairs in trident Monte Carlo samples.
+This suggests the mocked-up geometric acceptance may be too generous.
+\item Efficiencies were estimated at 85\% reconstruction efficiency per track, and 50\% cut efficiency per pair.
+In short, efficiency is $0.85^2\times 0.5=0.36$ if both particles are within the geometric acceptance, 0 otherwise.
+The reconstruction and cut efficiency estimates are in rough agreement with what is seen in Monte Carlo samples, though as shown in Section \ref{sec:rates}, the efficiency in data appears to be 65\% that in Monte Carlo.
+\item The width of a mass slice was set at $m_{A'}\pm 1.25\sigma_m$, instead of $m_{A'}\pm 1.4\sigma_m$. The effect is a slight reduction in the mass cut efficiency for a heavy photon: $\epsilon_{cut}=0.789$ instead of 0.838.
+\end{itemize}
+
+These assumptions are summarized in Table \ref{tab:proposal_assumptions}, and the $\mu_{exp}$ used for the proposal is shown in Figure \ref{fig:proposal_detectable}.
+
+\begin{table}[ht]
+    \begin{center}
+        \caption{Assumptions used for the reach estimate in the 2014 proposal.}
+        \begin{tabular}{lp{0.5\textwidth}}
+            \hline \hline
+            Beam energy & 1.1 GeV \\
+            Integrated luminosity & 50 nA, 1 week, target thickness 0.125\% $X_0$ \\
+            Efficiency dependence on $z$ & Uniform to $z=100$ ($\epsilon_{reco}(m_{A'},z) = \epsilon_{reco}(m_{A'},z_{target})$) \\
+            Efficiency at $z_{target}$ & $0.85^2\times 0.5=0.36$ if both particles are within the geometric acceptance, 0 otherwise \\
+            \hline \hline
+        \end{tabular}
+        \label{tab:proposal_assumptions} 
+    \end{center}
+\end{table}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=1,angle=-90]{vertexing/figs/mgraham_signal}
+\end{center}
+    \caption{The predicted values of $\mu_{exp}$, the number of detectable heavy photon events expected with $z>z_{cut}$, that were used for the reach estimate in the 2014 proposal.
+    The $m_{A'}$ and $\epsilon^2$ ranges, and the binning, are different in this plot compared to other plots in this dissertation.
+    The highest contour is at 10 events, and the highest point (at $m_{A'}=22$ MeV, $\epsilon^2=5\times 10^{-9}$) is 17.3 events.
+    }
+    \label{fig:proposal_detectable}
+\end{figure}
+
+The reach projections in the current analysis can be rerun using the trident Monte Carlo sample and some of the proposal assumptions to produce a ``proposal-like'' reach estimate.
+A comparison between the proposal and proposal-like estimates is a first step towards understanding any problems with either procedure.
+The assumptions for the proposal-like estimate are shown in Table \ref{tab:mc_assumptions}, and the resulting $\mu_{exp}$ is shown in Figure \ref{fig:mc_detectable}.
+
+\begin{table}[ht]
+    \begin{center}
+        \caption{Assumptions used for the ``proposal-like'' reach estimate.}
+        \begin{tabular}{lp{0.5\textwidth}}
+            \hline \hline
+            Beam energy & 1.056 GeV \\
+            Integrated luminosity & 50 nA, 1 week, target thickness 0.112\% $X_0$ \\
+            Efficiency dependence on $z$ & Uniform to $z=100$ ($\epsilon_{reco}(m_{A'},z) = \epsilon_{reco}(m_{A'},z_{target})$) \\
+            Efficiency at $z_{target}$ & From Monte Carlo \\
+            \hline \hline
+        \end{tabular}
+        \label{tab:mc_assumptions} 
+    \end{center}
+\end{table}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.7\textwidth,page=16,angle=-90]{vertexing/figs/mc_week_mres_uniform_nosignal_output}
+\end{center}
+    \caption{Predicted $\mu_{exp}$, the number of detectable heavy photon events expected with $z>z_{cut}$, with the assumptions listed in Table \ref{tab:mc_assumptions}. The highest contour is at 7 events.}
+    \label{fig:mc_detectable}
+\end{figure}
+
+The proposal (Figure \ref{fig:proposal_detectable}) and proposal-like (Figure \ref{fig:mc_detectable}) estimates show large differences in $\mu_{exp}$.
+The proposal $\mu_{exp}$ has its peak at a lower $m_{A'}$ (22 MeV, as opposed to 28 MeV), and the peak is higher (17.3 events, as opposed to 7 events).
+Some differences between Figures \ref{fig:proposal_detectable} and \ref{fig:mc_detectable} are to be expected, since the beam energy and target thickness are different.
+However, these differences are of order 10\% and should not produce large changes, or shift the peak $m_{A'}$ by more than the change in the beam energy.
+The event selection cuts (and thus the $z_{cut}$) have also changed from the proposal, but not enough to explain the changes seen.
+
+In addition, the low-mass reach in the proposal does not seem plausible: the proposal shows reach at $m_{A'}$ below the lower limit of the HPS acceptance.
+The proposal shows exclusion at masses as low as $m_{A'}=14$ MeV, but Monte Carlo samples of low-mass heavy photons show that the efficiency at $z=z_{target}$ falls rapidly in this mass range, from 1\% at $m_{A'}=20$ to 0.06\% at $m_{A'}=16$ MeV, and 0.01\% at $m_{A'}=15$ MeV.
+This is expected since the decay products from heavy photons in this mass range are near the minimum opening angle detectable by the SVT; the rate of pairs with reconstructed masses below 15 MeV is still appreciable, but these are mostly pairs with higher masses whose masses were shifted downwards by the mass resolution.
+
+This suggests that the simplified model of the HPS geometric acceptance used for the proposal may have omitted important features of the detector, or that the method used to estimate the detector efficiency may have been flawed.
+Further work is needed to identify the problem, and confirm that there is no mistake in the current analysis.
+%One possibility of the first type is that the simplified model did not include the effect of the stereo angle on the SVT acceptance.
+%Since each module is built by stacking two rectangular half-modules with a small angular offset, the combined acceptance of a HPS SVT module is not rectangular; the stereo sensor dips away from the beam plane on one side.
+
+%The differences in beam energy and target thickness should produce 
+%The mass scales should be slightly different 
+
+%I was looking at cross-sections, and it looks like either something is wrong, or recon inefficiency in MC is worse than we thought.
+%
+%I have 0.6M tridents passing a full set of cuts:
+%
+%http://www.slac.stanford.edu/~meeg/hps3/users/meeg/vertexing/tails_postfix.pdf
+%
+%This is on the full set of postTriSummitFixes tritrig, so 0.0682*375 = 25 nb^-1.
+%
+%So that makes the trident cross-section 23890 nb, which is about a factor of 4 low.
+%
+%The efficiency of my vertexing cuts is around 50% (which is what you assumed). That gets you halfway, so (assuming your mocked-up acceptance agrees well
+%with the trigger acceptance - does it?) it seems like the efficiency to get a V0 is like 50%, which is not great compared to the 0.85^2 that you assumed
+%(where did that come from?).
+%
+%I noticed that the fraction of triggered tritrig events that have at least one V0 is 64%. Of course that includes a lot of low-esum tridents and maybe the
+%efficiency moves around, so this is not very conclusive.
