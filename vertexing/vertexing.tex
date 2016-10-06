@@ -16,13 +16,13 @@ These vertex quality cuts are tuned to suppress the tails of the vertex distribu
 
 The pairs passing cuts are reduced to a 2-D dataset of points $(m,z)$, where each point is the mass $m$ and vertex location $z$ of a pair: see Figure \ref{fig:zvsmass}.
 The vertex $z$ is defined relative to the nominal target position; as explained in Section \ref{sec:target_z}, the actual target position is at $z_{target}\approx -5$ mm.
-To test for a heavy photon with $m_{A'}=m$, a resolution-limited mass slice is taken from the 2-D data set, and the vertex $z$ of the pairs in this mass slice are plotted as in Figure \ref{fig:vz_1d}.
+To test for a heavy photon with $m_{A'}=m$, a resolution-limited mass slice ($|m-m_{A'}|<1.4\sigma_m$) is taken from the 2-D data set, and the vertex $z$ of the pairs in this mass slice are plotted as in Figure \ref{fig:vz_1d}.
 
 \begin{figure}[ht]
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=61,angle=-90]{vertexing/figs/golden_mres}
 \end{center}
-\caption{Vertex $z$ (units of mm) for a resolution-limited mass slice (in data) centered at $m_{A'}=35.5$ MeV. A heavy photon signal would appear as a long rightwards tail (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
+\caption{Vertex $z$ (units of mm) for a resolution-limited mass slice (in data) centered at $m_{A'}=35.5$ MeV. A heavy photon signal would appear as a low-level tail extending to higher $z$ (longer than the exponential fitted by the blue curve, which is the tail of the prompt vertex distribution).
     For this mass slice, $z_{cut}=26.6$ mm; there are four events with $z>z_{cut}$.}
     \label{fig:vz_1d}
 \end{figure}
@@ -39,7 +39,8 @@ These events will appear in those mass slices that are close enough to $m_{A'}$ 
 \begin{center}
     \includegraphics[width=0.7\textwidth,page=1,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
-\caption{The value of the cut $z>z_{cut}$, as a function of the center of the mass slice.}
+\caption{The value of the cut $z>z_{cut}$, as a function of the center of the mass slice.
+The number of events per mass slice decreases and the $z$ resolution improves as the mass increases; both effects tend to reduce $z_{cut}$.}
     \label{fig:zcut}
 \end{figure}
 
@@ -104,17 +105,17 @@ Broadly speaking, there are three types of events that the vertexing cuts are me
 
 Multiple scattering in layer 1 is the source of the Gaussian core of the vertex distribution, and also plays a role in the tails.
 If one of the particles scatters in the first layer of the SVT, the track parameters at the vertex will be shifted.
-The distribution of scattering angles is Gaussian at small angles where the scattering process is approximated by a random walk, but at large angles, the distribution is described by the Moli\`ere distribution, which approaches the power-law Rutherford scattering distribution.
+The distribution of scattering angles is Gaussian at small angles where the scattering process is approximated by a random walk, but at large angles, the distribution is described by the Moli\`ere distribution, which approaches the power-law Rutherford scattering distribution at larger angles.
 
 Mishits happen when a particle scatters in the second (or later) layer of the SVT.
 The scatter can shift the track so that a layer-1 hit from a different particle is more in line with the hits from layers 2 on; the track fit will then add the wrong hit to the track, and the track parameters at the vertex will be shifted.
 
 The electron and positron of a wide-angle bremsstrahlung pair do not have the same origin: the electron comes from the bremsstrahlung interaction in the target, and the positron comes from a pair conversion that may happen in the target or in the SVT.
-If the pair conversion happens in the SVT, the positron will not extrapolate to the target, and the reconstructed vertex may be pulled away from the target.
-Because the positron is typically collinear with the photon, the effect on vertex $z$ is typically small, but these events are a identifiable component of the vertex distribution tails.
+If the pair conversion happens in the SVT, the positron will not extrapolate to the target, and the reconstructed vertex may be pulled away from the target (the $z$ distribution is wider than the inherent vertex resolution).
+Because the positron is typically collinear with the photon, the effect on vertex $z$ is typically small, but these events are an identifiable component of the vertex distribution tails.
 
-Figure \ref{fig:vertcut_performance} shows the effect of the vertex cuts on a mass slice in data. The efficiency for vertices near $z_{target}$ (presumed to be well-reconstructed) is roughly 60\%, and is similar for different masses.
-The efficiency for displaced vertices (in Monte Carlo samples of heavy photons) is similar and does not degrade significantly with increasing $z$.
+Figure \ref{fig:vertcut_performance} shows the effect of the vertex cuts on a mass slice in data. 60\% of vertices near $z_{target}$ (presumed to be well-reconstructed) pass the vertex cuts, and this cut efficiency is similar for different masses.
+The cut efficiency for displaced vertices (in Monte Carlo samples of heavy photons) is similar and does not degrade significantly with increasing $z$.
 The individual cuts are described below.
 
 \begin{figure}[ht]
@@ -134,6 +135,8 @@ This means that tracks can be reconstructed without layer 1 hits (as long as the
 Tracks without layer 1 hits have degraded mass and vertex resolution.
 Furthermore, the tails of the vertex distribution extend to larger values of $z$.
 For these reasons, it is not possible to use tracks with and without layer 1 hits as part of the same data set.
+As discussed in Section \ref{sec:reach_projections}, a full analysis of the 2015 data will include pairs without layer 1 hits as a separate data set.
+For simplicity, this analysis is limited to pairs with layer 1 hits on both tracks.
 
 The background from wide-angle bremsstrahlung conversions is also significantly reduced by this cut.
 In order to create charged tracks, the bremsstrahlung photon must convert in the target, either layer 1 sensor, or early enough in the upstream layer 2 sensor to make a hit there.
@@ -173,7 +176,7 @@ This is shown in Figure \ref{fig:trkchisq_performance}.
 \subsection{Beamspot Constraint}
 The beamspot constraint uses the vertex fit to identify the common situation where one track points back to the beamspot at the target as it should, but the other does not.
 If the second track (due to scattering, mishits or any other effect) intersects the beam axis downstream of the target, the reconstructed vertex will be pulled downstream along the first track.
-The effect is that the reconstructed $z$ will be pulled downstream of the target, but the reconstructed vertex $y$ is also pulled up or down in a way that is inconsistent with a true displaced decay.
+The effect is that the reconstructed $z$ will be pulled downstream of the target, but the reconstructed vertex $y$ is also pulled up or down from the beam axis in a way that is inconsistent with a true displaced decay.
 The beamspot constraint is meant to identify these inconsistencies.
 
 As explained in Section \ref{sec:vertex_recon}, the vertex reconstruction can use a ``beamspot-constrained'' fit where the vertex momentum is required to point back to the beamspot at $z_{target}$.
@@ -250,6 +253,8 @@ Therefore, pairs with large positive positron DOCA are rejected.
 
 \subsection{Tuning Cuts}
 Data is used to tune the cuts to keep pairs with $z$ close to $z_{target}$, and reject pairs with large positive $z$.
+The intent is to maximize the cut efficiency for pairs with well-reconstructed $z$, and minimize the tails of the $z$ distribution for prompt pairs (thus minimizing $z_{cut}$, and maximizing the usable signal region for heavy photons).
+
 In general, tuning cuts on the data can introduce bias.
 In this case, only the unblinded 10\% of the full dataset is being used (and will be used, even after the data is unblinded) for tuning cuts; even if a heavy photon is present in the tuning data, the number of expected events is negligible.
 Also, since the cuts are not tuned for individual mass slices, any possible heavy photon signal will not be as prominent in the tuning process as it would be in the analysis.
@@ -269,7 +274,7 @@ This mass window is chosen to accept a large fraction of the signal events, with
 A window of $\pm1.4\sigma$ (which accepts 83.8\% of the signal events) optimizes significance for high-statistics, high-background experiments where significance is proportional to $S/\sqrt{B}$.
 The optimality of this window is not exact for low statistics (where the Poisson distribution cannot be safely approximated as a Gaussian), but is still approximately true.
 
-After cutting on $m$, the dataset is reduced to one dimension.
+After cutting on $m$, the distribution of events in $z$ is studied.
 An additional cut is made to keep only events with $z>z_{cut}$, rejecting the region where the background strongly dominates and there is no sensitivity to a signal.
 $z_{cut}$ is chosen such that only 0.5 events are expected past $z=z_{cut}$, based on the fitted shape of the background distribution.
 The amplitude of the background distribution is taken from the peak of the vertex distribution; the shape is taken from Monte Carlo as described in Section \ref{sec:tails}.
@@ -403,7 +408,7 @@ The decay length is calculated using Equation \ref{eq:lifetime}, which gives the
 The boost $\gamma$ equals $E_{beam}/m_{A'}$ if the heavy photon takes the full beam energy, but this is not completely accurate; in reality the average boost is slightly less than the maximum.
 
 Monte Carlo samples are used to find the correct distribution of decay lengths.
-The decay $z$ is plotted for an MC sample of heavy photons with mass $m_{A'}$ and an arbitrary lifetime, with the requirement that the heavy photon momentum be at least $0.8E_{beam}$ (matching the analysis cut), and fit with an exponential.
+As shown in Figure \ref{fig:decay_z_truth}, the decay $z$ is plotted for an MC sample of heavy photons with mass $m_{A'}$ and an arbitrary lifetime, with the requirement that the heavy photon momentum be at least $0.8E_{beam}$ (matching the analysis cut), and fit with an exponential.
 The decay constant of the exponential is compared to the $\gamma c \tau$ that would be expected from $\gamma=E_{beam}/m_{A'}$; this shows that the typical $\gamma$ is roughly $0.95E_{beam}/m_{A'}$.
 
 \begin{figure}[ht]
@@ -487,7 +492,7 @@ When estimating $B(z)$ for data, the values of $b$ and $l$ are fixed to the valu
 
 \subsubsection{Characterizing Excess Backgrounds}
 \label{sec:excess_background}
-If the tails of the vertex distribution are completely described by the exponential tail of the background model of Equation \ref{eq:gaussexp}, each mass slice should by construction (on average, and in the absence of a possible heavy photon signal) contain 0.5 events with $z>z_{cut}$.
+If the tails of the vertex distribution were completely described by the exponential tail of the background model of Equation \ref{eq:gaussexp}, each mass slice should by construction (on average, and in the absence of a possible heavy photon signal) contain 0.5 events with $z>z_{cut}$.
 But as seen in Figure \ref{fig:n_candidates}, most mass slices contain more than one event with $z>z_{cut}$, and some contain as many as 4 events; this is a significant excess.
 This indicates either that there is a heavy photon in the data, or that there is a background not described by the background model.
 
@@ -516,7 +521,7 @@ Any other component of the background might have a different distribution in $z$
 Events from heavy photon decays should have large $z$ and a tight distribution in mass (limited by the mass resolution).
 
 If the excess events are described by the background model, the events with $z>z_{cut}$ in a mass slice should be distributed according to the exponential distribution.
-Transforming by the cumulative distribution function of the exponential, $z\to 1-e^{(z_{cut}-z)/l}$, gives the quantile of each event in the background model; if the background model describes the events, the quantiles should be distributed uniformly.
+Transforming by the cumulative distribution function (CDF) of the exponential, $z\to 1-e^{(z_{cut}-z)/l}$, gives the quantile of each event in the background model; if the background model describes the events, the quantiles should be distributed uniformly.
 Some of the events with $z>z_{cut}$ do appear to follow this pattern, but some have large quantiles, meaning that they have $z$ larger than would be typical from sampling the background model.
 
 \begin{figure}[ht]
@@ -540,7 +545,7 @@ The quantile for a given event changes with the mass slice because $z_{cut}$ dep
 \end{figure}
 
 If we (somewhat arbitrarily) separate the two sets of events by cutting at a quantile of 0.9, the events with low quantiles contribute 0.52 events per mass slice; this suggests that these events are consistent with the background model and occur with the correct frequency, but the high-$z$ events with quantiles above 0.9 are in excess of the expected background.
-These are the five events on the upper right of Figure \ref{fig:zvsmass_candidates}.
+These are the five events on the upper right of Figure \ref{fig:zvsmass_candidates}, with masses between 30 and 50 MeV and $z>30$ mm.
 
 The five events isolated by the quantile cut are spread broadly in mass: their RMS in mass is 4.2 MeV, much larger than the estimated mass resolution (2.2 MeV) at the mean mass (38.2 MeV).
 No mass slice captures more than three of these events; if all five events were decays of a heavy photon at a single $m_{A'}$, the lowest- and highest-mass events would be deviations of more than $2\sigma_m$ from $m_{A'}$.
@@ -583,7 +588,7 @@ $p$ equals the probability $P(n;b) = \sum^{\infty}_{k=n} \frac{b^k}{k!} e^{-b}$ 
 
 According to the expected background distribution and the definition of $z_{cut}$, $b$ should equal 0.5.
 However, as shown in Figure \ref{fig:n_candidates} and explained in \ref{sec:excess_background}, there appears to be an additional background that is above the 0.5 level, and varies smoothly with $m$.
-This cannot be a heavy photon, and must be treated as part of the background.
+Because this cannot be a heavy photon, we can treat it as part of the background.
 
 Since the background is larger than 0.5, $b$ must be approximated using the data.
 $b$ for a given $m_{A'}$ hypothesis must be approximated in a way that is not biased by the data in the $m_{A'}$ mass slice.
@@ -649,7 +654,7 @@ Upper limits do not distinguish between a lack of sensitivity (insufficient data
 The method chosen for setting limits is the ``optimum interval'' method by Yellin \cite{yellin_finding_2002}.
 This method was developed for dark matter direct detection experiments, and is intended for experiments where the signal shape is known, but the backgrounds are not fully understood and there is the possibility of an unexpected background.
 A particular strength of the method is that it minimizes the influence of a background that is concentrated in one part of the data distribution.
-HPS uses Yellin's implementation of the optimum interval method, which is publicly available  \cite{yellin_optimum_2011}.
+This analysis uses Yellin's implementation of the optimum interval method, which is publicly available \cite{yellin_optimum_2011}.
 
 The optimum interval method sets a one-sided upper limit (with confidence level $C$) on the number of signal events $\mu$ in a one-dimensional data set, where the shape of the signal distribution is known.
 For HPS, the data set is the distribution of vertex $z$ locations, after applying the mass and $z_{cut}$ cuts; the signal distribution is the $s(z)$ found in Section \ref{sec:signal_shape} for the $m_{A'}$ and $\epsilon^2$ being tested.
@@ -779,7 +784,7 @@ The mass range of the search is also substantially improved, because the lower v
         \begin{tabular}{lp{0.5\textwidth}}
             \hline \hline
             Beam energy & 1.056 GeV \\
-            Integrated luminosity & 1166 nb$^{-1}$ (equivalent to 50 nA, 1.69 days, target thickness 0.112\% $X_0$) \\
+            Integrated luminosity & 1166 nb$^{-1}$ (equivalent to 50 nA, 1.69 days, target thickness 0.116\% $X_0$) \\
             Efficiency dependence on $z$ & From Monte Carlo, with no layer 1 requirement \\
             Efficiency at $z_{target}$ & From Monte Carlo \\
             \hline \hline
@@ -817,7 +822,7 @@ The reach estimates for the proposal were made by calculating $\mu_{exp}$ assumi
 
 These are assumptions that were made for the proposal, and how each differs from our current understanding of the experiment:
 \begin{itemize}
-\item The integrated luminosity was expected to be 1 week of 50 nA beam, on a target with the nominal thickness of 0.125\% of a radiation length; the actual target was somewhat thinner, at 0.112\% $X_0$.
+\item The integrated luminosity was expected to be 1 week of 50 nA beam, on a target with the nominal thickness of 0.125\% of a radiation length; the actual target was somewhat thinner, at 0.116\% $X_0$.
 \item The beam energy was expected to be 1.1 GeV; in reality it was 1.056 GeV. The beam energy affects the vertex resolution, mass scale and production rates, but the difference in beam energy is small.
 \item Efficiency for heavy photons was assumed to be uniform to $z=100$ ($\epsilon_{reco}(m_{A'},z) = \epsilon_{reco}(m_{A'},z_{target})$).
 This is of course not true, as explained in Section \ref{sec:efficiency_z}.
@@ -868,7 +873,7 @@ The assumptions for the proposal-like estimate are shown in Table \ref{tab:mc_as
         \begin{tabular}{lp{0.5\textwidth}}
             \hline \hline
             Beam energy & 1.056 GeV \\
-            Integrated luminosity & 50 nA, 1 week, target thickness 0.112\% $X_0$ \\
+            Integrated luminosity & 50 nA, 1 week, target thickness 0.116\% $X_0$ \\
             Efficiency dependence on $z$ & Uniform to $z=100$ ($\epsilon_{reco}(m_{A'},z) = \epsilon_{reco}(m_{A'},z_{target})$) \\
             Efficiency at $z_{target}$ & From Monte Carlo \\
             \hline \hline
