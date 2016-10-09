@@ -1,4 +1,6 @@
 \chapter{Event Reconstruction and Selection}
+%This chapter covers the HPS event reconstruction with 
+
 \section{Reconstruction}
 \subsection{Tracking}
 \label{sec:track_recon}
@@ -76,6 +78,7 @@ As shown in Section \ref{sec:signal_kinematics}, most heavy photons and radiativ
         \begin{tabular}{lc}   
             \hline \hline
             Trigger type & ``pairs-1'' trigger \\
+            Run and event quality & see Section \ref{sec:luminosity} \\
             Top-bottom requirement & $\sign(y_{cl}(e^-))\neq\sign(y_{cl}(e^-))$ \\
             Track-cluster matching (position) & $\chi^2_{match}<10$ \\
             Track-cluster matching (time) & $|t_{cl}-t_{trk}-43|<4$ ns \\
@@ -116,17 +119,101 @@ The rate of random coincidences contaminating the central peak can be estimated 
     \label{fig:basecut_performance}
 \end{figure}
 
-\section{Data Normalization}
+\section{Run Quality, Event Quality, and Data Normalization}
 \label{sec:luminosity}
+All the data used in the analysis should have the same detector conditions and efficiencies: this is ensured by appropriate selections of runs and events.
+The HPS data is divided into runs, which are roughly two hours each unless interrupted by DAQ problems.
+All ``golden runs'' included in this analysis have the same configuration for the HPS setup: the tungsten target with design thickness of 0.125\% $X_0$, nominal beam current of 50 nA, the trigger cuts listed in Section \ref{sec:trigger_cuts}, and the SVT position at nominal (layer 1 silicon at 0.5 mm from the beam).
+
+A more fine-grained run quality selection is necessary because even a golden run can include substantial amounts of data that were recorded without the detector being in the desired configuration: a good-quality run can have periods of poor-quality data.
+The most common situation is a beam trip.
+According to the procedures that were followed by shift workers in the 2015 run, the high-voltage bias to the SVT sensors was lowered when the beam was lost, and bias was only restored after the beam returned.
+Furthermore, if the trip was determined to be caused by the halo counter FSD (see Section \ref{sec:beam_quality}), the SVT would be moved out to 1.5 mm from the beam, and only moved back in after the beam returned.
+The result is that the SVT would not be in its normal configuration after beam restoration: the bias would be low, and the SVT position might be away from nominal.
+Between beam restoration and the restoration of SVT bias and position, data would be recorded but it would not be reconstructable, since at low bias the SVT would not see hits, and at a position away from nominal the SVT alignment would not be correct.
+
+The SVT bias and position history are recorded in a database, and the database is used to find the time intervals when the SVT was in its nominal configuration.
+These time ranges are then used to select events with good run quality.
+
+There are additional effects in the SVT that can affect event quality, and can be identified on an event-by-event basis.
+The SVT DAQ can enter an error state during a run, which affects all data for the rest of the run for a single sensor; the error state is flagged in each event, so these events are easy to reject.
+Roughly 40\% of the data used in this analysis was recorded before the correct setting for the APV25 latency was found; with the incorrect setting, if an event occurs too late relative to the APV25 clock, the SVT hits will not pass the data reduction threshold.
+This affects 1/3 of the events in these runs, and the events are identified and rejected based on their trigger timestamps.
+Finally, a small fraction (3.5\%) of events in every run have elevated noise in the SVT because the APV25 pipelines were being filled as the APV25 was outputting the digital header for a previous event.
+This effect is called ``burst-mode noise'' after the APV25 feature that allows a trigger to be received while a previous event is being read out.
+Events with burst-mode noise are identified by counting the number of isolated (no neighboring strips with hits) low-amplitude hits: most normal events have no such hits, and the noisy events have many (tens to hundreds), so this analysis rejects events with 3 or more isolated low-amplitude hits.
+
+
 Since the expected rate of heavy photons can be normalized to the data, a precise measurement of the integrated luminosity is not critical to the analysis.
 Normalizing the data to the integrated luminosity is still essential for understanding the detector efficiencies and comparing the data to the cross sections of known processes.
+In order for the integrated luminosity to be useful, it should be corrected for the run and event quality selections.
 
 The luminosity is the product of the beam current, target thickness, and experiment livetime.
-The beam current is measured by a Faraday cup, as described in Section \ref{sec:beamline}.
+The beam current is measured by a Faraday cup, as described in Section \ref{sec:beamline_hallb}.
+The target thickness is taken from measurements made during target assembly.
+The experiment livetime is the product of the trigger livetime and the SVT DAQ efficiencies (latency and burst-mode noise) explained above.
 
-\begin{equation}
-\end{equation}
-The beam current and trigger livetime
+Section \ref{sec:trigger} explains the two measurements of trigger livetime.
+One, from the Faraday cup, measures the fraction of the integrated beam charge which was accumulated with the DAQ live.
+The other, from the pulser trigger, measures the fraction of time for which the DAQ was live.
+The Faraday cup is more precise, both because it accounts correctly for fluctuations in beam current, and because it has less statistical uncertainty (the Faraday cup scaler rate is roughly 45 kHz at 50 nA, much higher than the 100 Hz frequency of the pulser trigger).
+However, the pulser livetime is recorded more frequently (every second, as compared to every 4-5 seconds), and this makes it easier to integrate the luminosity over the run quality time ranges.
+A comparison of the Faraday cup and pulser livetimes shows agreement at the 1\% level or better, so the pulser livetime is acceptable.
+
+The luminosity is integrated over the time ranges identified (as explained above) for good SVT bias, good SVT position, and SVT DAQ error status.
+The resulting integrated luminosity is appropriate for comparisons with Monte Carlo samples: it assumes an always-on beam, a detector always in its nominal state, and a DAQ that always takes good data.
 
 \subsection{Rate Comparison with Monte Carlo}
 \label{sec:rates}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=22,angle=-90]{recon/figs/wabratioplots}
+\end{center}
+    \caption{Momentum sum $p_{tot}(e^+e^-)$ for data (black), Monte Carlo samples of tridents (red) and wide-angle bremsstrahlung conversions (blue), and the sum of the red and blue histograms (magenta).
+    All histograms are normalized to integrated luminosity, except that data is multiplied by 1/0.65 to account for the estimated level of detector inefficiency at high momentum.
+    If Monte Carlo completely describes data, black and magenta histograms should match.
+    Note the agreement at high momentum sum (not remarkable, since it is by construction).
+    }
+    \label{fig:esum_allpairs}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=24,angle=-90]{recon/figs/wabratioplots}
+\end{center}
+    \caption{Same histograms as Figure \ref{fig:esum_allpairs}, but requiring that the positron track have a layer 1 hit, which rejects most WAB conversions.
+    Note the continued agreement between black and magenta at high momentum sum.
+    }
+    \label{fig:esum_l1pos}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=26,angle=-90]{recon/figs/wabratioplots}
+\end{center}
+    \caption{Same histograms as Figures \ref{fig:esum_allpairs} and \ref{fig:esum_l1pos}, but requiring that the positron track not have a layer 1 hit, which rejects most tridents.
+    Note the continued agreement between black and magenta at high momentum sum.
+    }
+    \label{fig:esum_nol1pos}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=6,angle=-90]{recon/figs/wabratioplots}
+\end{center}
+    \caption{Distance of closest approach in the X-Z plane for the positron track, only plotting pairs with momentum sum above 0.8 times the beam energy (radiative cut).
+    This is centered at 0 (where the beam spot is) if the positron comes from the target, but is usually positive for WAB positrons created downstream of the target.
+    }
+    \label{fig:pos_d0}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+    \includegraphics[width=0.6\textwidth,page=8,angle=-90]{recon/figs/wabratioplots}
+\end{center}
+    \caption{$p(e^+e^-)_y\sign(p(e^+)_y)$, only plotting pairs with momentum sum above 0.8 times the beam energy (radiative cut).
+    This is positive if the pair momentum points in the same direction as the positron.
+    }
+    \label{fig:pt_y}
+\end{figure}

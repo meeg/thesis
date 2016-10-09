@@ -53,6 +53,7 @@ A larger bunch spacing or lower duty cycle would increase the amount of beam bac
 \end{figure}
 
 \subsection{Hall B Beamline and Instrumentation}
+\label{sec:beamline_hallb}
 
 \begin{figure}[htp]
     \begin{center}
@@ -105,6 +106,7 @@ The Hall B beamline terminates in a Faraday cup, which directly measures the bea
 This is the most accurate measurement of the beam current.
 
 \subsection{Beam Quality and Protection}
+\label{sec:beam_quality}
 HPS has two primary concerns regarding the beam.
 First, since the SVT is so close to the beam, the SVT must be protected both from beam being directed into the silicon and causing damage, and from stray beam electrons hitting the inner regions of the active silicon and adding to the detector pileup.
 This implies strong beam protection controls and low beam halo.
@@ -174,7 +176,8 @@ The next chamber (shown in Figure \ref{fig:ecal_chamber}) closes off the vacuum 
 
 The HPS target is a set of foils mounted on a common frame.
 There are two tungsten foils, one graphite foil, and one polyethylene foil.
-The tungsten foils have design thicknesses of 0.125\% and 0.25\% radiation lengths (as-built thicknesses are 0.116\% and 0.223\%); the 0.125\% $X_0$ foil is for runs at 1.1 and 2.2 GeV, and the 0.25\% $X_0$ foil is for runs at 4.4 and 6.6 GeV.
+The tungsten foils have design thicknesses of 0.125\% and 0.25\% radiation lengths; from measurements made during target assembly, the true thicknesses are 0.116\% and 0.223\%.
+The 0.125\% $X_0$ foil is for runs at 1.1 and 2.2 GeV, and the 0.25\% $X_0$ foil is for runs at 4.4 and 6.6 GeV.
 A linear shift moves the frame up and down so the foils can be moved in and out of the beam; since the target needs to be at the face of the magnet, and the linear shift is on one of the flanges of the upstream vacuum chamber, the target frame is cantilevered on a ceramic support rod.
 
 \begin{figure}[htp]
@@ -282,6 +285,7 @@ One channel consists of a charge-sensitive preamp with an optional inverter, CR-
 We run the chip with a 24 ns clock: the design clock period is 25 ns to match the LHC bunch crossing period, but 24 ns is an even multiple of the standard JLab clock.
 On each clock, each channel samples its shaper output and stores it in a cell of its pipeline.
 On a trigger, each channel reads out the appropriate pipeline cell, and the chip multiplexes the 128 signals onto a single differential current output.
+A configurable ``latency'' setting determines which pipeline cells are read out; since the cells of interest are those that were written at the time of the triggering event, the latency should approximately equal the trigger delay.
 
 \begin{figure}[htp]
     \includegraphics[width=\textwidth]{detector/figs/apv25}
@@ -463,6 +467,11 @@ The nodes can therefore process and reduce data on the FPGA at high speed, and p
 The DTM contains a single node, which handles timing and trigger distribution.
 An implementation of the JLab TI (Trigger Interface) module is integrated in the DTM firmware for HPS.
 
+On each trigger, the SVT DAQ reads out six 14-bit samples for every one of 23040 APV25 channels.
+This is far too much data to store in full, so the DAQ applies a data reduction threshold to select the channels to be recorded in the event.
+The threshold rule used in the 2015 run was for three samples to exceed the channel pedestal by at least three times the channel noise.
+The channel pedestal and noise are taken from offline calibrations, and are the mean and standard deviation of samples from the channel in the absence of an input signal.
+
 \begin{figure}[htp]
     \includegraphics[width=\textwidth]{detector/figs/rce}
     \caption{The RCE system. The COB (Cluster On Board) blade on the left hosts four RCE (Reconfigurable Cluster Element) daughterboards, which perform the data processing. The RTM (Rear Transition Module) on the right interfaces with fibers carrying data from the flange boards. The COB and RTM would normally be housed in an ATCA crate.}
@@ -528,6 +537,7 @@ The innermost rows of crystals are 2 cm from the beam plane, and the front plane
 \end{figure}
 
 \subsection{Readout and Trigger}
+\label{sec:trigger}
 Each ECal crystal has its own preamplifier.
 The preamp output signals are routed through a motherboard and out to cables, which connect to FADC250 digitizer boards in VXS crates.
 
@@ -550,17 +560,25 @@ The Subsystem Processor (SSP) makes the trigger decision.
 For the HPS physics trigger, the clusters from the two halves of the ECal are paired up, and each pair is tested against the defined trigger cuts.
 If a pair meets the trigger requirements, a trigger is sent to the Trigger Supervisor board (TS), which then distributes the trigger to the Trigger Interface (TI) boards installed in all detector readout subsystems.
 If any subsystem is not ready to accept a trigger, or if the trigger follows too closely after another trigger (as defined by rules configured in the TS), the TS will reject the trigger.
-The fraction of time for which the TS rejects triggers (deadtime) is monitored and recorded.
 
 A total of six trigger types are defined in the SSP.
 The HPS physics trigger is nicknamed ``pairs-1'' and is detailed in the next section.
 A looser variant of the same trigger is nicknamed ``pairs-0'' and is used for diagnostics.
 A single-cluster trigger tuned to trigger on electrons near the beam energy (elastic scatters) is called ``singles-1,'' and a looser variant is ``singles-0.''
-To keep the rates of ``pairs-0,'' ``singles-1'' and ``singles-0'' triggers low as a fraction of the total trigger rate, they are prescaled so only one in $2^N$ ($N$ in the range of 7 to 13, depending on the trigger) of each trigger is accepted.
+To keep the rates of ``pairs-0,'' ``singles-1'' and ``singles-0'' triggers low as a fraction of the total trigger rate, they are prescaled so only one in $2^N$ ($N$ in the range of 10 to 13, depending on the trigger) of each trigger is accepted.
 A pulser trigger generates a constant rate of triggers at 100 Hz regardless of detector conditions.
 A ``calibration'' trigger is used for cosmic ray calibration of the ECal when the beam is off, triggering on a pair of scintillator paddles mounted under the ECal.
 
 The total trigger rate during normal operations in the 2015 run was roughly 19 kHz, of which 16.6 kHz was pairs-1.
+
+Measurements of livetime (the fraction of time during which the DAQ is sensitive to triggers) are important for normalizing the data.
+Two measurements of livetime are available.
+The first measurement uses the Faraday cup (see Section \ref{sec:beamline_hallb}) and a gating signal output by the trigger system which indicates whether the DAQ is live.
+In addition to a scaler that records the Faraday cup measurement of integrated beam charge, a ``gated Faraday cup scaler'' records integrated beam charge with the DAQ live.
+The gated Faraday cup scaler is the standard measurement of integrated charge used by CLAS.
+The ratio of the gated to ungated scalers measures the fraction of the integrated beam charge which was accumulated with the DAQ live.
+The second measurement uses the pulser trigger: the pulser trigger fires at a constant rate of 100 Hz, so the number of pulser triggers actually recorded is a direct measurement of the livetime.
+Section \ref{sec:luminosity} discusses how these measurements compare, and why the pulser livetime is used for this analysis.
 
 \subsection{Trigger Cuts}
 \label{sec:trigger_cuts}
