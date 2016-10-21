@@ -12,7 +12,7 @@ Elastic scatters in the target send large numbers of electrons into the detector
 Beam-gas interactions would create large detector backgrounds and fake $A'$ decays downstream of the target, so the beam must travel in vacuum all the way through HPS.
 Bremsstrahlung energy losses in the target cause beam electrons to bend in the dipole field, forming a ``sheet of flame.'' To avoid this, no detector material is placed in the beam plane.
 
-All parts of the HPS detector have the same minimum angle, or ``dead zone,'' at 15 milliradians.
+All parts of the HPS detector have the same minimum vertical angle, or ``dead zone,'' at 15 milliradians.
 This is set by the maximum rate tolerable in the first layer of the SVT: the occupancy within a resolution-limited hit time window must be less than 1\% for clean track reconstruction, and radiation damage must be kept low enough that the SVT remains fully functional after six months of operation.
 
 \begin{figure}[htp]
@@ -70,14 +70,14 @@ Since CLAS12 construction is in progress, a plain beam pipe was installed to pas
 The Hall B beamline can be configured for delivery of both electron and photon beams.
 Soon after it enters the hall, the CEBAF electron beam passes through a large ``tagger'' magnet.
 If a target is positioned upstream of the tagger magnet, a beam of bremsstrahlung photons can be sent to experiments while the tagger magnet sends the beam to a dump (the ``tagger dump'') and the bremsstrahlung electrons to wire chambers (``tagging'' the energy of each photon).
-For HPS operation the beamline is run in the electron configuration (tagger magnet de-energized, electrons to HPS and main dump), but the photon configuration (tagger magnet energized, electrons to tagger dump) is still used for beam setup since it allows for tuning the upstream part of the beamline without disrupting the beam at HPS.
+For HPS operation the beamline is run in the electron configuration (tagger magnet de-energized, electrons to HPS and main dump), but the photon configuration (tagger magnet energized, electrons to tagger dump) is still used for beam setup since it allows for tuning the upstream part of the beamline without impacting the beam at HPS.
 
 The Hall B beam instrumentation consists of beam position monitors (BPMs), halo monitors, wire scanners, viewers, and a Faraday cup.
 
 BPMs detect the current induced by passing beam bunches in order to measure the current and/or position of the beam.
 Since this is a noncontact measurement, BPMs operate continuously during operations and provide a record of beam changes during data taking.
 
-Halo monitors are small particle detectors (mostly scintillators) positioned around the beam pipe.
+Halo monitors are small particle detectors (mostly scintillation counters) positioned around the beam pipe.
 If the beam is obstructed, defocused or missteered, it will scatter into the halo monitors.
 %The halo monitors can be used as part of the fast shut down (FSD) system.
 
@@ -91,6 +91,7 @@ All harps have at least one vertical and one horizontal wire; some have a diagon
         \includegraphics[width=0.5\textwidth]{detector/figs/beamsize}
     \end{center}
     \caption{A representative wire scan measurement of the beam size.
+        This scan was taken using the 2H02 wire scanner just upstream of HPS, and reflects the beam size seen at the HPS target.
     This wire scan was taken early in the 2015 run; the beam size in X was reduced later in the run, and all physics data was recorded with a beam size of roughly $150\times 50$ $\mu$m.
     }
     \label{fig:beamsize}
@@ -142,8 +143,8 @@ At this level, the rate of beam halo electrons hitting the innermost strips of t
     \label{fig:beam-tails}
 \end{figure}
 
-HPS requested a beam size that was smaller in X than in Y.
-Since the vertex resolution is better in Y ($\sim 150$ $\mu$m) than in X ($\sim 300$ $\mu$m), and target heating was believed to limit the minimum safe beam size, the desired beam shape was narrow ($\sim 50$ $\mu$m) in Y and wider ($\sim 300$ $\mu$m) in X.
+HPS originally requested a beam size that was smaller in Y than in X.
+Since the vertex resolution is better in Y ($\sim 150$ $\mu$m) than in X ($\sim 300$ $\mu$m), and target heating was incorrectly believed to limit the minimum safe beam size, the desired beam shape was narrow ($\sim 50$ $\mu$m) in Y and wider ($\sim 300$ $\mu$m) in X.
 One challenge in making such an asymmetric beamspot is that the beam tilt must be precisely controlled.
 As shown in Figure \ref{fig:beamsize}, this was achieved.
 It was later realized that target heating was not a serious concern, and all 2015 physics data was recorded with a beam size of $\sim 50$ $\mu$m in Y and $\sim 150$ $\mu$m in X.
@@ -592,7 +593,7 @@ A cluster reported to the SSP will not have energy equal to the incident particl
 First, the FADCs are calibrated such that the reported energy of a hit equals the energy deposited in the crystal; whenever a particle showers in the ECal, some energy is absorbed in the vacuum flange in front of the ECal, penetrates through the back of the ECal, or escapes through the gaps between crystals.
 These effects are compensated for in the full reconstruction but are ignored in the trigger.
 Second, the GTP imposes a $3\times 3$ limit on the dimensions of a cluster, even though a single shower can deposit energy in a larger area.
-For these reasons, the energy thresholds used in the trigger cuts are rather lower than would be expected based on true particle energies.
+For these reasons, the energy thresholds used in the trigger cuts are rather lower (by roughly a factor of 0.8) than would be expected based on true particle energies.
 
 Furthermore, many particles hit the ECal in or near the innermost row of crystals.
 For these particles, much of the shower is lost in the beam gap and the energy of the cluster can be much less than the particle energy.
