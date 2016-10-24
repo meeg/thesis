@@ -31,7 +31,7 @@ For HPS tracks, the point of closest approach to the origin is always near the o
 This means that $d_0$ and $z_0$ can be interpreted (approximately) as the track $x$ and $y$ at $z=0$, and $\phi_0$ and $\tan\lambda$ are approximately equal to $\theta_x$ (the angle of elevation from the Y-Z plane) and $\theta_y$ (the angle of elevation from the X-Z plane).
 
 Multiple scattering in the silicon sensors means that different segments of the track may be described by different helices.
-A full HPS track fit (after GBL refit, as described in Section \ref{sec:track_finding_refit}) has a different helix before and after every sensor: a track with hits on 12 sensor has 13 track segments.
+A full HPS track fit (after GBL refit, as described in Section \ref{sec:track_finding_refit}) has a different helix before and after every sensor: a track with hits on 12 sensors has 13 track segments.
 The track segment of interest for the analysis is the one at the target (before the first sensor), and this is what is used unless otherwise specified.
 
 \subsubsection{Hit Reconstruction}
@@ -114,7 +114,7 @@ The ``beamspot-constrained'' fit requires that the vertex position and momentum 
 \subsection{Clustering}
 \label{sec:clustering}
 For each ECal crystal above threshold, the ECal readout stores a waveform of 100 samples (at a fixed time offset relative to the trigger) at 4 ns intervals.
-The waveform is fit to the ECal pulse shape, which is modeled by the following function, where $t$ is the time after the start of the pulse, and $\tau$ is the shaping time (roughly 2.4 ns for most channels):
+The waveform is fit to the ECal pulse shape, which is modeled by the following function, where $t$ is the time after the start of the pulse, and $\tau$ is the shaping time (roughly 2.4 ns for most channels) \cite{baltzell_ecal_2015}:
 \begin{equation}
     F_{3pole}(t) = \frac{t^2}{2\tau^3} e^{-\frac{t}{\tau}}
 \end{equation}
@@ -128,13 +128,15 @@ Since the pulse fitter uses a $\chi^2$ fit, it implicitly assumes Gaussian white
 The shaping time $\tau$ is held constant in the fit (an offline calibration finds $\tau$ for every crystal), but the pedestal, the start time of the pulse, and the amplitude of the pulse are fitted independently for every event.
 
 The pulse amplitudes found by the pulse fitter are converted to energy using gain constants, which are calibrated for every channel.
-Two main methods are used for gain calibration: cosmic rays and elastic scatters.
+Two main methods are used for gain calibration: cosmic rays and elastic scatters \cite{szumila-vance_hps_2016}.
 
 Cosmic rays passing downwards through the ECal are recorded when the beam is off, using two scintillator paddles as a trigger source.
 The gains are calibrated to the known rate of energy loss for minimum ionizing particles.
 Since no beam is needed, this method is used for the initial gain calibration.
+
 The cosmic ray signal is small compared to typical ECal hits, so data from the run is used to refine the gain calibration.
 Clusters from elastically scattered electrons are identified in the data, and the gain constants for every crystal are adjusted until the cluster energies match the energies seen in Monte Carlo simulations of elastic scatters.
+Since elastically scattered electrons have energy near the beam energy, the two calibrations cover the full range of energies of interest.
 
 Hits in ECal crystals are combined to form clusters using an algorithm adapted from the CLAS Inner Calorimeter \cite{niyazov_dvcs_2005}.
 Hits that are local maxima in energy (no neighboring crystal has more energy) are identified as ``seed'' hits for clusters.
@@ -149,9 +151,10 @@ The cluster energy is initially set to be the sum of the component hit energies,
 
 However, both the cluster energy and position must be corrected to make them reflect the actual energy and impact position of the incident particle.
 The sum of the hit energies does not account for the portion of the electromagnetic shower that escapes off the side of the ECal, is absorbed in the vacuum flange in front of the ECal, or is lost through the back of the ECal.
-Since the incident particle generally does not enter the ECal parallel to the crystal axis (the crystals fan out to the sides, and charged particles bend), the front faces of the crystals with hits are usually offset from the true impact position.
+The incident particle generally does not enter the ECal parallel to the crystal axis because the crystals fan out to the sides, and particles can impact the ECal at a range of angles.
+Since the electromagnetic shower deposits energy at all depths in the ECal, the maximum energy deposition may not occur in the same crystal whose front face the particle hit.
 
-Both the energy and position corrections are based on Monte Carlo studies: electrons, positrons, and photons of varying energies and angles are simulated, and the true energy and position are compared to the reconstructed values to find the corrections as a function of particle type, cluster energy, and cluster position.
+Both the energy and position corrections are based on Monte Carlo studies: electrons, positrons, and photons of varying energies and angles are simulated, and the true energy and position are compared to the reconstructed values to find the corrections as a function of particle type, cluster energy, and cluster position \cite{szumila-vance_hps/ecal_2014}.
 Because the shower properties and direction both depend on particle type, the energy and position corrections depend on the particle type and are only applied after track-cluster matching.
 
 \subsection{Track-Cluster Matching}
