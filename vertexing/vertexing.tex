@@ -59,6 +59,7 @@ In order to get complete coverage of $z>z_{target}$ for the purposes of the vert
 \clearpage
 \section{Vertex Cuts}
 \label{sec:vertex_cuts}
+
 \begin{table}[ht]
     \begin{center}
         \caption{The full set of pair selection cuts for the vertexing analysis.
@@ -288,7 +289,7 @@ Because the momentum resolution is dominated by multiple scattering, the fractio
 The opening angle resolution is determined by the resolutions for the two track slopes, which do not depend strongly on the track slopes, so $\sigma_\theta$ is roughly constant.
 The conclusion is that $\sigma_m$ is expected to depend linearly on $m$, and not at all on $z$.
 
-Mass resolution is measured using the Monte Carlo samples of reconstructed heavy photons described in Section \ref{sec:ap_mc}.
+Mass resolution is determined using the Monte Carlo samples of reconstructed heavy photons described in Section \ref{sec:ap_mc}.
 For each $m_{A'}$, the residual between the reconstructed mass and true mass is plotted against the true $z$.
 The width of the residual distribution at each $z$ is fitted with a Gaussian to get the mass resolution at that $z$, $\sigma_m(m_{A'},z)$.
 The mass resolution is fitted with a first-order polynomial in $z$:
@@ -417,7 +418,7 @@ The efficiency falls off with $z$ because the further downstream the decay, the 
 At some cutoff value of $z$ it is no longer possible for both the electron and the positron to hit layer 1; the efficiency starts to fall off well before that cutoff.
 This effect is more severe for lower $m_{A'}$, where the opening angle is smaller.
 
-The efficiency is measured using the Monte Carlo samples of generated and reconstructed heavy photons described in Section \ref{sec:ap_mc}.
+The efficiency is determined using the Monte Carlo samples of generated and reconstructed heavy photons described in Section \ref{sec:ap_mc}.
 For each $m_{A'}$, the distribution of decay $z$ is filled both for generated and reconstructed heavy photons (examples in the top halves of Figures \ref{fig:decay_z_truth} and \ref{fig:eff_z} respectively).
 The ratio of the two distributions gives $\epsilon_{reco}(m_{A'},z)$; for $m_{A'}=40$ MeV, this is shown in the bottom of Figure \ref{fig:eff_z}.
 This is scaled so it equals 1 at $z=z_{target}$, and is fitted with a function of the form $\frac{\epsilon_{reco}(m_{A'},z)}{\epsilon_{reco}(m_{A'},z_{target})} \approx \exp(p_3 z^3 + p_2 z^2 + p_1 z + p_0)$.
@@ -493,7 +494,7 @@ If the background model fully describes the data, the mean number per mass slice
     \includegraphics[width=0.7\textwidth,page=4,angle=-90]{vertexing/figs/golden_mres_output}
 \end{center}
 \caption{The set of events that appear with $z>z_{cut}$ in at least one mass slice.
-This is the same histogram as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
+This is the same 2-D histogram as Figure \ref{fig:zvsmass}, but only plotting events above $z=z_{cut}$ (the black curve).
 Some events are close to $z=z_{cut}$, but some events are substantially above the black line ($z\gg z_{cut}$).}
     \label{fig:zvsmass_candidates}
 \end{figure}
@@ -700,14 +701,15 @@ It is still clear that it makes sense to avoid as much background as possible, s
 \label{sec:results}
 The optimum interval method gives limits at 90\% confidence level on $\mu$, the number of signal events past $z_{cut}$ and after acceptance and efficiency effects.
 Dividing the limit on $\mu$ by $\mu_{exp}$, the expected number of signal events for a heavy photon, gives a limit on the dimensionless ratio of the true production rate to the expected production rate for a heavy photon.
-A limit on $\mu/\mu_{exp}$ of 1 or less means the heavy photon is excluded (at 90\% CL) at that $m_{A'}$ and $\epsilon^2$.
+A limit on $\mu/\mu_{exp}$ of less than 1 means the limit on $\mu$ is less than $\mu_{exp}$; in other words, the heavy photon is excluded (at 90\% CL) at that $m_{A'}$ and $\epsilon^2$.
 
-The value $\mu_{exp}$ is itself of some interest: it relates directly to the strongest possible limit (obtained for the case where no events are observed in the mass slice with $z>z_{cut}$).
-An exclusion at 90\% CL is only possible if $\mu_{exp}>2.303$; this is true not only for the optimal interval method but in general, since if $\mu_{exp}<2.303$ there is at least a 10\% probability of seeing no signal events even if a heavy photon exists.
+The value $\mu_{exp}$ is itself of some interest: it relates directly to the strongest possible limit on $\mu/\mu_{exp}$.
+The strongest limit on $\mu$ is obtained when no events are observed in the mass slice with $z>z_{cut}$, in which case the 90\% CL limit on $\mu$ is 2.303 (this is true not only for the optimum interval method, but in general): if $\mu=2.303$, there is exactly a 10\% probability of seeing no events.
+Therefore, exclusion of the heavy photon (a limit on $\mu/\mu_{exp}$ of 1 or less) is only possible if $\mu_{exp}>2.303$.
 %Conversely, if $\mu_{exp}>2.303$ the optimum interval method will find an exclusion as long as there are no background events in the signal box, or the background events in the signal box are clustered near $z_{cut}$.
 
 The limits from this analysis are shown in Figure \ref{fig:upper_limit}, which shows that this analysis, on this data, is a factor of 115 from excluding any portion of the parameter space.
-As shown in Figure \ref{fig:detectable}, $\mu_{exp}$ 0.032 at most, which is too small for exclusion even in the absence of excess background events.
+As shown in Figure \ref{fig:detectable}, $\mu_{exp}=0.032$ at most, which is too small for exclusion even in the absence of excess background events.
 
 \begin{figure}[ht]
 \begin{center}
